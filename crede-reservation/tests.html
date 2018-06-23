@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Crede Reservation">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Crede reservation</title>
+		<script type="text/javascript" src="./lib/jquery/jquery.min.js"></script>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="./lib/bootstrap/css/bootstrap-theme.min.css">
+
+		<!-- Latest compiled and minified JavaScript -->
+		<script type="text/javascript" src="./lib/bootstrap/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+    	<div class="container">
+    		<br>
+    	</div>
+  <script type="text/javascript">
+function querySync(query, callback) {
+	$.post(
+  		query.url,
+  		query.data,
+  		function(res){
+  			$('.container').append(
+`<div class="panel panel-default">
+  <div class="panel-body">
+  	<code>URL = ${query.url}</code><br>
+  	<code>DATA = ${JSON.stringify(query.data)}</code><br><br>
+  	<pre>${res}</pre>
+  </div>
+</div>`
+			);
+			callback();
+  	});
+}
+
+function queryAsync(param){
+	obj = {
+		then: function (param2) {
+			if(param2){
+				querySync(param2, this.then);
+			}
+			return this;
+		}
+	}
+	querySync(param, obj.then);
+	return obj;
+}
+
+
+// //Categories
+// queryAsync({
+// 	url: "api/categories",
+// 	data: {
+// 		action: 'insertItem',
+// 		obj: {
+// 			name: 'Cozinha'
+// 		}
+// 	}
+// })
+// // .then({
+// // 	url: 'api/logout'
+// // })
+// .then({
+// 	url: "api/categories",
+// 	data: { action: 'listAll' }
+// })
+// .then({
+// 	url: 'api/categories',
+// 	data : { action: 'removeItensFree' }
+// })
+// .then({
+// 	url: 'api/categories',
+// 	data: { action: 'listPermissions' }
+// });
+
+
+//Permissions
+queryAsync({
+	url: "api/permissions",
+	data: {
+		action: 'filterByColumns',
+		obj: {module: 'categories', u: false}
+	}
+}).then({
+	url: "api/permissions",
+	data: {
+		action: 'filterByColumns',
+		obj: {module: 'categories'}
+	}
+})
+.then({
+	url: "api/permissions",
+	data: {
+		action: 'filterByColumns',
+		obj: {}
+	}
+})
+.then({
+	url: "api/permissions",
+	data: {
+		action: 'filterByColumns'
+	}
+});
+
+
+  </script>
+    </body>
+</html>
