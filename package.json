@@ -12,7 +12,8 @@
     "toastr": "^2.1.4"
   },
   "scripts": {
-    "build": "./build.sh"
+    "build": "./build.sh",
+    "serve": "php -S localhost:8080"
   },
   "devDependencies": {}
 }

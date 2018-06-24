@@ -494,10 +494,9 @@ $moduleLoader->loadControllers();
  ?>
 
  <script type="text/javascript">
-  
   $(function(){
 
-    Module.showView('view-table-categories');
+    Module.showView('view-table-mixed_data');
     
     ///generate menu
     var mainMenu = $('#main-menu');

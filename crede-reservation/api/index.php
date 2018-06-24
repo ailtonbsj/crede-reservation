@@ -33,6 +33,10 @@ switch ($request) {
         include './Places.php';
         new Places((object) $_POST);
         break;
+    case 'mixed_data':
+        include './MixedData.php';
+        new MixedData((object) $_POST);
+        break;
 
 }
 
