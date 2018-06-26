@@ -1,13 +1,17 @@
 //construct
 function Places(){
 	Module.apply(this); //super
+
+	this.components['name'] = new TextInput(this.createFormId('name'));
+	this.components['owner'] = new TextInput(this.createFormId('owner'));
 }
 //heritage
 Places.prototype = Object.create(Module.prototype);
 $Places = Places.prototype;
 //properties
 $Places.moduleName = 'places';
-$Places.columns = ['name','owner'];
+$Places.components = [];
 $Places.icon = 'fa-map';
 
-var places = new Places();
+//autorun
+new Places();

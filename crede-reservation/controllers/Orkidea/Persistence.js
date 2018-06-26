@@ -61,7 +61,8 @@ $Persistence.removeItem = function (id, callback) {
       else callback(false);
   });
 }
-$Persistence.removeItensFree = function () {}
+$Persistence.removeItensFree = function () {
+}
 $Persistence.listPermissions = function (callback) {
   var self = this;
   if(self.permissions !== undefined) {

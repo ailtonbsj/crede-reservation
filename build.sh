@@ -38,3 +38,24 @@ cp node_modules/fastclick/lib/fastclick.js crede-reservation/lib/fastclick/
 #jquery-slimscrol
 mkdir crede-reservation/lib/jquery-slimscroll/ -p
 cp node_modules/jquery-slimscroll/*.min* crede-reservation/lib/jquery-slimscroll/
+
+#imask
+mkdir crede-reservation/lib/imask/ -p
+cp node_modules/imask/dist/imask.min.js crede-reservation/lib/imask/
+
+#Moment
+mkdir crede-reservation/lib/moment/ -p
+cp node_modules/moment/locale/pt-br.js crede-reservation/lib/moment/
+cp node_modules/moment/min/moment.min.js crede-reservation/lib/moment/
+
+#bootstrap-datetimepicker
+mkdir crede-reservation/lib/bootstrap-datetimepicker/css/ -p
+mkdir crede-reservation/lib/bootstrap-datetimepicker/js/ -p
+cp node_modules/eonasdan-bootstrap-datetimepicker/build/css/*min* crede-reservation/lib/bootstrap-datetimepicker/css/
+cp node_modules/eonasdan-bootstrap-datetimepicker/build/js/*min* crede-reservation/lib/bootstrap-datetimepicker/js/
+
+#bootstrap-toggle
+mkdir crede-reservation/lib/bootstrap-toggle/css/ -p
+mkdir crede-reservation/lib/bootstrap-toggle/js/ -p
+cp node_modules/bootstrap-toggle/css/bootstrap-toggle.min.css crede-reservation/lib/bootstrap-toggle/css/
+cp node_modules/bootstrap-toggle/js/bootstrap-toggle.min.js crede-reservation/lib/bootstrap-toggle/js/

@@ -20,6 +20,10 @@ $moduleLoader = new ModuleLoader();
   <link rel="stylesheet" href="./lib/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="./lib/font-awesome/css/font-awesome.min.css">
+  <!-- Bootstrap datetimepicker -->
+  <link rel="stylesheet" href="./lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
+  <!-- Bootstrap Toogle -->
+  <link rel="stylesheet" href="./lib/bootstrap-toggle/css/bootstrap-toggle.min.css">
   <!-- Ionicons -->
   <!-- <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"> -->
   <!-- Theme style -->
@@ -483,10 +487,32 @@ $moduleLoader->loadViews();
 <script src="./lib/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="./lib/fastclick/fastclick.js"></script>
+<!-- imask -->
+<script src="./lib/imask/imask.min.js"></script>
+<!-- Moment -->
+<script src="./lib/moment/moment.min.js"></script>
+<script src="./lib/moment/pt-br.js"></script>
+<!-- bootstrap datetimepicker -->
+<script src="./lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<!-- bootstrap toggle -->
+<script src="./lib/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="./dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="./dist/js/demo.js"></script>
+<!-- Useful lib -->
+<script src="./controllers/Useful.js"></script>
+<script src="./controllers/Orkidea/Component.js"></script>
+<script src="./controllers/Components/MaskedInput.js"></script>
+<script src="./controllers/Components/NaturalInput.js"></script>
+<script src="./controllers/Components/RealInput.js"></script>
+<script src="./controllers/Components/MoneyInput.js"></script>
+<script src="./controllers/Components/DateTimeInput.js"></script>
+<script src="./controllers/Components/DateInput.js"></script>
+<script src="./controllers/Components/TimeInput.js"></script>
+<script src="./controllers/Components/TextInput.js"></script>
+<script src="./controllers/Components/BooleanToggle.js"></script>
+<script src="./controllers/App.js"></script>
 
 <!-- Controllers from user -->
 <?php 
@@ -494,34 +520,10 @@ $moduleLoader->loadControllers();
  ?>
 
  <script type="text/javascript">
-  $(function(){
-
-    Module.showView('view-table-mixed_data');
     
-    ///generate menu
-    var mainMenu = $('#main-menu');
-    mainMenu.append('<li class="header">MAIN NAVIGATION</li>');
-    var tmpItemMenu = $($('#item-menu')[0].content);
-    Module.modules.map(function(objMod){
-      var itemMenu = tmpItemMenu.clone();
-      itemMenu.find('a').attr('data-module', objMod.module).addClass('action-item-menu');
-      itemMenu.find('span').html(objMod.module.charAt(0).toUpperCase()+objMod.module.slice(1));
-      itemMenu.find('i').addClass(objMod.icon);
-      mainMenu.append(itemMenu);
-    });
-    $('.action-item-menu').click(function(anchor){
-      var nameModule = this.getAttribute('data-module');
-      $(Module.views.join(',')).addClass('hide');
-      $('#view-table-'+nameModule).removeClass('hide');
-    });
-
-    $('#btn-logout').click(function(){
-      $.get('api/logout', function(res){
-        if(JSON.parse(res)['status'] == 'success') window.location = 'index.html';
-      });
-    });
-  });
-
+    new App();
+    Module.modules[Object.keys(Module.modules)[0]].showTableView();
+    
   </script>
 </body>
 </html>

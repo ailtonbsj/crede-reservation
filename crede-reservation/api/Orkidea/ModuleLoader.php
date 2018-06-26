@@ -32,8 +32,9 @@ class ModuleLoader extends Storage {
 
   function loadViews () {
     foreach ($this->modules as $modulePermission) {
-      if($modulePermission->r) include "views/{$modulePermission->module}-table.html";
-      if($modulePermission->c) include "views/{$modulePermission->module}-form.html";
+      $formated = str_replace('_', '', $modulePermission->module);
+      if($modulePermission->r) include "views/{$formated}-table.html";
+      if($modulePermission->c) include "views/{$formated}-form.html";
     }
   }
 
@@ -41,7 +42,9 @@ class ModuleLoader extends Storage {
     echo "<script src='controllers/Orkidea/Persistence.js'></script>";
     echo "<script src='controllers/Orkidea/Module.js'></script>";
     foreach ($this->modules as $modulePermission) {
-      echo "<script src='controllers/".ucfirst($modulePermission->module).".js'></script>";
+      $nameModule = str_replace('_', ' ', $modulePermission->module);
+      $formated = str_replace(' ', '', ucwords($nameModule));
+      echo "<script src='controllers/".$formated.".js'></script>";
     }
   }
 

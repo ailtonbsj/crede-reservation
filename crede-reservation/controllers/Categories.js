@@ -1,13 +1,16 @@
 //construct
 function Categories(){
 	Module.apply(this); //super
+
+	this.components['name'] = new TextInput(this.createFormId('name'));
 }
 //heritage
 Categories.prototype = Object.create(Module.prototype);
 $Categories = Categories.prototype;
 //properties
 $Categories.moduleName = 'categories';
-$Categories.columns = ['name'];
+$Categories.components = [];
 $Categories.icon = 'fa-tags';
 
-var categoria = new Categories();
+//autorun
+new Categories();
