@@ -1,5 +1,6 @@
 //construct
 function TextInput(domId){
+
 	//if($(domId)[0] == undefined) throw 'Component not found in View!';
 	this.input = $(domId);
 }

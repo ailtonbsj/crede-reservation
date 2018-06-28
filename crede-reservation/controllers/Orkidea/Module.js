@@ -2,6 +2,7 @@
 function Module() {
 	var self = this;
 	Persistence.apply(this); //super
+	this.primaryKeys['id'] = new TextInput(this.createFormId('id'));
 	if(this.components == undefined) throw 'must have the property components';
 	if(this.icon == undefined) throw 'must have the property icon';
 	Module.register(self.moduleName, self);
@@ -12,7 +13,7 @@ Module.prototype = Object.create(Persistence.prototype);
 $Module = Module.prototype;
 //properties
 $Module.modeForm = 'insert';
-$Module.primaryKey = 'id';
+$Module.primaryKeys = [];
 //methods
 $Module.loadTableView = function(){
 	var self = this;
@@ -37,7 +38,12 @@ $Module.loadDataTable = function(){
 
 			res.map(function(item){
 				var tmpRow = $('#row-'+self.moduleName)[0].content.cloneNode(true);
-				$(tmpRow).find('.colunm-'+self.primaryKey+'-'+self.moduleName)[0].innerHTML = item[self.primaryKey];
+				//console.log(Object.keys(self.primaryKeys));
+				//$(tmpRow).find('.colunm-'+self.primaryKey+'-'+self.moduleName)[0].innerHTML = item[self.primaryKey];
+
+				Object.keys(self.primaryKeys).map(function(column){
+					$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
+				});
 
 				Object.keys(self.components).map(function(column){
 					$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
