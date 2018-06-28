@@ -37,7 +37,10 @@ switch ($request) {
         include './MixedData.php';
         new MixedData((object) $_POST);
         break;
-
+    case 'equipments':
+        include './Equipments.php';
+        new Equipments((object) $_POST);
+        break;
 }
 
  ?>

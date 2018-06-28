@@ -24,6 +24,9 @@ $moduleLoader = new ModuleLoader();
   <link rel="stylesheet" href="./lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css">
   <!-- Bootstrap Toogle -->
   <link rel="stylesheet" href="./lib/bootstrap-toggle/css/bootstrap-toggle.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="./lib/select2/css/select2.min.css">
+
   <!-- Ionicons -->
   <!-- <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"> -->
   <!-- Theme style -->
@@ -218,7 +221,7 @@ $moduleLoader = new ModuleLoader();
         </div>
       </div>
       <!-- search form -->
-      <form action="#" method="get" class="sidebar-form">
+<!--       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -226,7 +229,7 @@ $moduleLoader = new ModuleLoader();
                 </button>
               </span>
         </div>
-      </form>
+      </form> -->
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <template id="item-menu">
@@ -247,7 +250,7 @@ $moduleLoader = new ModuleLoader();
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
+<!--     <section class="content-header">
       <h1>
         Fixed Layout
         <small>Blank example to the fixed layout</small>
@@ -257,7 +260,7 @@ $moduleLoader = new ModuleLoader();
         <li><a href="#">Layout</a></li>
         <li class="active">Fixed</li>
       </ol>
-    </section>
+    </section> -->
 
     <!-- Main content -->
     <section class="content">
@@ -496,6 +499,8 @@ $moduleLoader->loadViews();
 <script src="./lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <!-- bootstrap toggle -->
 <script src="./lib/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+<!-- Select2 -->
+<script src="./lib/select2/js/select2.full.min.js"></script>
 <!-- AdminLTE App -->
 <script src="./dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -512,6 +517,8 @@ $moduleLoader->loadViews();
 <script src="./controllers/Components/TimeInput.js"></script>
 <script src="./controllers/Components/TextInput.js"></script>
 <script src="./controllers/Components/BooleanToggle.js"></script>
+<script src="./controllers/Components/SelectInput.js"></script>
+<script src="./controllers/Components/DynamicSelect.js"></script>
 <script src="./controllers/App.js"></script>
 
 <!-- Controllers from user -->
@@ -520,7 +527,7 @@ $moduleLoader->loadControllers();
  ?>
 
  <script type="text/javascript">
-    
+
     new App();
     Module.modules[Object.keys(Module.modules)[0]].showTableView();
     

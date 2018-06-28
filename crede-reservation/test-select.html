@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Untitled</title>
+        <link rel="author" href="humans.txt">
+    </head>
+    <body>
+	<!-- jQuery 3 -->
+	<script src="./lib/jquery/jquery.min.js"></script>
+  	<!-- Select2 -->
+  	<link rel="stylesheet" href="./lib/select2/css/select2.min.css">
+	<script src="./lib/select2/js/select2.full.min.js"></script>
+	<script src="./controllers/Orkidea/Component.js"></script>
+	<script src="./controllers/Components/SelectInput.js"></script>
+	<script src="./controllers/Components/DynamicSelect.js"></script>
+
+<select id="myselect" name="state" style="width: 100%;">
+</select>
+
+<script type="text/javascript">
+
+	var ds = new DynamicSelect('#myselect', 'categories', function(item){
+		return [item.name,item.id];
+	});
+
+	// var si = new SelectInput('#myselect');
+
+	// $.post(
+ //  		'./api/categories',
+ //  		{action: 'listAll'},
+ //  		function(res){
+ //  			var data = JSON.parse(res).data;
+ //  			data.map(function(item){
+ //  				si.addItem(item.name, item.id);
+ //  			});
+ //  			callback();
+ //  		});
+
+	// function callback(){
+		
+	// }
+
+	// si.setValue(6);
+	// console.log(si.getValue());
+	// console.log(si.getLabel());
+
+
+	$(document).ready(function() {
+    	
+  //   	$('#myselect').select2();
+
+		// //ADD
+  //   	$('#myselect').empty();
+		// for(var i = 0; i< 50;i++){
+		// 	$('#myselect').append('<option value="'+i+'">Value '+i+'</option>');
+		// }
+
+		//GET LABEL
+		//$("#myselect option:selected").text();
+
+		//GET VALUE
+		//$('#myselect').val();
+
+		//SET VALUE
+		//$('#myselect').val('37').trigger('change');
+
+		//CLEAR
+		//$('#myselect').empty();
+
+
+	});
+</script>
+
+    </body>
+</html>

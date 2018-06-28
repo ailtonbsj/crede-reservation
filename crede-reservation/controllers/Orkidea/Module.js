@@ -18,7 +18,7 @@ $Module.loadTableView = function(){
 	var self = this;
 	self.listPermissions(function(permission){
 		if(!permission.c) $('#btn-add-'+self.moduleName).remove();
-		else $('#btn-add-'+self.moduleName).click(function(){
+		else $('#btn-add-'+self.moduleName).unbind().click(function(){
 
 			self.clearFormView();
 			Module.showView('view-form-'+self.moduleName);
@@ -34,9 +34,9 @@ $Module.loadDataTable = function(){
 		self.listPermissions(function(permission){
 			var tableview = $('#table-'+self.moduleName+' tbody');
 			tableview.empty();
+
 			res.map(function(item){
 				var tmpRow = $('#row-'+self.moduleName)[0].content.cloneNode(true);
-				
 				$(tmpRow).find('.colunm-'+self.primaryKey+'-'+self.moduleName)[0].innerHTML = item[self.primaryKey];
 
 				Object.keys(self.components).map(function(column){
@@ -63,19 +63,31 @@ $Module.loadDataTable = function(){
 $Module.clearFormView = function(){
 	var self = this;
 	$('#form-'+this.primaryKey+'-'+this.moduleName).val('');
-	for(column in self.components) self.components[column].clear();
+	for(column in self.components){
+		self.components[column].clear();
+	}
 	if(self.primaryKey == 'id') $('#form-id-'+this.moduleName).parent().hide();
 	else $('#form-'+self.primaryKey+'-'+this.moduleName)[0].disabled = false;
 	$('#form-submit-'+this.moduleName).html('Adicionar');
-	$('#form-title-'+this.moduleName)[0].innerHTML = 'New '+this.moduleName;
+	$('#form-title-'+this.moduleName)[0].innerHTML = 'New '+Useful.convertToCamelCase(this.moduleName, ' ');
 	this.modeForm = 'insert';
 }
 $Module.loadFormView = function(id){
 	var self = this;
-	this.listItem(id, function(res){
+	self.listItem(id, function(res){
 		$('#form-'+self.primaryKey+'-'+self.moduleName).val(res[self.primaryKey]);
-		for(i in self.components){
-			self.components[i].setValue(res[i]);
+		for(name in self.components){
+			switch(self.components[name].constructor.name){
+				case 'DynamicSelect':
+					var actual = name; 
+					self.components[name].clear(function(){
+						self.components[actual].setValue(res[actual]);
+					});
+					self.components[name].setValue(res[name]);;
+					break;
+				default:
+					self.components[name].setValue(res[name]);
+			}
 		}
 	});
 	if(self.primaryKey == 'id') $('#form-id-'+this.moduleName).parent().show();
@@ -104,6 +116,7 @@ $Module.validateFormView = function(){
 
 	if(this.modeForm == 'update'){
 		data[self.primaryKey] = $('#form-'+self.primaryKey+'-'+this.moduleName).val();
+		console.log(data);
 		this.updateItem(data, function(res){
 			if(res){
 				self.loadDataTable();

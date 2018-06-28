@@ -1,10 +1,17 @@
 //construct
 function DateTimeInput(domId) {
+	if($(domId)[0] == undefined) throw 'Component not found in View!';
 	this.name = domId;
     this.picker = $(domId).datetimepicker({
 		locale: 'pt-BR',
+		ignoreReadonly: true,
 		format: this.formatView
 	});
+	if(Useful.isMobile){
+		$(this.name).attr('readonly', true)
+		.css('background-color','#fff').css('opacity', 1);
+		//background-color: #fff !important; opacity: 1;
+	}
 }
 //heritage
 DateTimeInput.prototype = Object.create(Component.prototype);

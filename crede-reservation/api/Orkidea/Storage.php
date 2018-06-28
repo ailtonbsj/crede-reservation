@@ -77,7 +77,7 @@ abstract class Storage {
 			$labels = trim($labels,',');
 			$sql = "UPDATE {$this->tableName} SET {$labels} WHERE {$this->primaryKeyName} = :{$this->primaryKeyName}";
 			$stm = $this->connection->prepare($sql);
-			//echo $stm->debugDumpParams();
+			echo $stm->debugDumpParams();
 			$stm->execute((array) $dataOfColumns);
 			$resp = array('status' => 'success', 'data' => $dataOfColumns[$this->primaryKeyName]);
 			if($isPrintable) echo json_encode($resp);
@@ -108,6 +108,21 @@ abstract class Storage {
 			echo json_encode($resp);
 			exit();
 		}
+	}
+
+	function listQuery($sql, $columns, $isPrintable = false){
+	    try {
+	      $stm = $this->connection->prepare($sql);
+	      $stm->execute($columns);
+	      //echo $stm->debugDumpParams();
+	      $resp = $stm->fetchAll(PDO::FETCH_OBJ);
+	      if($isPrintable)
+	      	echo json_encode(array('status' => 'success', 'data' => $resp));
+	      return $resp;
+	    } catch (Exception $e) {
+	      if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
+	      return false;
+	    }
 	}
 
 	function complexFilter($dataOfColumns, $isPrintable = false, $orLogic = false, $likeCompare = false) {

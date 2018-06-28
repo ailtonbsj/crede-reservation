@@ -13,6 +13,7 @@ abstract class Module extends Storage {
 			throw new Exception(get_class($this) . ' $moduleName');
 
 		$permissions = $this->hasPermission();
+
 		if($permissions) {
 
 			if( $post->action == 'insertItem' && $permissions->c ) {

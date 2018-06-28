@@ -80,33 +80,59 @@ function queryAsync(param){
 
 
 //Permissions
+// queryAsync({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns',
+// 		obj: {module: 'categories', u: false}
+// 	}
+// }).then({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns',
+// 		obj: {module: 'categories'}
+// 	}
+// })
+// .then({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns',
+// 		obj: {}
+// 	}
+// })
+// .then({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns'
+// 	}
+// });
+
+//Equipments
 queryAsync({
-	url: "api/permissions",
-	data: {
-		action: 'filterByColumns',
-		obj: {module: 'categories', u: false}
-	}
-}).then({
-	url: "api/permissions",
-	data: {
-		action: 'filterByColumns',
-		obj: {module: 'categories'}
-	}
-})
-.then({
-	url: "api/permissions",
-	data: {
-		action: 'filterByColumns',
-		obj: {}
-	}
-})
-.then({
-	url: "api/permissions",
-	data: {
-		action: 'filterByColumns'
-	}
+	url: "api/equipments",
+	data: { action: 'listAll' }
 });
 
+// .then({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns',
+// 		obj: {module: 'categories'}
+// 	}
+// })
+// .then({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns',
+// 		obj: {}
+// 	}
+// })
+// .then({
+// 	url: "api/permissions",
+// 	data: {
+// 		action: 'filterByColumns'
+// 	}
+// });
 
   </script>
     </body>

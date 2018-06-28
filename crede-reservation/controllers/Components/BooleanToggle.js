@@ -1,5 +1,6 @@
 //construct
 function BooleanToggle(domId){
+	if($(domId)[0] == undefined) throw 'Component not found in View!';
 	this.toggle = $(domId);
 	if(this.toggle.attr('data-toggle') != 'toggle') this.toggle.bootstrapToggle();
 }

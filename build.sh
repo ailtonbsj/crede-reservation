@@ -59,3 +59,10 @@ mkdir crede-reservation/lib/bootstrap-toggle/css/ -p
 mkdir crede-reservation/lib/bootstrap-toggle/js/ -p
 cp node_modules/bootstrap-toggle/css/bootstrap-toggle.min.css crede-reservation/lib/bootstrap-toggle/css/
 cp node_modules/bootstrap-toggle/js/bootstrap-toggle.min.js crede-reservation/lib/bootstrap-toggle/js/
+
+#select2
+mkdir crede-reservation/lib/select2/css/ -p
+mkdir crede-reservation/lib/select2/js/i18n/ -p
+cp node_modules/select2/dist/css/*min* crede-reservation/lib/select2/css/
+cp node_modules/select2/dist/js/*min* crede-reservation/lib/select2/js/
+cp node_modules/select2/dist/js/i18n/pt-BR.js crede-reservation/lib/select2/js/i18n/
