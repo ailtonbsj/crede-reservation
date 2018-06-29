@@ -76,7 +76,6 @@ function listAll(){
 			action: 'listAll'
 		}
 	})
-
 }
 
 function listItem(){
@@ -114,10 +113,136 @@ function listItem(){
 			}
 		}
 	})
-
 }
 
-listItem();
+function insertItem(){
+	$('.container').append('<h4>Insert Item</h4>');
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/places',
+		data: {
+			action: 'insertItem',
+			obj: {
+				name: 'goliasH',
+				owner: 'CREDE17'
+			}
+		}
+	})
+	.then({
+		url: 'api/users',
+		data: {
+			action: 'insertItem',
+			obj: {
+				name: 'goliasH',
+				pass: 'myuser',
+				fullname: 'My User'
+			}
+		}
+	})
+	.then({
+		url: 'api/permissions',
+		data: {
+			action: 'insertItem',
+			obj: {
+				username: 'goliasH',
+				module: 'places',
+				c: false,
+				r: false,
+				u: false,
+				d: true
+			}
+		}
+	})
+}
+
+function removeItem(){
+	$('.container').append('<h4>Remove Item</h4>');
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/places',
+		data: {
+			action: 'removeItem',
+			obj: {
+				id: 75
+			}
+		}
+	})
+	.then({
+		url: 'api/permissions',
+		data: {
+			action: 'removeItem',
+			obj: {
+				username: 'gugu',
+				module: 'places'
+			}
+		}
+	})
+	.then({
+		url: 'api/users',
+		data: {
+			action: 'removeItem',
+			obj: {
+				name: 'myuser'
+			}
+		}
+	})
+}
+
+function updateItem(){
+	$('.container').append('<h4>Update Item</h4>');
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/places',
+		data: {
+			action: 'updateItem',
+			obj: {
+				id: 71,
+				name: 'Sala de video',
+				owner: 'CERE'
+			}
+		}
+	})
+	.then({
+		url: 'api/users',
+		data: {
+			action: 'updateItem',
+			obj: {
+				name: 'joao',
+				pass: '123',
+				fullname: 'Joao Batista'
+			}
+		}
+	})
+	.then({
+		url: 'api/permissions',
+		data: {
+			action: 'updateItem',
+			obj: {
+				username: 'arthur',
+				module: 'permissions',
+				c: false,
+				r: false,
+				u: false,
+				d: true
+			}
+		}
+	})
+}
+
+updateItem();
+
 
 // //Categories
 // queryAsync({

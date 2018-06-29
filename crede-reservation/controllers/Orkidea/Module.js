@@ -120,10 +120,15 @@ $Module.loadFormView = function(serialPrimary){
 	$('#form-title-'+this.moduleName)[0].innerHTML = self.moduleName;
 	this.modeForm = 'update';
 }
-$Module.confirmRemoveItem = function(id){
+$Module.confirmRemoveItem = function(serialPrimary){
 	var self = this;
+	var arrPks = serialPrimary.split(',');
+	var ids = {};
+	for(primaryKey in self.primaryKeys){
+		ids[primaryKey] = arrPks.shift();
+	}
 	if(confirm('Tem certeza?'))
-		self.removeItem(id, function(res){
+		self.removeItem(ids, function(res){
 			res ? self.loadDataTable() : alert('Cant remove this item!');
 		});
 }

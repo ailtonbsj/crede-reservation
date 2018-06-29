@@ -34,36 +34,34 @@ abstract class Storage {
 
 	function insertItem ($dataOfColumns, $isPrintable = false) {
 		try {
-			// $labels = '';
-			// $values = '';
-			// foreach ($dataOfColumns as $k => $v) {
-			// 	$labels = "$k,$labels";
-			// 	$values = ":$k,$values";
-			// }
 			$keys = array_keys($dataOfColumns);
 			$labels = join(',', $keys);
 			$values = ':'.join(',:', $keys);
 
-			if($this->primaryKeyName[0] == 'id') {
-				$labels .= ','.$this->primaryKeyName[0];
+			if($this->primaryKeysName[0] == 'id') {
+				$labels .= ','.$this->primaryKeysName[0];
 				if (Config::$dbCredentials['type'] == 'pg') {
 					$values .= ',DEFAULT';
 				} else {
 					$values .= ',NULL';
 				}			
 			}
-			// $labels = trim($labels,",");
-			// $values = trim($values,",");
 			$sql = "INSERT INTO {$this->tableName} ($labels) VALUES ($values)";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
 			$result = $stm->execute((array) $dataOfColumns);
-			var_dump(array_map($this->primaryKeysName,function($pkn){return $dataOfColumns[$pkn];}));
-			return false;
 			if($result) {
-				if($this->primaryKeyName[0] == 'id')
+				if($this->primaryKeysName[0] == 'id')
 					$resp = array('status' => 'success', 'data' => $this->connection->lastInsertId());
-				else $resp = array('status' => 'success', 'data' => $dataOfColumns[$this->primaryKeyName]);
+				else {
+					$valOfKeys = array_map(
+						function($pkn) use (&$dataOfColumns){
+							return $dataOfColumns[$pkn];
+						},
+						$this->primaryKeysName
+					);
+					$resp = array('status' => 'success', 'data' => $valOfKeys);
+				}
 				if($isPrintable) echo json_encode($resp);
 				return $resp;
 			} else throw new Exception("Error to insert data");
@@ -75,18 +73,32 @@ abstract class Storage {
 	}
 
 	function updateItem($dataOfColumns, $isPrintable = false) {
-		var_dump($dataOfColumns);
 		try {
+			//labels
 			$labels = '';
 			foreach ($dataOfColumns as $k => $v) {
 				$labels = "$k=:$k,$labels";
 			}
 			$labels = trim($labels,',');
-			$sql = "UPDATE {$this->tableName} SET {$labels} WHERE {$this->primaryKeyName} = :{$this->primaryKeyName}";
+			//filter pk
+			$keyNames = $this->primaryKeysName;
+			$first = array_shift($keyNames);
+			$frag = array_reduce(
+				$keyNames,
+				function($v1, $v2){return "$v1 AND $v2 = :$v2";},
+				"$first = :$first"
+			);
+			$sql = "UPDATE {$this->tableName} SET {$labels} WHERE $frag";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
 			$stm->execute((array) $dataOfColumns);
-			$resp = array('status' => 'success', 'data' => $dataOfColumns[$this->primaryKeyName]);
+			$valOfKeys = array_map(
+				function($pkn) use (&$dataOfColumns){
+					return $dataOfColumns[$pkn];
+				},
+				$this->primaryKeysName
+			);
+			$resp = array('status' => 'success', 'data' => $valOfKeys);
 			if($isPrintable) echo json_encode($resp);
 			return $resp;
 		} catch (Exception $e) {
@@ -117,48 +129,48 @@ abstract class Storage {
 		}
 	}
 
-	function listQuery($sql, $columns, $isPrintable = false){
-	    try {
-	      $stm = $this->connection->prepare($sql);
-	      $stm->execute($columns);
-	      //echo $stm->debugDumpParams();
-	      $resp = $stm->fetchAll(PDO::FETCH_OBJ);
-	      if($isPrintable)
-	      	echo json_encode(array('status' => 'success', 'data' => $resp));
-	      return $resp;
-	    } catch (Exception $e) {
-	      if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
-	      return false;
-	    }
-	}
+	// function listQuery($sql, $columns, $isPrintable = false){
+	//     try {
+	//       $stm = $this->connection->prepare($sql);
+	//       $stm->execute($columns);
+	//       //echo $stm->debugDumpParams();
+	//       $resp = $stm->fetchAll(PDO::FETCH_OBJ);
+	//       if($isPrintable)
+	//       	echo json_encode(array('status' => 'success', 'data' => $resp));
+	//       return $resp;
+	//     } catch (Exception $e) {
+	//       if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
+	//       return false;
+	//     }
+	// }
 
-	function complexFilter($dataOfColumns, $isPrintable = false, $orLogic = false, $likeCompare = false) {
-		$conector = $orLogic ? ' OR ' : ' AND ';
-		try {
-			if(count($dataOfColumns) < 1) throw new Exception('no filter found!');
-			$sql = "SELECT * FROM {$this->tableName} WHERE ";
-			$isFirst = true;
-			foreach ($dataOfColumns as $colunm => $value) {
-				$isFirst ? $isFirst = false : $sql .= $conector;
-				$sql .= $likeCompare ? "{$colunm} LIKE '%{$value}%'" : "{$colunm} = '{$value}'";
-			}
-			$stm = $this->connection->prepare($sql);
-			$stm->execute();
-			$rows = $stm->fetchAll(PDO::FETCH_OBJ);
-			if(!$rows) throw new Exception('there is no record on table!');
-			$resp = array('status' => 'success', 'data' => $rows);
-		} catch (Exception $e) {
-			$resp = array('status' => 'error', 'data' => $e->getMessage());
-		}
-		if($isPrintable) echo json_encode($resp);
-		return $resp;
-	}
+	// function complexFilter($dataOfColumns, $isPrintable = false, $orLogic = false, $likeCompare = false) {
+	// 	$conector = $orLogic ? ' OR ' : ' AND ';
+	// 	try {
+	// 		if(count($dataOfColumns) < 1) throw new Exception('no filter found!');
+	// 		$sql = "SELECT * FROM {$this->tableName} WHERE ";
+	// 		$isFirst = true;
+	// 		foreach ($dataOfColumns as $colunm => $value) {
+	// 			$isFirst ? $isFirst = false : $sql .= $conector;
+	// 			$sql .= $likeCompare ? "{$colunm} LIKE '%{$value}%'" : "{$colunm} = '{$value}'";
+	// 		}
+	// 		$stm = $this->connection->prepare($sql);
+	// 		$stm->execute();
+	// 		$rows = $stm->fetchAll(PDO::FETCH_OBJ);
+	// 		if(!$rows) throw new Exception('there is no record on table!');
+	// 		$resp = array('status' => 'success', 'data' => $rows);
+	// 	} catch (Exception $e) {
+	// 		$resp = array('status' => 'error', 'data' => $e->getMessage());
+	// 	}
+	// 	if($isPrintable) echo json_encode($resp);
+	// 	return $resp;
+	// }
 
-	function filterByColumns($dataOfColumns, $isPrintable = false) {
-		return $this->complexFilter($dataOfColumns, $isPrintable);
-	}
+	// function filterByColumns($dataOfColumns, $isPrintable = false) {
+	// 	return $this->complexFilter($dataOfColumns, $isPrintable);
+	// }
 
-	function searchFilter() {}
+	// function searchFilter() {}
 
 	function listItem($ids, $isPrintable = false) {
 		try {
@@ -183,11 +195,18 @@ abstract class Storage {
 		return $resp;
 	}
 
-	function removeItem($id, $isPrintable = false) {
+	function removeItem($pks, $isPrintable = false) {
 		try {
-			$sql = "DELETE FROM {$this->tableName} WHERE {$this->primaryKeyName} = :id";
+			$keyNames = $this->primaryKeysName;
+			$first = array_shift($keyNames);
+			$frag = array_reduce(
+				$keyNames,
+				function($v1, $v2){return "$v1 AND $v2 = :$v2";},
+				"$first = :$first"
+			);
+			$sql = "DELETE FROM {$this->tableName} WHERE " . $frag;
 			$stm = $this->connection->prepare($sql);
-			$resp = $stm->execute(array('id' => $id));
+			$resp = $stm->execute($pks);
 			//echo $stm->debugDumpParams();
 			$resp = array('status' => 'success');
 		} catch (Exception $e) {
@@ -197,20 +216,20 @@ abstract class Storage {
 		return $resp;
 	}
 
-	function removeItensFree($isPrintable = false) {
-		try {
-			$noFree = [];
-			foreach ($this->listAll()['data'] as $item) {
-					if($this->removeItem($item->id)['status'] == 'error')
-						array_push($noFree, $item->id);
-			}
-			$resp = array('status' => 'success', 'data' => $noFree);
-		} catch (Exception $e) {
-			$resp = array('status' => 'error', 'data' => $e->getMessage());
-		}
-		if($isPrintable) echo json_encode($resp);
-		return $resp;
-	}
+	// function removeItensFree($isPrintable = false) {
+	// 	// try {
+	// 	// 	$noFree = [];
+	// 	// 	foreach ($this->listAll()['data'] as $item) {
+	// 	// 			if($this->removeItem($item->id)['status'] == 'error')
+	// 	// 				array_push($noFree, $item->id);
+	// 	// 	}
+	// 	// 	$resp = array('status' => 'success', 'data' => $noFree);
+	// 	// } catch (Exception $e) {
+	// 	// 	$resp = array('status' => 'error', 'data' => $e->getMessage());
+	// 	// }
+	// 	// if($isPrintable) echo json_encode($resp);
+	// 	// return $resp;
+	// }
 }
 
  ?>
