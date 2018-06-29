@@ -4,13 +4,15 @@ namespace Orkidea\Core;
 
 include "Authenticator.php";
 
+use Exception;
+
 abstract class Module extends Storage {
 
 	function __construct ($post) {
 		parent::__construct();
 
 		if(!isset($this->moduleName)) 
-			throw new Exception(get_class($this) . ' $moduleName');
+			throw new Exception(get_class($this) . ' variable required $moduleName');
 
 		$permissions = $this->hasPermission();
 

@@ -1,7 +1,6 @@
 //construct
 function Permissions(){
 	Module.apply(this); //super
-
 	this.primaryKeys = [];
 	this.primaryKeys['username'] = new DynamicSelect(this.createFormId('username'), 'users', function(item){
 		return [item.name,item.name];
@@ -18,6 +17,7 @@ Permissions.prototype = Object.create(Module.prototype);
 $Permissions = Permissions.prototype;
 //properties
 $Permissions.moduleName = 'permissions';
+$Permissions.primaryKeys = [];
 $Permissions.components = [];
 $Permissions.icon = 'fa-key';
 

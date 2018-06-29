@@ -51,6 +51,73 @@ function queryAsync(param){
 	return obj;
 }
 
+function listAll(){
+	$('.container').append('<h4>List All</h4>');
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/places',
+		data: {
+			action: 'listAll'
+		}
+	})
+	.then({
+		url: 'api/users',
+		data: {
+			action: 'listAll'
+		}
+	})
+	.then({
+		url: 'api/permissions',
+		data: {
+			action: 'listAll'
+		}
+	})
+
+}
+
+function listItem(){
+	$('.container').append('<h4>List Item</h4>');
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/places',
+		data: {
+			action: 'listItem',
+			obj: {
+				id: 1
+			}
+		}
+	})
+	.then({
+		url: 'api/users',
+		data: {
+			action: 'listItem',
+			obj: {
+				name: 'arthur'
+			}
+		}
+	})
+	.then({
+		url: 'api/permissions',
+		data: {
+			action: 'listItem',
+			obj: {
+				username: 'admin',
+				module: 'places'
+			}
+		}
+	})
+
+}
+
+listItem();
 
 // //Categories
 // queryAsync({
@@ -108,10 +175,10 @@ function queryAsync(param){
 // });
 
 //Equipments
-queryAsync({
-	url: "api/equipments",
-	data: { action: 'listAll' }
-});
+// queryAsync({
+// 	url: "api/equipments",
+// 	data: { action: 'listAll' }
+// });
 
 // .then({
 // 	url: "api/permissions",

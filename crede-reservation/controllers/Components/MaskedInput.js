@@ -17,6 +17,7 @@ $MaskedInput.setValue = function(value){
 $MaskedInput.getValue = function(){
 	return this.iMask.unmaskedValue;
 }
-$MaskedInput.clear = function(){
+$MaskedInput.clear = function(callback){
 	this.iMask.value = '';
+	callback ? callback() : null;
 }

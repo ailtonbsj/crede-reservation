@@ -18,6 +18,7 @@ $BooleanToggle.getValue = function() {
 }
 $BooleanToggle.isValid = function() { return true; }
 
-$BooleanToggle.clear = function() {
+$BooleanToggle.clear = function(callback) {
 	this.toggle.bootstrapToggle('off');
+	callback ? callback() : null;
 }

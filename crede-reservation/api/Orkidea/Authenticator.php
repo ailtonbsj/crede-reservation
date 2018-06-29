@@ -8,14 +8,13 @@ class Authenticator extends Storage {
 
 	public $tableName = "users";
 	public $orderBy = "name";
-	public $primaryKeyName = 'name';
+	public $primaryKeysName = ['name'];
 	
 	function __construct($post) {
 		parent::__construct();
 
-
 		if (isset($post->name)) {
-			$user = $this->listItem($post->name);
+			$user = $this->listItem(array('name' => $post->name));
 			if($user['status'] == 'success'){
 				if($user['data']->pass == $post->pass) {
 					session_start();

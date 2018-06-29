@@ -1,6 +1,5 @@
 //construct
 function TextInput(domId){
-
 	//if($(domId)[0] == undefined) throw 'Component not found in View!';
 	this.input = $(domId);
 }
@@ -21,6 +20,8 @@ $TextInput.isValid = function() {
 	}
 	return true;
 }
-$TextInput.clear = function() {
+$TextInput.clear = function(callback) {
 	this.input.val('');
+	if(this.input[0].nodeName == 'SELECT') this.input[0].options.selectedIndex = 0;
+	callback ? callback() : null;
 }

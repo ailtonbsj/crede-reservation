@@ -11,7 +11,7 @@ class Permissions extends Module {
 	public $tableName = 'permissions';
 	public $orderBy = 'username';
 	public $moduleName = 'permissions';
-	public $primaryKeyName = 'username';
+	public $primaryKeysName = ['username','module'];
 
 }
 

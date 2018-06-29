@@ -43,6 +43,7 @@ $DateTimeInput.isValid = function(){
 	}
 	return true;
 }
-$DateTimeInput.clear = function(){
+$DateTimeInput.clear = function(callback){
 	this.picker.data('DateTimePicker').clear();
+	callback ? callback() : null;
 }

@@ -11,7 +11,7 @@ class Users extends Module {
 	public $tableName = 'users';
 	public $orderBy = 'name';
 	public $moduleName = 'users';
-	public $primaryKeyName = 'name';
+	public $primaryKeysName = ['name'];
 
 }
 

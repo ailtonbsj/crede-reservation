@@ -29,8 +29,9 @@ $SelectInput.isValid = function() {
 	}
 	return true;
 }
-$SelectInput.clear = function() {
+$SelectInput.clear = function(callback) {
 	this.select.empty();
+	callback ? callback() : null;
 }
 $SelectInput.addItem = function(label, value) {
 	this.select.append('<option value="'+value+'">'+label+'</option>');

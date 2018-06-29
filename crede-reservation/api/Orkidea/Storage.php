@@ -9,7 +9,7 @@ use PDO, Exception;
 abstract class Storage {
 
 	public $connection;
-	public $primaryKeyName = 'id';
+	public $primaryKeysName = ['id'];
 
 	function __construct () {
 		if(!isset($this->tableName)) 
@@ -34,28 +34,34 @@ abstract class Storage {
 
 	function insertItem ($dataOfColumns, $isPrintable = false) {
 		try {
-			$labels = '';
-			$values = '';
-			foreach ($dataOfColumns as $k => $v) {
-				$labels = "$k,$labels";
-				$values = ":$k,$values";
-			}
-			if($this->primaryKeyName == 'id') {
-				$labels .= $this->primaryKeyName;
+			// $labels = '';
+			// $values = '';
+			// foreach ($dataOfColumns as $k => $v) {
+			// 	$labels = "$k,$labels";
+			// 	$values = ":$k,$values";
+			// }
+			$keys = array_keys($dataOfColumns);
+			$labels = join(',', $keys);
+			$values = ':'.join(',:', $keys);
+
+			if($this->primaryKeyName[0] == 'id') {
+				$labels .= ','.$this->primaryKeyName[0];
 				if (Config::$dbCredentials['type'] == 'pg') {
-					$values .= 'DEFAULT';
+					$values .= ',DEFAULT';
 				} else {
-					$values .= 'NULL';
+					$values .= ',NULL';
 				}			
 			}
-			$labels = trim($labels,",");
-			$values = trim($values,",");
+			// $labels = trim($labels,",");
+			// $values = trim($values,",");
 			$sql = "INSERT INTO {$this->tableName} ($labels) VALUES ($values)";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
 			$result = $stm->execute((array) $dataOfColumns);
+			var_dump(array_map($this->primaryKeysName,function($pkn){return $dataOfColumns[$pkn];}));
+			return false;
 			if($result) {
-				if($this->primaryKeyName == 'id')
+				if($this->primaryKeyName[0] == 'id')
 					$resp = array('status' => 'success', 'data' => $this->connection->lastInsertId());
 				else $resp = array('status' => 'success', 'data' => $dataOfColumns[$this->primaryKeyName]);
 				if($isPrintable) echo json_encode($resp);
@@ -69,6 +75,7 @@ abstract class Storage {
 	}
 
 	function updateItem($dataOfColumns, $isPrintable = false) {
+		var_dump($dataOfColumns);
 		try {
 			$labels = '';
 			foreach ($dataOfColumns as $k => $v) {
@@ -77,7 +84,7 @@ abstract class Storage {
 			$labels = trim($labels,',');
 			$sql = "UPDATE {$this->tableName} SET {$labels} WHERE {$this->primaryKeyName} = :{$this->primaryKeyName}";
 			$stm = $this->connection->prepare($sql);
-			echo $stm->debugDumpParams();
+			//echo $stm->debugDumpParams();
 			$stm->execute((array) $dataOfColumns);
 			$resp = array('status' => 'success', 'data' => $dataOfColumns[$this->primaryKeyName]);
 			if($isPrintable) echo json_encode($resp);
@@ -153,12 +160,19 @@ abstract class Storage {
 
 	function searchFilter() {}
 
-	function listItem($id, $isPrintable = false) {
+	function listItem($ids, $isPrintable = false) {
 		try {
-			$sql = "SELECT * FROM {$this->tableName} WHERE {$this->primaryKeyName} = :id";
+			$keyNames = $this->primaryKeysName;
+			$first = array_shift($keyNames);
+			$frag = array_reduce(
+				$keyNames,
+				function($v1, $v2){return "$v1 AND $v2 = :$v2";},
+				"$first = :$first"
+			);
+			$sql = "SELECT * FROM {$this->tableName} WHERE " . $frag;
 			$stm = $this->connection->prepare($sql);
-			$stm->execute(array('id' => $id));
-
+			//echo $stm->debugDumpParams();
+			$stm->execute($ids);
 			$row = $stm->fetchObject();
 			if(!$row) throw new Exception('there is no record on table!');
 			$resp = array('status' => 'success', 'data' => $row);
@@ -175,7 +189,6 @@ abstract class Storage {
 			$stm = $this->connection->prepare($sql);
 			$resp = $stm->execute(array('id' => $id));
 			//echo $stm->debugDumpParams();
-			//if ($resp) {
 			$resp = array('status' => 'success');
 		} catch (Exception $e) {
 			$resp = array('status' => 'error', 'data' => $e->getMessage());

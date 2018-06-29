@@ -23,8 +23,9 @@ function MixedData(){
 MixedData.prototype = Object.create(Module.prototype);
 $MixedData = MixedData.prototype;
 //properties
-$MixedData.moduleName = 'mixed_data';
+$MixedData.primaryKeys = [];
 $MixedData.components = [];
+$MixedData.moduleName = 'mixed_data';
 $MixedData.icon = 'fa-info';
 
 //autorun

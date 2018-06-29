@@ -1,11 +1,14 @@
 //construct
 function Module() {
-	var self = this;
 	Persistence.apply(this); //super
-	this.primaryKeys['id'] = new TextInput(this.createFormId('id'));
+
+	if(this.primaryKeys == undefined) throw 'must have the property primaryKeys';
 	if(this.components == undefined) throw 'must have the property components';
 	if(this.icon == undefined) throw 'must have the property icon';
-	Module.register(self.moduleName, self);
+	
+	this.primaryKeys['id'] = new TextInput(this.createFormId('id'));
+	Module.register(this.moduleName, this);
+	var self = this;
 	$('#form-submit-'+self.moduleName).click(function(){ self.validateFormView(); });
 }
 //heritage
@@ -13,7 +16,6 @@ Module.prototype = Object.create(Persistence.prototype);
 $Module = Module.prototype;
 //properties
 $Module.modeForm = 'insert';
-$Module.primaryKeys = [];
 //methods
 $Module.loadTableView = function(){
 	var self = this;
@@ -35,12 +37,10 @@ $Module.loadDataTable = function(){
 		self.listPermissions(function(permission){
 			var tableview = $('#table-'+self.moduleName+' tbody');
 			tableview.empty();
-
 			res.map(function(item){
 				var tmpRow = $('#row-'+self.moduleName)[0].content.cloneNode(true);
 				//console.log(Object.keys(self.primaryKeys));
 				//$(tmpRow).find('.colunm-'+self.primaryKey+'-'+self.moduleName)[0].innerHTML = item[self.primaryKey];
-
 				Object.keys(self.primaryKeys).map(function(column){
 					$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
 				});
@@ -48,11 +48,11 @@ $Module.loadDataTable = function(){
 				Object.keys(self.components).map(function(column){
 					$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
 				});
-				
+				var serialPrimary = Object.keys(self.primaryKeys).map(function(pk){return item[pk]}).join(',');
 				if(!permission.u) $(tmpRow).find('.colunm-refresh-'+self.moduleName).remove();
-				else $(tmpRow).find('.colunm-refresh-'+self.moduleName).attr('data-id', item[self.primaryKey]);
+				else $(tmpRow).find('.colunm-refresh-'+self.moduleName).attr('data-id', serialPrimary);
 				if(!permission.d) $(tmpRow).find('.colunm-remove-'+self.moduleName).remove();
-				else $(tmpRow).find('.colunm-remove-'+self.moduleName).attr('data-id', item[self.primaryKey]);
+				else $(tmpRow).find('.colunm-remove-'+self.moduleName).attr('data-id', serialPrimary);
 				tableview.append(tmpRow);
 			});
 			$('.colunm-refresh-'+self.moduleName).click(function(){
@@ -68,36 +68,54 @@ $Module.loadDataTable = function(){
 }
 $Module.clearFormView = function(){
 	var self = this;
-	$('#form-'+this.primaryKey+'-'+this.moduleName).val('');
+	for(column in self.primaryKeys){
+		self.primaryKeys[column].clear();
+	}
 	for(column in self.components){
 		self.components[column].clear();
 	}
-	if(self.primaryKey == 'id') $('#form-id-'+this.moduleName).parent().hide();
-	else $('#form-'+self.primaryKey+'-'+this.moduleName)[0].disabled = false;
+	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().hide();
+	else {
+		Object.keys(self.primaryKeys).map(function(primaryKey){
+			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = false;
+		});
+	}
 	$('#form-submit-'+this.moduleName).html('Adicionar');
 	$('#form-title-'+this.moduleName)[0].innerHTML = 'New '+Useful.convertToCamelCase(this.moduleName, ' ');
 	this.modeForm = 'insert';
 }
-$Module.loadFormView = function(id){
+$Module.loadFormView = function(serialPrimary){
 	var self = this;
-	self.listItem(id, function(res){
-		$('#form-'+self.primaryKey+'-'+self.moduleName).val(res[self.primaryKey]);
-		for(name in self.components){
-			switch(self.components[name].constructor.name){
-				case 'DynamicSelect':
-					var actual = name; 
-					self.components[name].clear(function(){
-						self.components[actual].setValue(res[actual]);
-					});
-					self.components[name].setValue(res[name]);;
-					break;
-				default:
-					self.components[name].setValue(res[name]);
-			}
-		}
+	var arrPks = serialPrimary.split(',');
+	var ids = {};
+	for(primaryKey in self.primaryKeys){
+		ids[primaryKey] = arrPks.shift();
+	}
+
+	var fieldNames = {};
+	Object.assign(fieldNames, self.primaryKeys, self.components);
+	self.listItem(ids, function(res){
+		// for(name in fieldNames){  //Switch has scope, but For doesn't ? O.o
+		// 	(function(){
+		// 		var accio = name;
+		// 		fieldNames[accio].clear(function(){
+		// 			console.log(accio);
+		// 			fieldNames[accio].setValue(res[accio]);
+		// 		});
+		// 	})();
+		// }
+		Object.keys(fieldNames).map(function(field){ // USE map to create scope with function
+			fieldNames[field].clear(function(){
+				fieldNames[field].setValue(res[field]);
+			});
+		});
 	});
-	if(self.primaryKey == 'id') $('#form-id-'+this.moduleName).parent().show();
-	else $('#form-'+self.primaryKey+'-'+this.moduleName)[0].disabled = true;
+	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().show();
+	else {
+		Object.keys(self.primaryKeys).map(function(primaryKey){
+			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = true;
+		});
+	}
 	$('#form-submit-'+this.moduleName).html('Atualizar');
 	$('#form-title-'+this.moduleName)[0].innerHTML = self.moduleName;
 	this.modeForm = 'update';
@@ -121,7 +139,10 @@ $Module.validateFormView = function(){
 	}
 
 	if(this.modeForm == 'update'){
-		data[self.primaryKey] = $('#form-'+self.primaryKey+'-'+this.moduleName).val();
+		Object.keys(self.primaryKeys).map(function(primaryKey){
+			data[primaryKey] = $('#form-'+primaryKey+'-'+self.moduleName).val();
+		});
+		//Object.keys(self.primaryKeys).map
 		console.log(data);
 		this.updateItem(data, function(res){
 			if(res){
@@ -130,8 +151,11 @@ $Module.validateFormView = function(){
 			} else alert('Cant update this item!');
 		});
 	} else {
-		if(self.primaryKey != 'id')
-			data[self.primaryKey] = $('#form-'+self.primaryKey+'-'+this.moduleName).val();
+		if(self.primaryKeys.id == undefined) {
+			Object.keys(self.primaryKeys).map(function(primaryKey){
+				data[primaryKey] = $('#form-'+primaryKey+'-'+self.moduleName).val();
+			});
+		}
 		this.insertItem(data, function(res){
 			if(res){
 				self.loadDataTable();

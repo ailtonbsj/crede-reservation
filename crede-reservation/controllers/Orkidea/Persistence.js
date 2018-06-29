@@ -6,28 +6,28 @@ function Persistence() {
 }
 $Persistence = Persistence.prototype;
 //methods
-$Persistence.insertItem = function (dataOfColumns, callback) {
-  var self = this;
-  $.post(
-    'api/'+self.moduleName,
-    { action: 'insertItem', obj: dataOfColumns },
-    function(res){
-      var raw = JSON.parse(res);
-      if(raw.status == 'success') callback(raw.data);
-      else callback(false);
-  });
-}
-$Persistence.updateItem = function (dataOfColumns, callback) {
-  var self = this;
-  $.post(
-    'api/'+self.moduleName,
-    { action: 'updateItem', obj: dataOfColumns },
-    function(res){
-      var raw = JSON.parse(res);
-      if(raw.status == 'success') callback(raw.data);
-      else callback(false);
-  }); 
-}
+// $Persistence.insertItem = function (dataOfColumns, callback) {
+//   var self = this;
+//   $.post(
+//     'api/'+self.moduleName,
+//     { action: 'insertItem', obj: dataOfColumns },
+//     function(res){
+//       var raw = JSON.parse(res);
+//       if(raw.status == 'success') callback(raw.data);
+//       else callback(false);
+//   });
+// }
+// $Persistence.updateItem = function (dataOfColumns, callback) {
+//   var self = this;
+//   $.post(
+//     'api/'+self.moduleName,
+//     { action: 'updateItem', obj: dataOfColumns },
+//     function(res){
+//       var raw = JSON.parse(res);
+//       if(raw.status == 'success') callback(raw.data);
+//       else callback(false);
+//   }); 
+// }
 $Persistence.listAll = function (callback) {
   var self = this;
 	$.post(
@@ -39,46 +39,45 @@ $Persistence.listAll = function (callback) {
   			else callback(false);
   	});
 }
-$Persistence.listItem = function (id, callback) {
+$Persistence.listItem = function (primaryKeys, callback) {
   var self = this;
   $.post(
     'api/'+self.moduleName,
-    { action: 'listItem', obj: id },
+    { action: 'listItem', obj: primaryKeys },
     function(res){
       var raw = JSON.parse(res);
       if(raw.status == 'success') callback(raw.data);
       else callback(false);
   });
 }
-$Persistence.removeItem = function (id, callback) {
-  var self = this;
-  $.post(
-    'api/'+self.moduleName,
-    { action: 'removeItem', obj: id },
-    function(res){
-      var raw = JSON.parse(res);
-      if(raw.status == 'success') callback(true);
-      else callback(false);
-  });
-}
-$Persistence.removeItensFree = function () {
-}
+// $Persistence.removeItem = function (id, callback) {
+//   var self = this;
+//   $.post(
+//     'api/'+self.moduleName,
+//     { action: 'removeItem', obj: id },
+//     function(res){
+//       var raw = JSON.parse(res);
+//       if(raw.status == 'success') callback(true);
+//       else callback(false);
+//   });
+// }
+// $Persistence.removeItensFree = function () {
+// }
 $Persistence.listPermissions = function (callback) {
   var self = this;
   if(self.permissions !== undefined) {
     callback(self.permissions);
   } else {
-
-  $.post(
-    'api/'+self.moduleName,
-    { action: 'listPermissions' },
-    function(res){
-      var raw = JSON.parse(res);
-      if(raw.status == 'success') {
-         self.permissions = raw.data;
-        callback(self.permissions);
-      }
-      else callback(false);
-  });
+    $.post(
+      'api/'+self.moduleName,
+      { action: 'listPermissions' },
+      function(res){
+        var raw = JSON.parse(res);
+        if(raw.status == 'success') {
+           self.permissions = raw.data;
+          callback(self.permissions);
+        }
+        else callback(false);
+    });
   }
 }
