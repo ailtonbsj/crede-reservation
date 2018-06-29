@@ -110,7 +110,7 @@ abstract class Storage {
 
 	function listAll($isPrintable = false) {
 		try {
-			$sql = "SELECT * FROM {$this->tableName} ORDER BY {$this->orderBy} ASC";
+			$sql = "SELECT * FROM {$this->tableName} ORDER BY {$this->orderBy}";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
 			$stm->execute();
@@ -129,20 +129,20 @@ abstract class Storage {
 		}
 	}
 
-	// function listQuery($sql, $columns, $isPrintable = false){
-	//     try {
-	//       $stm = $this->connection->prepare($sql);
-	//       $stm->execute($columns);
-	//       //echo $stm->debugDumpParams();
-	//       $resp = $stm->fetchAll(PDO::FETCH_OBJ);
-	//       if($isPrintable)
-	//       	echo json_encode(array('status' => 'success', 'data' => $resp));
-	//       return $resp;
-	//     } catch (Exception $e) {
-	//       if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
-	//       return false;
-	//     }
-	// }
+	function listQuery($sql, $columns, $isPrintable = false){
+	    try {
+	      $stm = $this->connection->prepare($sql);
+	      $stm->execute($columns);
+	      //echo $stm->debugDumpParams();
+	      $resp = $stm->fetchAll(PDO::FETCH_OBJ);
+	      if($isPrintable)
+	      	echo json_encode(array('status' => 'success', 'data' => $resp));
+	      return $resp;
+	    } catch (Exception $e) {
+	      if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
+	      return false;
+	    }
+	}
 
 	// function complexFilter($dataOfColumns, $isPrintable = false, $orLogic = false, $likeCompare = false) {
 	// 	$conector = $orLogic ? ' OR ' : ' AND ';

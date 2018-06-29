@@ -241,7 +241,44 @@ function updateItem(){
 	})
 }
 
-updateItem();
+function insertActivity(){
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/activities',
+		data: {
+			action: 'insertItem',
+			obj: {
+				description: 'X',
+				inittime: '01-01-2017 01:01:01',
+				finaltime: '01-01-2017 01:01:01',
+				place: 1,
+				owner: 'mario'
+			}
+		}
+	})
+
+}
+
+function listMyActivities(){
+	$('.container').append('<h4>List MyActivities</h4>');
+
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'arthur', pass: 'admin' }
+	})
+	.then({
+		url: 'api/my_activities',
+		data: {
+			action: 'listAll'
+		}
+	})
+}
+
+insertActivity();
 
 
 // //Categories

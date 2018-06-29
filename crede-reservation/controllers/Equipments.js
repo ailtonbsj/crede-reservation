@@ -14,8 +14,9 @@ function Equipments(){
 Equipments.prototype = Object.create(Module.prototype);
 $Equipments = Equipments.prototype;
 //properties
-$Equipments.moduleName = 'equipments';
+$Equipments.primaryKeys = [];
 $Equipments.components = [];
+$Equipments.moduleName = 'equipments';
 $Equipments.icon = 'fa-briefcase';
 
 //autorun

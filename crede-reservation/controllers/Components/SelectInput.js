@@ -1,9 +1,9 @@
 //construct
 function SelectInput(domId){
 	this.select = $(domId);
-	if(this.select[0] == undefined) throw 'Component not found in View!';
+	if(this.select[0] == undefined) console.log('ALERT: Component not found in View!');
 	this.select.select2();
-	this.search = this.select.data('select2').dropdown.$search;
+	//this.search = this.select.data('select2').dropdown.$search;
 }
 //heritage
 SelectInput.prototype = Object.create(Component.prototype);

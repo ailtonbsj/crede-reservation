@@ -1,6 +1,6 @@
 //construct
 function DateTimeInput(domId) {
-	if($(domId)[0] == undefined) throw 'Component not found in View!';
+	if($(domId)[0] == undefined) console.log('ALERT: Component not found in View!');
 	this.name = domId;
     this.picker = $(domId).datetimepicker({
 		locale: 'pt-BR',

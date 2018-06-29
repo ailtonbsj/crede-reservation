@@ -10,6 +10,7 @@ function Permissions(){
 	this.components['r'] = new BooleanToggle(this.createFormId('r'));
 	this.components['u'] = new BooleanToggle(this.createFormId('u'));
 	this.components['d'] = new BooleanToggle(this.createFormId('d'));
+	this.components['priority'] = new TextInput(this.createFormId('priority'));
 
 }
 //heritage

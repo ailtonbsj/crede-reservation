@@ -9,7 +9,7 @@ use Orkidea\Core\Module;
 class Permissions extends Module {
 
 	public $tableName = 'permissions';
-	public $orderBy = 'username';
+	public $orderBy = 'username, priority DESC';
 	public $moduleName = 'permissions';
 	public $primaryKeysName = ['username','module'];
 

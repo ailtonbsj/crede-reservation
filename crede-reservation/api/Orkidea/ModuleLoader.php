@@ -15,7 +15,7 @@ class ModuleLoader extends Storage {
 
   function listModulesByUser($username) {
     try {
-      $sql = "SELECT * FROM permissions WHERE username = :username";
+      $sql = "SELECT * FROM permissions WHERE username = :username ORDER BY priority DESC";
       $stm = $this->connection->prepare($sql);
       $stm->execute(
         array(
