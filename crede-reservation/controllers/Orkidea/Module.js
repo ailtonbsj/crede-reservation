@@ -39,15 +39,30 @@ $Module.loadDataTable = function(){
 			tableview.empty();
 			res.map(function(item){
 				var tmpRow = $('#row-'+self.moduleName)[0].content.cloneNode(true);
-				//console.log(Object.keys(self.primaryKeys));
-				//$(tmpRow).find('.colunm-'+self.primaryKey+'-'+self.moduleName)[0].innerHTML = item[self.primaryKey];
-				Object.keys(self.primaryKeys).map(function(column){
-					$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
+				// Object.keys(self.primaryKeys).map(function(column){
+				// 	var columnDom = $(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0];
+				// 	if(columnDom == undefined)
+				// 		console.log("Not found in DOM: \n"+'.colunm-'+column+'-'+self.moduleName);
+				// 	else columnDom.innerHTML = item[column];	
+				// });
+
+				// Object.keys(self.components).map(function(column){
+				// 	$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
+				// });
+				Object.keys(item).map(function(column){
+					var columnDom = $(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0];
+					if(columnDom == undefined)
+						console.log("Not found in DOM: \n"+'.colunm-'+column+'-'+self.moduleName);
+					else {
+						var value = item[column];
+						if(value === true)
+							value = '<center><i class="glyphicon glyphicon-ok text-success"></i></center>';
+						if(value === false)
+							value = '<center><i class="glyphicon glyphicon-remove text-danger"></i></center>';
+						columnDom.innerHTML = value;
+					}
 				});
 
-				Object.keys(self.components).map(function(column){
-					$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
-				});
 				var serialPrimary = Object.keys(self.primaryKeys).map(function(pk){return item[pk]}).join(',');
 				if(!permission.u) $(tmpRow).find('.colunm-refresh-'+self.moduleName).remove();
 				else $(tmpRow).find('.colunm-refresh-'+self.moduleName).attr('data-id', serialPrimary);

@@ -278,8 +278,22 @@ function listMyActivities(){
 	})
 }
 
-insertActivity();
+function listEquipmentsActivities(){
+	$('.container').append('<h4>List EquipmentsActivities</h4>');
 
+	queryAsync({
+		url: 'api/login',
+		data: { name: 'admin', pass: 'admin' }
+	})
+	.then({
+		url: 'api/equipments_activities',
+		data: {
+			action: 'listAll'
+		}
+	})
+}
+
+listEquipmentsActivities();
 
 // //Categories
 // queryAsync({

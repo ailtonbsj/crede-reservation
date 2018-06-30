@@ -49,6 +49,10 @@ switch ($request) {
         include './Activities.php';
         new Activities((object) $_POST);
         break;
+    case 'equipments_activities':
+        include './EquipmentsActivities.php';
+        new EquipmentsActivities((object) $_POST);
+        break;
 }
 
  ?>
