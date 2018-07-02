@@ -3,7 +3,15 @@ function Permissions(){
 	Module.apply(this); //super
 	this.primaryKeys = [];
 	this.primaryKeys['username'] = new TextInput(this.createFormId('username'));
-	this.primaryKeys['module'] = new TextInput(this.createFormId('module'));
+	// this.primaryKeys['module'] = new SelectInput(this.createFormId('module'));
+	// this.primaryKeys['module'].addItem('valor1','valor2');
+
+	this.primaryKeys['module'] = new DynamicSelect(
+		this.createFormId('module'),'modules', function(item){
+			return [Useful.convertToCamelCase(item,' '),item];
+		//return [item.description+' ( '+item.owner+' )', item.id];
+	});
+
 	this.components['c'] = new BooleanToggle(this.createFormId('c'));
 	this.components['r'] = new BooleanToggle(this.createFormId('r'));
 	this.components['u'] = new BooleanToggle(this.createFormId('u'));
@@ -24,6 +32,7 @@ $Permissions.icon = 'fa-key';
 $Permissions.primaryKeys = [];
 $Permissions.components = [];
 $Permissions.transformColumn = [];
+
 $Permissions.superModule = Module.modules['users'];
 //foreignKeyName { nativeKeyName: value }
 $Permissions.filteredBy = {

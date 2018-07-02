@@ -57,6 +57,10 @@ abstract class Module extends Storage {
 		}
 		return $row;
 	}
+
+  public static function getModules(){
+    echo json_encode(array('status' => 'success', 'data' => array_keys(Config::$modules)));
+  }
 }
 
  ?>

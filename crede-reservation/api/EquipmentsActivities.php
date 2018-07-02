@@ -12,9 +12,15 @@ class EquipmentsActivities extends Module {
 	public $orderBy = 'activity';
 	public $moduleName = 'equipments_activities';
 	public $primaryKeysName = ['equipment','activity'];
+	public $filteredBy = ['activity' => '14'];
+
+	function __construct($obj){
+		$this->filteredBy['activity'] = $obj->filteredBy['activity'];
+		parent::__construct($obj);
+	}
 
 	function listAll($isPrintable = false){
-	$sql = <<<EOF
+		$sql = <<<EOF
 SELECT 
 	activities.id AS activity,
 	equipments.id AS equipment,
@@ -23,9 +29,10 @@ SELECT
 FROM equipments_activities
 INNER JOIN equipments ON equipments.id = equipments_activities.equipment
 INNER JOIN activities ON activities.id = equipments_activities.activity
+WHERE activity = :activity
 EOF;
-		$this->listQuery($sql,[], $isPrintable);
-	}	
+		$this->listQuery($sql,$this->filteredBy, $isPrintable);
+	}
 }
 
  ?>

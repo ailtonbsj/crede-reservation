@@ -24,9 +24,11 @@ $TextInput.isValid = function() {
 	return true;
 }
 $TextInput.clear = function(callback) {
-	if(this.input[0].nodeName == 'SELECT'){
-		this.input[0].options.selectedIndex = 0;
-		this.input.val(this.defaultValue);
-	} else this.input.val(this.defaultValue);
+	if(this.input[0]){
+		if(this.input[0].nodeName == 'SELECT'){
+			this.input[0].options.selectedIndex = 0;
+			this.input.val(this.defaultValue);
+		} else this.input.val(this.defaultValue);
+	} else console.log('ALERT: Component not found in View');
 	callback ? callback() : null;
 }

@@ -11,6 +11,7 @@ function Activities(){
 	this.components['owner'] = new DynamicSelect(this.createFormId('owner'),'users', function(item){
 		return [item.name, item.name];
 	});
+	this.components['placename'] = new TextInput(this.createFormId('placename'));
 
 	this.transformColumn['inittime'] = 'as-brazildatetime';
 	this.transformColumn['finaltime'] = 'as-brazildatetime';
@@ -21,6 +22,8 @@ $Activities = Activities.prototype;
 //properties
 $Activities.primaryKeys = [];
 $Activities.components = [];
+$Activities.modules = [];
+$Activities.views = [];
 $Activities.moduleName = 'activities';
 $Activities.icon = 'fa-calendar';
 

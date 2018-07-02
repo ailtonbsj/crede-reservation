@@ -12,7 +12,15 @@ abstract class Config {
 	);
 
 	public static $modules = array(
-		'categories'
+	   'users' => 'standard',
+	   'permissions' => 'inner',
+	   'mixed_data' => 'standard',
+	   'activities' => 'standard',
+       'my_activities' => 'standard',
+       'categories' => 'standard',
+       'equipments' => 'standard',
+       'equipments_activities' => 'inner',
+       'places' => 'standard'
 	);
 }
 

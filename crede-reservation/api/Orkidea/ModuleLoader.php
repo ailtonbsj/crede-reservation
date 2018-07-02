@@ -13,6 +13,17 @@ class ModuleLoader extends Storage {
   public $moduleName = 'permissions';
   public static $modules;
 
+  function __construct () {
+    parent::__construct(); 
+    $username = Authenticator::hasAuthority();
+    if(!$username) {
+      header('location: index.html');
+      exit();
+    }
+    $this->modules = $this->listModulesByUser($username);
+    if(!$this->modules) header('location: index.html');
+  }
+
   function listModulesByUser($username) {
     try {
       $sql = "SELECT * FROM permissions WHERE username = :username ORDER BY priority DESC";
@@ -32,10 +43,12 @@ class ModuleLoader extends Storage {
 
   function loadViews () {
     foreach ($this->modules as $modulePermission) {
-      $formated = str_replace('_', '', $modulePermission->module);
-      if($modulePermission->r) include "views/{$formated}-table.html";
-      if($modulePermission->c) include "views/{$formated}-form.html";
-      if($modulePermission->c) include "views/{$formated}-detail.php";
+      if(Config::$modules[$modulePermission->module] == 'standard'){
+        $formated = str_replace('_', '', $modulePermission->module);
+        if($modulePermission->r) include "views/{$formated}-table.html";
+        if($modulePermission->c) include "views/{$formated}-form.html";
+        if($modulePermission->r) include "views/{$formated}-detail.php";
+      }
     }
   }
 
@@ -47,17 +60,6 @@ class ModuleLoader extends Storage {
       $formated = str_replace(' ', '', ucwords($nameModule));
       echo "<script src='controllers/".$formated.".js'></script>";
     }
-  }
-
-  function __construct () {
-    parent::__construct(); 
-    $username = Authenticator::hasAuthority();
-    if(!$username) {
-      header('location: index.html');
-      exit();
-    }
-    $this->modules = $this->listModulesByUser($username);
-    if(!$this->modules) header('location: index.html');
   }
 
 }

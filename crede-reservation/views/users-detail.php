@@ -3,7 +3,7 @@
   <div class="box-header with-border">
     <i class="fa fa-list"></i>
 
-    <h3 class="box-title">User detail</h3>
+    <h3 class="box-title">User Details</h3>
     <!-- tools box -->
     <!-- /. tools -->
   </div>
