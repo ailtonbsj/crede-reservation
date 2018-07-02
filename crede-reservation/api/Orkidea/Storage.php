@@ -10,6 +10,7 @@ abstract class Storage {
 
 	public $connection;
 	public $primaryKeysName = ['id'];
+	public $filteredBy = [];
 
 	function __construct () {
 		if(!isset($this->tableName)) 
@@ -108,12 +109,24 @@ abstract class Storage {
 		}
 	}
 
+	function generateWhere($filter){
+		$keyNames = array_keys($filter);
+		$first = array_shift($keyNames);
+		return 'WHERE ' . array_reduce(
+			$keyNames,
+			function($v1, $v2){return "$v1 AND $v2 = :$v2";},
+			"$first = :$first"
+		);
+	}
+
 	function listAll($isPrintable = false) {
 		try {
-			$sql = "SELECT * FROM {$this->tableName} ORDER BY {$this->orderBy}";
+			$frag = '';
+			if(count($this->filteredBy) > 0) $frag = $this->generateWhere($this->filteredBy);
+			$sql = "SELECT * FROM {$this->tableName} $frag ORDER BY {$this->orderBy}";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
-			$stm->execute();
+			$stm->execute($this->filteredBy);
 
 			$lista = array();
 			while ($row = $stm->fetchObject()) {

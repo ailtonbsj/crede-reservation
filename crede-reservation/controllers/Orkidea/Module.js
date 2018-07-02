@@ -7,7 +7,8 @@ function Module() {
 	if(this.icon == undefined) throw 'must have the property icon';
 	
 	this.primaryKeys['id'] = new TextInput(this.createFormId('id'));
-	Module.register(this.moduleName, this);
+	if(this.superModule) Module.register(this.superModule, this.moduleName, this);
+	else Module.register(Module, this.moduleName, this);
 	var self = this;
 	$('#form-submit-'+self.moduleName).click(function(){ self.validateFormView(); });
 }
@@ -16,7 +17,28 @@ Module.prototype = Object.create(Persistence.prototype);
 $Module = Module.prototype;
 //properties
 $Module.modeForm = 'insert';
+$Module.transformColumn = [];
 //methods
+$Module.transformField = function(columnName,value){
+	if(this.transformColumn.hasOwnProperty(columnName)){
+		switch(this.transformColumn[columnName]){
+			case 'as-checkbox':
+				value = value
+				? '<center><i class="glyphicon glyphicon-ok text-success"></i></center>'
+				: '<center><i class="glyphicon glyphicon-remove text-danger"></i></center>';
+				break;
+			case 'as-brazildatetime':
+				value = moment(value,'YYYY-MM-DD HH:mm:ss').format('DD/MM/YYYY HH:mm:ss');
+				break;
+			case 'as-brazildate':
+				value = moment(value,'YYYY-MM-DD').format('DD/MM/YYYY');
+				break;
+			case 'as-realmoney':
+				value = '<div align="right">R$ ' + parseFloat(value).toFixed(2) + '</div>';
+		}
+	}
+	return value;
+}
 $Module.loadTableView = function(){
 	var self = this;
 	self.listPermissions(function(permission){
@@ -24,10 +46,12 @@ $Module.loadTableView = function(){
 		else $('#btn-add-'+self.moduleName).unbind().click(function(){
 
 			self.clearFormView();
-			Module.showView('view-form-'+self.moduleName);
+			if(self.superModule) Module.showView(self.superModule, 'view-form-'+self.moduleName);
+			else Module.showView(Module, 'view-form-'+self.moduleName);
 		});
 		if(!permission.u) $('#label-refresh-'+self.moduleName).remove();
 		if(!permission.d) $('#label-remove-'+self.moduleName).remove();
+		if(!permission.r) $('#label-detail-'+self.moduleName).remove();
 		self.loadDataTable();
 	});
 }
@@ -39,45 +63,52 @@ $Module.loadDataTable = function(){
 			tableview.empty();
 			res.map(function(item){
 				var tmpRow = $('#row-'+self.moduleName)[0].content.cloneNode(true);
-				// Object.keys(self.primaryKeys).map(function(column){
-				// 	var columnDom = $(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0];
-				// 	if(columnDom == undefined)
-				// 		console.log("Not found in DOM: \n"+'.colunm-'+column+'-'+self.moduleName);
-				// 	else columnDom.innerHTML = item[column];	
-				// });
-
-				// Object.keys(self.components).map(function(column){
-				// 	$(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0].innerHTML = item[column];	
-				// });
 				Object.keys(item).map(function(column){
 					var columnDom = $(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0];
 					if(columnDom == undefined)
 						console.log("Not found in DOM: \n"+'.colunm-'+column+'-'+self.moduleName);
-					else {
-						var value = item[column];
-						if(value === true)
-							value = '<center><i class="glyphicon glyphicon-ok text-success"></i></center>';
-						if(value === false)
-							value = '<center><i class="glyphicon glyphicon-remove text-danger"></i></center>';
-						columnDom.innerHTML = value;
-					}
+					else columnDom.innerHTML = self.transformField(column, item[column]);
 				});
 
-				var serialPrimary = Object.keys(self.primaryKeys).map(function(pk){return item[pk]}).join(',');
+				var serialPrimary = Object.keys(self.primaryKeys).map(function(pk){
+					return pk+'='+item[pk]
+				}).join(',');
 				if(!permission.u) $(tmpRow).find('.colunm-refresh-'+self.moduleName).remove();
 				else $(tmpRow).find('.colunm-refresh-'+self.moduleName).attr('data-id', serialPrimary);
 				if(!permission.d) $(tmpRow).find('.colunm-remove-'+self.moduleName).remove();
 				else $(tmpRow).find('.colunm-remove-'+self.moduleName).attr('data-id', serialPrimary);
+				if(!permission.r) $(tmpRow).find('.colunm-detail-'+self.moduleName).remove();
+				else $(tmpRow).find('.colunm-detail-'+self.moduleName).attr('data-id', serialPrimary);
 				tableview.append(tmpRow);
 			});
+
 			$('.colunm-refresh-'+self.moduleName).click(function(){
 				self.loadFormView(this.getAttribute('data-id'));
-				Module.showView('view-form-'+self.moduleName);
+				if(self.superModule) Module.showView(self.superModule, 'view-form-'+self.moduleName);
+				else Module.showView(Module, 'view-form-'+self.moduleName);
 			});
+
 			$('.colunm-remove-'+self.moduleName).click(function(){
 				self.confirmRemoveItem(this.getAttribute('data-id'));
 			});
 
+			$('.colunm-detail-'+self.moduleName).click(function(){
+				self.loadDetailView(this.getAttribute('data-id'));
+
+				var pKs = self.serialToObject(this.getAttribute('data-id'));
+				console.log(pKs);
+				for(mod in self.modules){
+					for(key in pKs){
+						var filter = self.modules[mod].filteredBy[key];
+						filter[Object.keys(filter)[0]] = pKs[key];
+						console.log(self.modules[mod].filteredBy[key]);
+				 		self.modules[mod].showTableView();
+					}
+				}
+
+				if(self.superModule) Module.showView(self.superModule,'view-detail-'+self.moduleName);
+				else Module.showView(Module,'view-detail-'+self.moduleName);
+			});
 		});
 	});	
 }
@@ -89,6 +120,16 @@ $Module.clearFormView = function(){
 	for(column in self.components){
 		self.components[column].clear();
 	}
+	for(column in self.filteredBy){
+		var filtered = self.filteredBy[column];
+		var val = filtered[Object.keys(filtered)[0]];
+		var fields = {};
+		Object.assign(fields, self.components, self.primaryKeys);
+		fields[Object.keys(filtered)[0]].setValue(val);
+	// 	console.log(self.primaryKeys);
+	// 	//console.log(self.primaryKeys[column]);
+	// 	//self.components[column].setValue(self.filteredBy[column]);
+	}
 	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().hide();
 	else {
 		Object.keys(self.primaryKeys).map(function(primaryKey){
@@ -98,15 +139,28 @@ $Module.clearFormView = function(){
 	$('#form-submit-'+this.moduleName).html('Adicionar');
 	$('#form-title-'+this.moduleName)[0].innerHTML = 'New '+Useful.convertToCamelCase(this.moduleName, ' ');
 	this.modeForm = 'insert';
+
+	// var pKs = self.serialToObject(this.getAttribute('data-id'));
+	// for(mod in self.modules){
+	// 	for(key in pKs){
+	// 		self.modules[mod].filteredBy[key] = pKs[key];
+	// 		console.log(self.modules[mod].filteredBy);
+	// 		self.modules[mod].showTableView();
+	// 	}
+	// }
+}
+$Module.serialToObject = function(serialPrimary){
+	var arrPks = serialPrimary.split(',');
+	var knvObj = {};
+	for(i in arrPks){
+		knv = arrPks[i].split('=');
+		knvObj[knv[0]] = knv[1];
+	}
+	return knvObj;
 }
 $Module.loadFormView = function(serialPrimary){
 	var self = this;
-	var arrPks = serialPrimary.split(',');
-	var ids = {};
-	for(primaryKey in self.primaryKeys){
-		ids[primaryKey] = arrPks.shift();
-	}
-
+	var ids = self.serialToObject(serialPrimary);
 	var fieldNames = {};
 	Object.assign(fieldNames, self.primaryKeys, self.components);
 	self.listItem(ids, function(res){
@@ -135,13 +189,22 @@ $Module.loadFormView = function(serialPrimary){
 	$('#form-title-'+this.moduleName)[0].innerHTML = self.moduleName;
 	this.modeForm = 'update';
 }
+$Module.loadDetailView = function(serialPrimary){
+	var self = this;
+	var ids = self.serialToObject(serialPrimary);
+	var fieldNames = {};
+	Object.assign(fieldNames, self.primaryKeys, self.components);
+	self.listItem(ids, function(res){
+		Object.keys(fieldNames).map(function(field){ // USE map to create scope with function
+			var value = self.transformField(field, res[field]);
+			$('#detail-'+field+'-'+self.moduleName).html(value);
+		});
+		if(self.primaryKeys.id != undefined) $('#form-id-'+self.moduleName).parent().show();
+	});
+}
 $Module.confirmRemoveItem = function(serialPrimary){
 	var self = this;
-	var arrPks = serialPrimary.split(',');
-	var ids = {};
-	for(primaryKey in self.primaryKeys){
-		ids[primaryKey] = arrPks.shift();
-	}
+	var ids = self.serialToObject(serialPrimary);
 	if(confirm('Tem certeza?'))
 		self.removeItem(ids, function(res){
 			res ? self.loadDataTable() : alert('Cant remove this item!');
@@ -167,7 +230,8 @@ $Module.validateFormView = function(){
 		this.updateItem(data, function(res){
 			if(res){
 				self.loadDataTable();
-				Module.showView('view-table-'+self.moduleName);
+				if(self.superModule) Module.showView(self.superModule,'view-table-'+self.moduleName);
+				else Module.showView(Module,'view-table-'+self.moduleName);
 			} else alert('Cant update this item!');
 		});
 	} else {
@@ -179,7 +243,8 @@ $Module.validateFormView = function(){
 		this.insertItem(data, function(res){
 			if(res){
 				self.loadDataTable();
-				Module.showView('view-table-'+self.moduleName);
+				if(self.superModule) Module.showView(self.superModule,'view-table-'+self.moduleName);
+				else Module.showView(Module,'view-table-'+self.moduleName);
 			} else alert('Cant insert this item!');
 		});
 	}
@@ -189,18 +254,20 @@ $Module.createFormId = function(columnName){
 }
 $Module.showTableView = function(){
 	this.loadTableView();
-	Module.showView('view-table-'+this.moduleName);
+	if(this.superModule) Module.showView(this.superModule,'view-table-'+this.moduleName);
+	else Module.showView(Module,'view-table-'+this.moduleName);
 }
 //Static properties
 Module.views = [];
 Module.modules = [];
 //Static methods
-Module.register = function(moduleName, module) {
-	Module.modules[moduleName] = module;
-	Module.views.push('#view-form-'+moduleName);
-	Module.views.push('#view-table-'+moduleName);
+Module.register = function(superModule, moduleName, module) {
+	superModule.modules[moduleName] = module;
+	superModule.views.push('#view-form-'+moduleName);
+	superModule.views.push('#view-table-'+moduleName);
+	superModule.views.push('#view-detail-'+moduleName);
 }
-Module.showView = function(id) {
-	$(Module.views.join(',')).addClass('hide');
+Module.showView = function(superModule, id) {
+	$(superModule.views.join(',')).addClass('hide');
     $('#'+id).removeClass('hide');
 }

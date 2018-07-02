@@ -6,6 +6,7 @@ function RealInput(domId) {
 //heritage
 RealInput.prototype = Object.create(MaskedInput.prototype);
 $RealInput = RealInput.prototype;
+$RealInput.constructor = RealInput;
 //methods
 $RealInput.isValid = function(){
 	if(!RealInput.isReal(this.getValue())){

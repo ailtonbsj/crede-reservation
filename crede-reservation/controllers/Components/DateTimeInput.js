@@ -16,6 +16,7 @@ function DateTimeInput(domId) {
 //heritage
 DateTimeInput.prototype = Object.create(Component.prototype);
 $DateTimeInput = DateTimeInput.prototype;
+$DateTimeInput.constructor = DateTimeInput;
 //properties
 $DateTimeInput.name = null;
 $DateTimeInput.picker = null;

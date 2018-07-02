@@ -6,6 +6,7 @@ function MoneyInput(domId) {
 //heritage
 MoneyInput.prototype = Object.create(MaskedInput.prototype);
 $MoneyInput = MoneyInput.prototype;
+$MoneyInput.constructor = MoneyInput;
 //methods
 $MoneyInput.isValid = function(){
 	if(!RealInput.isReal(this.getValue())){

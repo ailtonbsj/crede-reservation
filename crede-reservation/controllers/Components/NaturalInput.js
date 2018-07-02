@@ -6,6 +6,7 @@ function NaturalInput(domId) {
 //heritage
 NaturalInput.prototype = Object.create(MaskedInput.prototype);
 $NaturalInput = NaturalInput.prototype;
+$NaturalInput.constructor = NaturalInput;
 //methods
 $NaturalInput.isValid = function(){
 	var value = this.getValue();

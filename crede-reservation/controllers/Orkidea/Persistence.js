@@ -5,6 +5,8 @@ function Persistence() {
 	if(this.moduleName === undefined) throw 'must have the property moduleName';
 }
 $Persistence = Persistence.prototype;
+//properties
+$Persistence.filteredBy = [];
 //methods
 $Persistence.insertItem = function (dataOfColumns, callback) {
   var self = this;
@@ -30,9 +32,15 @@ $Persistence.updateItem = function (dataOfColumns, callback) {
 }
 $Persistence.listAll = function (callback) {
   var self = this;
+  var obj = { action: 'listAll' };
+  if(Object.keys(self.filteredBy).length > 0){
+    var filtered = {};
+    for(item in self.filteredBy) Object.assign(filtered, self.filteredBy[item]);
+    obj.filteredBy = filtered;
+  }
 	$.post(
   		'api/'+self.moduleName,
-  		{ action: 'listAll' },
+  		obj,
   		function(res){
   			var raw = JSON.parse(res);
   			if(raw.status == 'success') callback(raw.data);

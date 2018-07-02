@@ -7,6 +7,7 @@ function DynamicSelect(domId, apiModule, adapterCallback){
 //heritage
 DynamicSelect.prototype = Object.create(SelectInput.prototype);
 $DynamicSelect = DynamicSelect.prototype;
+$DynamicSelect.constructor = DynamicSelect;
 //properties
 this.apiModule = '';
 this.adapterCallback = null;

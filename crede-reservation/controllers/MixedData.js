@@ -18,6 +18,11 @@ function MixedData(){
 	this.components['salary'] = new MoneyInput(this.createFormId('salary'));
 
 	this.components['yield_in'] = new RealInput(this.createFormId('yield_in'));
+
+	this.transformColumn['has_work'] = 'as-checkbox';
+	this.transformColumn['born_date'] = 'as-brazildate';
+	this.transformColumn['datetime_in'] = 'as-brazildatetime';
+	this.transformColumn['salary'] = 'as-realmoney';
 }
 //heritage
 MixedData.prototype = Object.create(Module.prototype);
@@ -25,6 +30,7 @@ $MixedData = MixedData.prototype;
 //properties
 $MixedData.primaryKeys = [];
 $MixedData.components = [];
+$MixedData.transformColumn = [];
 $MixedData.moduleName = 'mixed_data';
 $MixedData.icon = 'fa-info';
 

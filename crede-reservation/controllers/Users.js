@@ -12,6 +12,8 @@ $Users = Users.prototype;
 //properties
 $Users.primaryKeys = [];
 $Users.components = [];
+$Users.modules = [];
+$Users.views = [];
 $Users.moduleName = 'users';
 $Users.icon = 'fa-users';
 

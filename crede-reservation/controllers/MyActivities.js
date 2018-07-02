@@ -9,6 +9,9 @@ function MyActivities(){
 	});
 	this.components['owner'] = new TextInput(this.createFormId('owner'));
 	this.components['owner'].defaultValue = 'none';
+
+	this.transformColumn['inittime'] = 'as-brazildatetime';
+	this.transformColumn['finaltime'] = 'as-brazildatetime';
 }
 //heritage
 MyActivities.prototype = Object.create(Module.prototype);
@@ -16,6 +19,7 @@ $MyActivities = MyActivities.prototype;
 //properties
 $MyActivities.primaryKeys = [];
 $MyActivities.components = [];
+$MyActivities.transformColumn = [];
 $MyActivities.moduleName = 'my_activities';
 $MyActivities.icon = 'fa-calendar';
 

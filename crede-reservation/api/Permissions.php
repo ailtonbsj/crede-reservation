@@ -12,6 +12,12 @@ class Permissions extends Module {
 	public $orderBy = 'username, priority DESC';
 	public $moduleName = 'permissions';
 	public $primaryKeysName = ['username','module'];
+	public $filteredBy = ['username' => 'admin'];
+
+	function __construct($obj){
+		$this->filteredBy['username'] = $obj->filteredBy['username'];
+		parent::__construct($obj);
+	}
 
 }
 

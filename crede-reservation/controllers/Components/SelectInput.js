@@ -8,6 +8,7 @@ function SelectInput(domId){
 //heritage
 SelectInput.prototype = Object.create(Component.prototype);
 $SelectInput = SelectInput.prototype;
+$SelectInput.constructor = SelectInput;
 //properties
 this.select = null;
 this.search = null;

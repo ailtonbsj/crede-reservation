@@ -6,6 +6,7 @@ function IntegerInput(domId) {
 //heritage
 IntegerInput.prototype = Object.create(MaskedInput.prototype);
 $IntegerInput = IntegerInput.prototype;
+$IntegerInput.constructor = IntegerInput;
 //methods
 $IntegerInput.isValid = function(){
 	if(IntegerInput.isInteger(this.getValue())) return true;

@@ -35,6 +35,7 @@ class ModuleLoader extends Storage {
       $formated = str_replace('_', '', $modulePermission->module);
       if($modulePermission->r) include "views/{$formated}-table.html";
       if($modulePermission->c) include "views/{$formated}-form.html";
+      if($modulePermission->c) include "views/{$formated}-detail.php";
     }
   }
 

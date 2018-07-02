@@ -7,6 +7,7 @@ function BooleanToggle(domId){
 //heritage
 BooleanToggle.prototype = Object.create(Component.prototype);
 $BooleanToggle = BooleanToggle.prototype;
+$BooleanToggle.constructor = BooleanToggle;
 //properties
 $BooleanToggle.name = null;
 //methods

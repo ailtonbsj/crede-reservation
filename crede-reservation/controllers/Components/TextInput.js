@@ -6,6 +6,7 @@ function TextInput(domId){
 //heritage
 TextInput.prototype = Object.create(Component.prototype);
 $TextInput = TextInput.prototype;
+$TextInput.constructor = TextInput;
 //properties
 $TextInput.defaultValue = '';
 //methods

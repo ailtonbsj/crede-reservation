@@ -11,6 +11,9 @@ function Activities(){
 	this.components['owner'] = new DynamicSelect(this.createFormId('owner'),'users', function(item){
 		return [item.name, item.name];
 	});
+
+	this.transformColumn['inittime'] = 'as-brazildatetime';
+	this.transformColumn['finaltime'] = 'as-brazildatetime';
 }
 //heritage
 Activities.prototype = Object.create(Module.prototype);

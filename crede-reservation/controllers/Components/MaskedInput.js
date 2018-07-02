@@ -7,6 +7,7 @@ function MaskedInput(domId, maskObj) {
 //heritage
 MaskedInput.prototype = Object.create(Component.prototype);
 $MaskedInput = MaskedInput.prototype;
+$MaskedInput.constructor = MaskedInput;
 //properties
 $MaskedInput.iMask = null;
 $MaskedInput.name = null;

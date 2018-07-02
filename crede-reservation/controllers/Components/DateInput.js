@@ -6,3 +6,5 @@ function DateInput(domId) {
 }
 //heritage
 DateInput.prototype = Object.create(DateTimeInput.prototype);
+$DateInput = DateInput.prototype;
+$DateInput.constructor = DateInput;
