@@ -20,6 +20,7 @@ abstract class Config {
        'categories' => 'standard',
        'equipments' => 'standard',
        'equipments_activities' => 'inner',
+       'equipments_my_activities' => 'inner',
        'places' => 'standard'
 	);
 }

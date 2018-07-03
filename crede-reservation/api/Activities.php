@@ -10,7 +10,7 @@ use Orkidea\Core\Authenticator;
 class Activities extends Module {
 
 	public $tableName = 'activities';
-	public $orderBy = 'id';
+	public $orderBy = 'inittime ASC';
 	public $moduleName = 'activities';
 
 	function listAll($isPrintable = false){
@@ -21,6 +21,7 @@ SELECT
 	places.name AS place, activities.owner
 FROM public.activities
 INNER JOIN places ON activities.place = places.id
+ORDER BY inittime DESC
 EOF;
 		$this->listQuery($sql,[], $isPrintable);
 	}
@@ -39,15 +40,6 @@ EOF;
 			'data' => $this->listQuery($sql,$obj, false)[0]
 		));
 	}
-
-	function __construct($obj){
-		$this->auth = Authenticator::hasAuthority();
-		if($obj->action == 'insertItem') {
-			$obj->obj['owner'] = $this->auth;
-		}
-		parent::__construct($obj);
-	}
-
 }
 
  ?>

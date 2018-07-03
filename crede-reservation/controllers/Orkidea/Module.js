@@ -62,6 +62,8 @@ $Module.loadDataTable = function(){
 			var tableview = $('#table-'+self.moduleName+' tbody');
 			tableview.empty();
 			res.map(function(item){
+				if($('#row-'+self.moduleName)[0] == undefined)
+					console.log('NOT FOUND IN DOM: '+'#row-'+self.moduleName);
 				var tmpRow = $('#row-'+self.moduleName)[0].content.cloneNode(true);
 				Object.keys(item).map(function(column){
 					var columnDom = $(tmpRow).find('.colunm-'+column+'-'+self.moduleName)[0];
@@ -137,7 +139,7 @@ $Module.clearFormView = function(){
 		});
 	}
 	$('#form-submit-'+this.moduleName).html('Adicionar');
-	$('#form-title-'+this.moduleName)[0].innerHTML = 'New '+Useful.convertToCamelCase(this.moduleName, ' ');
+	$('#form-title-'+this.moduleName)[0].innerHTML = '[ Insert ] '+Useful.convertToCamelCase(this.moduleName, ' ');
 	this.modeForm = 'insert';
 
 	// var pKs = self.serialToObject(this.getAttribute('data-id'));
@@ -186,7 +188,7 @@ $Module.loadFormView = function(serialPrimary){
 		});
 	}
 	$('#form-submit-'+this.moduleName).html('Atualizar');
-	$('#form-title-'+this.moduleName)[0].innerHTML = self.moduleName;
+	$('#form-title-'+this.moduleName)[0].innerHTML = '[ Update ] ' + Useful.convertToCamelCase(self.moduleName, ' ');
 	this.modeForm = 'update';
 }
 $Module.loadDetailView = function(serialPrimary){

@@ -53,6 +53,10 @@ switch ($request) {
         include './EquipmentsActivities.php';
         new EquipmentsActivities((object) $_POST);
         break;
+    case 'equipments_my_activities':
+        include './EquipmentsMyActivities.php';
+        new EquipmentsMyActivities((object) $_POST);
+        break;
     case 'modules':
         include './Orkidea/Module.php';
         \Orkidea\Core\Module::getModules();

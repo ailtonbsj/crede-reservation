@@ -12,7 +12,7 @@ class EquipmentsActivities extends Module {
 	public $orderBy = 'activity';
 	public $moduleName = 'equipments_activities';
 	public $primaryKeysName = ['equipment','activity'];
-	public $filteredBy = ['activity' => '14'];
+	public $filteredBy = ['activity' => ''];
 
 	function __construct($obj){
 		$this->filteredBy['activity'] = $obj->filteredBy['activity'];
