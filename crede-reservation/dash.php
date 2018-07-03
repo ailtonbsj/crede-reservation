@@ -26,6 +26,9 @@ $moduleLoader = new ModuleLoader();
   <link rel="stylesheet" href="./lib/bootstrap-toggle/css/bootstrap-toggle.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="./lib/select2/css/select2.min.css">
+  <!-- Pace -->
+  <script src="./plugins/pace/pace.min.js"></script>
+  <link href="./plugins/pace/pace.min.css" rel="stylesheet" />
 
   <!-- Ionicons -->
   <!-- <link rel="stylesheet" href="../../bower_components/Ionicons/css/ionicons.min.css"> -->
@@ -551,6 +554,8 @@ $moduleLoader->loadControllers();
  ?>
 
  <script type="text/javascript">
+
+ 	$(document).ajaxStart(function() { Pace.restart(); });
 
     new App();
     Module.modules[Object.keys(Module.modules)[0]].showTableView();

@@ -11,6 +11,9 @@ function Module() {
 	else Module.register(Module, this.moduleName, this);
 	var self = this;
 	$('#form-submit-'+self.moduleName).click(function(){ self.validateFormView(); });
+	$('#view-table-'+self.moduleName).append(
+		'<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>'
+	);
 }
 //heritage
 Module.prototype = Object.create(Persistence.prototype);
@@ -57,6 +60,7 @@ $Module.loadTableView = function(){
 }
 $Module.loadDataTable = function(){
 	var self = this;
+	$('#view-table-'+self.moduleName+' .overlay').removeClass('hide');
 	self.listAll(function(res){
 		self.listPermissions(function(permission){
 			var tableview = $('#table-'+self.moduleName+' tbody');
@@ -111,6 +115,7 @@ $Module.loadDataTable = function(){
 				if(self.superModule) Module.showView(self.superModule,'view-detail-'+self.moduleName);
 				else Module.showView(Module,'view-detail-'+self.moduleName);
 			});
+		$('#view-table-'+self.moduleName+' .overlay').addClass('hide');
 		});
 	});	
 }
