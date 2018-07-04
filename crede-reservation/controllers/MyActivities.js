@@ -30,7 +30,7 @@ $MyActivities.components = [];
 $MyActivities.modules = [];
 $MyActivities.views = [];
 $MyActivities.moduleName = 'my_activities';
-$MyActivities.icon = 'fa-calendar';
+$MyActivities.icon = 'fa-calendar-plus-o';
 
 $MyActivities.filteredBy = {};
 

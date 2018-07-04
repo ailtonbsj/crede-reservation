@@ -11,9 +11,9 @@ function Module() {
 	else Module.register(Module, this.moduleName, this);
 	var self = this;
 	$('#form-submit-'+self.moduleName).click(function(){ self.validateFormView(); });
-	$('#view-table-'+self.moduleName).append(
-		'<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>'
-	);
+	var div = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
+	$('#view-table-'+self.moduleName).append(div);
+	$('#view-form-'+self.moduleName).append(div);
 }
 //heritage
 Module.prototype = Object.create(Persistence.prototype);
@@ -155,6 +155,7 @@ $Module.clearFormView = function(){
 	// 		self.modules[mod].showTableView();
 	// 	}
 	// }
+	$('#view-form-'+self.moduleName+' .overlay').addClass('hide');
 }
 $Module.serialToObject = function(serialPrimary){
 	var arrPks = serialPrimary.split(',');
@@ -167,6 +168,7 @@ $Module.serialToObject = function(serialPrimary){
 }
 $Module.loadFormView = function(serialPrimary){
 	var self = this;
+	$('#view-form-'+self.moduleName+' .overlay').removeClass('hide');
 	var ids = self.serialToObject(serialPrimary);
 	var fieldNames = {};
 	Object.assign(fieldNames, self.primaryKeys, self.components);
@@ -185,6 +187,7 @@ $Module.loadFormView = function(serialPrimary){
 				fieldNames[field].setValue(res[field]);
 			});
 		});
+		$('#view-form-'+self.moduleName+' .overlay').addClass('hide');
 	});
 	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().show();
 	else {
