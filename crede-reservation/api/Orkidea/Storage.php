@@ -112,7 +112,7 @@ abstract class Storage {
 	function generateWhere($filter){
 		$keyNames = array_keys($filter);
 		$first = array_shift($keyNames);
-		return 'WHERE ' . array_reduce(
+		return array_reduce(
 			$keyNames,
 			function($v1, $v2){return "$v1 AND $v2 = :$v2";},
 			"$first = :$first"
@@ -122,7 +122,7 @@ abstract class Storage {
 	function listAll($isPrintable = false) {
 		try {
 			$frag = '';
-			if(count($this->filteredBy) > 0) $frag = $this->generateWhere($this->filteredBy);
+			if(count($this->filteredBy) > 0) $frag = 'WHERE ' . $this->generateWhere($this->filteredBy);
 			$sql = "SELECT * FROM {$this->tableName} $frag ORDER BY {$this->orderBy}";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
@@ -154,6 +154,37 @@ abstract class Storage {
 	    } catch (Exception $e) {
 	      if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
 	      return false;
+	    }
+	}
+
+	function hasTimestampChock($filterLabel, $filterValue, $initLabel,
+		$initValue, $finalLabel, $finalValue, $primaryKeys = NULL){
+	    try {
+	      if(strtotime($initValue) > strtotime($finalValue))
+	      	throw new Exception('wrong interval');
+		  $sql = <<<EOFCH
+SELECT * FROM {$this->tableName}
+WHERE $filterLabel = :filterValue AND NOT (
+($initLabel >= :initValue AND $initLabel >= :finalValue) OR
+($finalLabel <= :initValue AND $finalLabel <= :finalValue)	
+)
+EOFCH;
+		  $columns = array(
+	      	'filterValue' => $filterValue,
+	      	'initValue' => $initValue,
+	      	'finalValue' => $finalValue
+	      );
+		  if(isset($primaryKeys)){
+		  	$sql .= 'AND NOT (' . $this->generateWhere($primaryKeys) . ')';
+		  	$columns = array_merge($columns, $primaryKeys);
+		  }
+	      $stm = $this->connection->prepare($sql);
+	      $stm->execute($columns);
+	      //echo $stm->debugDumpParams();
+	      $resp = $stm->fetchAll(PDO::FETCH_OBJ);
+	      return $resp;
+	    } catch (Exception $e) {
+	      return $e->getMessage();
 	    }
 	}
 
@@ -243,6 +274,7 @@ abstract class Storage {
 	// 	// if($isPrintable) echo json_encode($resp);
 	// 	// return $resp;
 	// }
+
 }
 
  ?>

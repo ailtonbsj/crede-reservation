@@ -102,7 +102,6 @@ $Module.loadDataTable = function(){
 				self.loadDetailView(this.getAttribute('data-id'));
 
 				var pKs = self.serialToObject(this.getAttribute('data-id'));
-				console.log(pKs);
 				for(mod in self.modules){
 					for(key in pKs){
 						var filter = self.modules[mod].filteredBy[key];
@@ -236,7 +235,6 @@ $Module.validateFormView = function(){
 			data[primaryKey] = $('#form-'+primaryKey+'-'+self.moduleName).val();
 		});
 		//Object.keys(self.primaryKeys).map
-		console.log(data);
 		this.updateItem(data, function(res){
 			if(res){
 				self.loadDataTable();
@@ -251,11 +249,9 @@ $Module.validateFormView = function(){
 			});
 		}
 		this.insertItem(data, function(res){
-			if(res){
-				self.loadDataTable();
-				if(self.superModule) Module.showView(self.superModule,'view-table-'+self.moduleName);
-				else Module.showView(Module,'view-table-'+self.moduleName);
-			} else alert('Cant insert this item!');
+			self.loadDataTable();
+			if(self.superModule) Module.showView(self.superModule,'view-table-'+self.moduleName);
+			else Module.showView(Module,'view-table-'+self.moduleName);
 		});
 	}
 }

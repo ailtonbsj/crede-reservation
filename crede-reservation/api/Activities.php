@@ -40,6 +40,31 @@ EOF;
 			'data' => $this->listQuery($sql,$obj, false)[0]
 		));
 	}
+
+	function insertItem($data, $isPrintable = false){
+		$result = $this->hasTimestampChock('place', $data['place'],
+			'inittime', $data['inittime'], 'finaltime', $data['finaltime']);
+		if(is_array($result)){
+			if(count($result) == 0){
+				parent::insertItem($data, $isPrintable);
+			} else {
+				echo json_encode(array('status' => 'shock', 'data' => $result));
+			}
+		} else echo json_encode(array('status' => 'error', 'data' => $result));
+	}
+
+	function updateItem($data, $isPrintable = false){
+		$result = $this->hasTimestampChock('place', $data['place'],
+			'inittime', $data['inittime'], 'finaltime', $data['finaltime'],
+			array('id' => $data['id']));
+		if(is_array($result)){
+			if(count($result) == 0){
+				parent::updateItem($data, $isPrintable);
+			} else {
+				echo json_encode(array('status' => 'shock', 'data' => $result));
+			}
+		} else echo json_encode(array('status' => 'error', 'data' => $result));
+	}
 }
 
  ?>
