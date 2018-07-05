@@ -27,7 +27,7 @@
 <?php
 
   if($modulePermission->r) include "views/permissions-table.html";
-  if($modulePermission->c) include "views/permissions-form.html";
+  if($modulePermission->r) include "views/permissions-form.html";
 
 ?>
           </td>

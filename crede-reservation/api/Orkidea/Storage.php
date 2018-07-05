@@ -158,12 +158,14 @@ abstract class Storage {
 	}
 
 	function hasTimestampChock($filterLabel, $filterValue, $initLabel,
-		$initValue, $finalLabel, $finalValue, $primaryKeys = NULL){
+		$initValue, $finalLabel, $finalValue, $primaryKeys = NULL, $innerJoin = ''){
+
 	    try {
 	      if(strtotime($initValue) > strtotime($finalValue))
 	      	throw new Exception('wrong interval');
 		  $sql = <<<EOFCH
 SELECT * FROM {$this->tableName}
+$innerJoin
 WHERE $filterLabel = :filterValue AND NOT (
 ($initLabel >= :initValue AND $initLabel >= :finalValue) OR
 ($finalLabel <= :initValue AND $finalLabel <= :finalValue)	
@@ -216,7 +218,7 @@ EOFCH;
 
 	// function searchFilter() {}
 
-	function listItem($ids, $isPrintable = false) {
+	public function listItem($ids, $isPrintable = false) {
 		try {
 			$keyNames = $this->primaryKeysName;
 			$first = array_shift($keyNames);

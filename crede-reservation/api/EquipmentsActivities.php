@@ -33,6 +33,31 @@ WHERE activity = :activity
 EOF;
 		$this->listQuery($sql,$this->filteredBy, $isPrintable);
 	}
+
+	function insertItem($data, $isPrintable = false){
+		try {
+			$resp = $this->listQuery(
+				'SELECT * FROM activities WHERE id = :activity',
+				array('activity' => $data['activity'])
+			);
+			$result = $this->hasTimestampChock('equipment', $data['equipment'],
+				'inittime', $resp[0]->inittime, 'finaltime', $resp[0]->finaltime,
+				NULL,'INNER JOIN activities ON activity = activities.id'
+			);
+			if(is_array($result)){
+				if(count($result) == 0){
+					parent::insertItem($data, $isPrintable);
+				} else {
+					echo json_encode(array('status' => 'shock', 'data' => $result));
+				}
+			} else echo json_encode(array('status' => 'error', 'data' => $result));
+		} catch(Exception $e){
+			if($isPrintable) array('status' => 'error', 'data' => $e->getMessage());
+	      	return false;
+		}
+	}
+
+
 }
 
  ?>

@@ -1,8 +1,8 @@
 //construct
 function MaskedInput(domId, maskObj) {
-	if($(domId)[0] == undefined) throw 'Component not found in View!';
 	this.name = domId;
-	this.iMask = new IMask($(domId)[0], maskObj);
+	if($(domId)[0] == undefined) console.log('ALERT: Component not found in View!');
+	else this.iMask = new IMask($(domId)[0], maskObj);
 }
 //heritage
 MaskedInput.prototype = Object.create(Component.prototype);

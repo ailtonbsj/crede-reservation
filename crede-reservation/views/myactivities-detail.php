@@ -33,7 +33,7 @@
 <?php
 
   if($modulePermission->r) include "views/equipmentsmyactivities-table.html";
-  if($modulePermission->c) include "views/equipmentsmyactivities-form.html";
+  if($modulePermission->r) include "views/equipmentsmyactivities-form.html";
 
 ?>
           </td>

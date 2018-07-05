@@ -139,6 +139,7 @@ $Module.clearFormView = function(){
 	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().hide();
 	else {
 		Object.keys(self.primaryKeys).map(function(primaryKey){
+			console.log('#form-'+primaryKey+'-'+self.moduleName);
 			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = false;
 		});
 	}
