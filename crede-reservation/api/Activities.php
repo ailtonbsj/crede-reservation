@@ -18,7 +18,7 @@ class Activities extends Module {
 SELECT
 	activities.id, description,
 	inittime, finaltime,
-	places.name AS place, activities.owner
+	places.name AS place, places.owner AS placeown, activities.owner
 FROM public.activities
 INNER JOIN places ON activities.place = places.id
 ORDER BY inittime DESC
@@ -30,7 +30,8 @@ EOF;
 		$sql = <<<EOF
 SELECT
 	activities.*,
-	places.name AS placename
+	places.name AS placename,
+	places.owner AS placeown
 FROM activities
 INNER JOIN places ON activities.place = places.id
 WHERE activities.id = :id

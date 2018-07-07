@@ -25,6 +25,10 @@ switch ($request) {
         include './Permissions.php';
         new Permissions((object) $_POST);
         break;
+    case 'modules':
+        include './Orkidea/Module.php';
+        \Orkidea\Core\Module::getModules();
+        break;
     case 'categories':
         include './Categories.php';
         new Categories((object) $_POST);
@@ -57,9 +61,10 @@ switch ($request) {
         include './EquipmentsMyActivities.php';
         new EquipmentsMyActivities((object) $_POST);
         break;
-    case 'modules':
-        include './Orkidea/Module.php';
-        \Orkidea\Core\Module::getModules();
+    case 'schedule':
+        include './Schedule.php';
+        new Schedule((object) $_POST);
+        break;
 }
 
  ?>

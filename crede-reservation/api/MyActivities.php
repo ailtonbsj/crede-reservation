@@ -72,7 +72,7 @@ class MyActivities extends Activities {
 SELECT
 	activities.id, description,
 	inittime, finaltime,
-	places.name AS place, activities.owner
+	places.name AS place, places.owner AS placeown, activities.owner
 FROM public.activities
 INNER JOIN places ON activities.place = places.id
 WHERE activities.owner = :owner

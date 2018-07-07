@@ -66,3 +66,8 @@ mkdir crede-reservation/lib/select2/js/i18n/ -p
 cp node_modules/select2/dist/css/*min* crede-reservation/lib/select2/css/
 cp node_modules/select2/dist/js/*min* crede-reservation/lib/select2/js/
 cp node_modules/select2/dist/js/i18n/pt-BR.js crede-reservation/lib/select2/js/i18n/
+
+#Orkidea schedule
+mkdir crede-reservation/lib/orkidea-schedule/ -p
+cp node_modules/orkidea-schedule/schedule.min.js crede-reservation/lib/orkidea-schedule/
+cp node_modules/orkidea-schedule/schedule.min.css crede-reservation/lib/orkidea-schedule/

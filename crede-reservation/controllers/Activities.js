@@ -6,7 +6,7 @@ function Activities(){
 	this.components['finaltime'] = new DateTimeInput(this.createFormId('finaltime'));
 	//this.components['place'] =  new TextInput(this.createFormId('place'));
 	this.components['place'] = new DynamicSelect(this.createFormId('place'),'places', function(item){
-		return [item.name, item.id];
+		return [item.name+' ( '+item.owner+' )', item.id];
 	});
 	this.components['owner'] = new DynamicSelect(this.createFormId('owner'),'users', function(item){
 		return [item.name, item.name];

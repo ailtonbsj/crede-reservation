@@ -21,7 +21,8 @@ abstract class Config {
        'equipments' => 'standard',
        'equipments_activities' => 'inner',
        'equipments_my_activities' => 'inner',
-       'places' => 'standard'
+       'places' => 'standard',
+       'schedule' => 'standard'
 	);
 }
 
