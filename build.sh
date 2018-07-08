@@ -18,10 +18,6 @@ mkdir crede-reservation/lib/font-awesome/fonts/ -p
 cp node_modules/font-awesome/css/*.min* crede-reservation/lib/font-awesome/css/
 cp node_modules/font-awesome/fonts/* crede-reservation/lib/font-awesome/fonts/
 
-# #ionicons
-# mkdir crede-reservation/lib/ionicons/css/ -p
-# cp node_modules/ionicons/dist/css/*min* crede-reservation/lib/ionicons/css/
-
 #icheck
 mkdir crede-reservation/lib/icheck/skins/square/ -p
 cp node_modules/icheck/skins/square/blue* crede-reservation/lib/icheck/skins/square/
@@ -35,7 +31,7 @@ cp node_modules/toastr/build/*.min* crede-reservation/lib/toastr/
 mkdir crede-reservation/lib/fastclick/ -p
 cp node_modules/fastclick/lib/fastclick.js crede-reservation/lib/fastclick/
 
-#jquery-slimscrol
+#jquery-slimscroll
 mkdir crede-reservation/lib/jquery-slimscroll/ -p
 cp node_modules/jquery-slimscroll/*.min* crede-reservation/lib/jquery-slimscroll/
 
@@ -48,7 +44,7 @@ mkdir crede-reservation/lib/moment/ -p
 cp node_modules/moment/locale/pt-br.js crede-reservation/lib/moment/
 cp node_modules/moment/min/moment.min.js crede-reservation/lib/moment/
 
-#bootstrap-datetimepicker
+#eonasdan-bootstrap-datetimepicker
 mkdir crede-reservation/lib/bootstrap-datetimepicker/css/ -p
 mkdir crede-reservation/lib/bootstrap-datetimepicker/js/ -p
 cp node_modules/eonasdan-bootstrap-datetimepicker/build/css/*min* crede-reservation/lib/bootstrap-datetimepicker/css/
