@@ -18,9 +18,9 @@
     <table id="table-users" class="table table-bordered">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Pass</th>
-          <th>Fullname</th>
+          <th><?= $S['name'] ?></th>
+          <th><?= $S['PlaceHolderPass'] ?></th>
+          <th><?= $S['fullname'] ?></th>
           <th id="label-refresh-users" style="width: 14px"></th>
           <th id="label-remove-users" style="width: 14px"></th>
           <th id="label-detail-users" style="width: 14px"></th>

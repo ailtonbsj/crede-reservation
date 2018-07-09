@@ -14,13 +14,13 @@
     <table id="detail-users" class="table table-bordered">
       <tbody>
         <tr>
-          <th style="width: 14px;">Name</th><td id="detail-name-users"></td>
+          <th style="width: 14px;"><?= $S['name'] ?></th><td id="detail-name-users"></td>
         </tr>
         <tr>
-          <th>Pass</th><td id="detail-pass-users"></td>
+          <th><?= $S['PlaceHolderPass'] ?></th><td id="detail-pass-users"></td>
         </tr>
         <tr>
-          <th>Fullname</th><td id="detail-fullname-users"></td>
+          <th><?= $S['fullname'] ?></th><td id="detail-fullname-users"></td>
         </tr>
         <tr>
           <td colspan="2">

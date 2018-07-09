@@ -44,6 +44,15 @@ $S = [
 	'final' => 'End Time',
 	'owner' => 'Owner',
 	'place' => 'Place',
+	'category' => 'Category',
+	'name' => 'Name',
+	'fullname' => 'Full name',
+	'priority' => 'Priority',
+	'module' => 'Module',
+	'insertData' => 'Insert Data',
+	'showData' => 'Visualize Data',
+	'modifyData' => 'Modify Data',
+	'removeData' => 'Remove Data'
 
 ];
 

@@ -18,9 +18,9 @@
     <table id="table-places" class="table table-bordered">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Owner</th>
+          <th><?= $S['id'] ?></th>
+          <th><?= $S['name'] ?></th>
+          <th><?= $S['owner'] ?></th>
           <th id="label-refresh-places" style="width: 14px"></th>
           <th id="label-remove-places" style="width: 14px"></th>
         </tr>

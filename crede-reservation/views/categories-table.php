@@ -18,8 +18,8 @@
     <table id="table-categories" class="table table-bordered">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
+          <th><?= $S['id'] ?></th>
+          <th><?= $S['name'] ?></th>
           <th id="label-refresh-categories" style="width: 14px"></th>
           <th id="label-remove-categories" style="width: 14px"></th>
         </tr>

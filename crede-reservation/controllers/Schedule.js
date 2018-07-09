@@ -13,12 +13,13 @@ $Schedule.icon = 'fa-sliders';
 
 $Schedule.loadDataTable = function(){
 	var self = this;
+
 	self.listAll(function(res){
 		if(res){
 			var datasource = res.map(function(it){
 				return {
-					inittime: it.inittime,
-					finaltime: it.finaltime,
+					inittime: self.transformField('inittime',it.inittime),
+					finaltime: self.transformField('finaltime',it.finaltime),
 					text: it.description,
 					yAxis: it.place
 				}

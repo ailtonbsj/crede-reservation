@@ -44,6 +44,15 @@ $S = [
 	'final' => 'Término',
 	'owner' => 'Proprietário',
 	'place' => 'Local',
+	'category' => 'Categoria',
+	'name' => 'Nome',
+	'fullname' => 'Nome Completo',
+	'priority' => 'Prioridade',
+	'module' => 'Módulo',
+	'insertData' => 'Inserir Dados',
+	'showData' => 'Visualizar Dados',
+	'modifyData' => 'Modificar Dados',
+	'removeData' => 'Remover Dados'
 
 ];
 

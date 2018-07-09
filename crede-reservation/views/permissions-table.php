@@ -18,20 +18,18 @@
     <table id="table-permissions" class="table table-bordered">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Name</th>
+          <th><?= $S['module'] ?></th>
           <th>C</th>
           <th>R</th>
           <th>U</th>
           <th>D</th>
-          <th>priority</th>
+          <th><?= $S['priority'] ?></th>
           <th id="label-refresh-permissions" style="width: 14px"></th>
           <th id="label-remove-permissions" style="width: 14px"></th>
         </tr>
       </thead>
       <template id="row-permissions">
         <tr>
-          <td class="colunm-username-permissions"></td>
           <td class="colunm-module-permissions"></td>
           <td class="colunm-c-permissions"></td>
           <td class="colunm-r-permissions"></td>

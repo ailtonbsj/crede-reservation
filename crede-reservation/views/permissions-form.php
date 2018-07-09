@@ -10,14 +10,14 @@
   <div class="box-body">
     <!-- form-group -->
     <div class="form-group hide">
-      <label for="form-username-permissions">Username:</label>
+      <label for="form-username-permissions"><?= $S['PlaceHolderLogin'] ?>:</label>
       <input type="text" class="form-control" id="form-username-permissions">
     </div>
     <!-- /.form group -->
 
     <!-- form-group -->
     <div class="form-group">
-      <label>Module:</label>
+      <label><?= $S['module'] ?>:</label>
       <select id="form-module-permissions" class="form-control" style="width: 100%;">
       </select>
     </div>
@@ -25,7 +25,7 @@
 
     <!-- form-group -->
     <div class="form-group">
-      <label for="form-priority-permissions">Priority:</label>
+      <label for="form-priority-permissions"><?= $S['priority'] ?>:</label>
       <input type="text" class="form-control" id="form-priority-permissions" placeholder="">
     </div>
     <!-- /.form group -->
@@ -34,7 +34,7 @@
     <div class="form-group">
       <label class="checkbox-inline">
         <input id="form-c-permissions" type="checkbox" data-toggle="toggle">
-        Insert data
+        <?= $S['insertData'] ?>
       </label>
     </div>
     <!-- /.form group -->
@@ -43,7 +43,7 @@
     <div class="form-group">
       <label class="checkbox-inline">
         <input id="form-r-permissions" type="checkbox" data-toggle="toggle">
-        Visualize data
+        <?= $S['showData'] ?>
       </label>
     </div>
     <!-- /.form group -->
@@ -52,7 +52,7 @@
     <div class="form-group">
       <label class="checkbox-inline">
         <input id="form-u-permissions" type="checkbox" data-toggle="toggle">
-        Modify data
+        <?= $S['modifyData'] ?>
       </label>
     </div>
     <!-- /.form group -->
@@ -61,7 +61,7 @@
     <div class="form-group">
       <label class="checkbox-inline">
         <input id="form-d-permissions" type="checkbox" data-toggle="toggle">
-        Remove data
+        <?= $S['removeData'] ?>
       </label>
     </div>
     <!-- /.form group -->

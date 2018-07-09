@@ -18,10 +18,10 @@
     <table id="table-equipments" class="table table-bordered">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Category</th>
-          <th>Name</th>
-          <th>Owner</th>
+          <th><?= $S['id'] ?></th>
+          <th><?= $S['category'] ?></th>
+          <th><?= $S['name'] ?></th>
+          <th><?= $S['owner'] ?></th>
           <th id="label-refresh-equipments" style="width: 14px"></th>
           <th id="label-remove-equipments" style="width: 14px"></th>
         </tr>

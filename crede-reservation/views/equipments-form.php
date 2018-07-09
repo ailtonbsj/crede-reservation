@@ -10,14 +10,14 @@
   <div class="box-body">
     <!-- form-group -->
     <div class="form-group">
-      <label for="form-id-equipments">Id:</label>
+      <label for="form-id-equipments"><?= $S['id'] ?>:</label>
       <input type="text" class="form-control" id="form-id-equipments" disabled>
     </div>
     <!-- /.form group -->
 
     <!-- form-group -->
     <div class="form-group">
-      <label>Category:</label>
+      <label><?= $S['category'] ?>:</label>
       <select id="form-category-equipments" class="form-control" style="width: 100%;">
       </select>
     </div>
@@ -25,14 +25,14 @@
 
         <!-- form-group -->
     <div class="form-group">
-      <label for="form-name-equipments">Name:</label>
+      <label for="form-name-equipments"><?= $S['name'] ?>:</label>
       <input type="text" class="form-control" id="form-name-equipments" placeholder="">
     </div>
     <!-- /.form group -->
 
         <!-- form-group -->
     <div class="form-group">
-      <label for="form-owner-equipments">Owner:</label>
+      <label for="form-owner-equipments"><?= $S['owner'] ?>:</label>
       <input type="text" class="form-control" id="form-owner-equipments" placeholder="">
     </div>
     <!-- /.form group -->

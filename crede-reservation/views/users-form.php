@@ -11,21 +11,21 @@
     
     <!-- form-group -->
     <div class="form-group">
-      <label for="form-name-users">Name:</label>
+      <label for="form-name-users"><?= $S['name'] ?>:</label>
       <input type="text" class="form-control" id="form-name-users" placeholder="">
     </div>
     <!-- /.form group -->
 
         <!-- form-group -->
     <div class="form-group">
-      <label for="form-pass-users">Pass:</label>
+      <label for="form-pass-users"><?= $S['PlaceHolderPass'] ?>:</label>
       <input type="text" class="form-control" id="form-pass-users" placeholder="">
     </div>
     <!-- /.form group -->
 
         <!-- form-group -->
     <div class="form-group">
-      <label for="form-fullname-users">Full name:</label>
+      <label for="form-fullname-users"><?= $S['fullname'] ?>:</label>
       <input type="text" class="form-control" id="form-fullname-users" placeholder="">
     </div>
     <!-- /.form group -->

@@ -10,14 +10,14 @@
   <div class="box-body">
     <!-- form-group -->
     <div class="form-group">
-      <label for="form-id-categories">Id:</label>
+      <label for="form-id-categories"><?= $S['id'] ?>:</label>
       <input type="text" class="form-control" id="form-id-categories" disabled>
     </div>
     <!-- /.form group -->
     
     <!-- form-group -->
     <div class="form-group">
-      <label for="form-name-categories">Name:</label>
+      <label for="form-name-categories"><?= $S['name'] ?>:</label>
       <input type="text" class="form-control" id="form-name-categories" placeholder="">
     </div>
     <!-- /.form group -->
