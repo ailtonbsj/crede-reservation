@@ -10,7 +10,7 @@
   <div class="box-body">
     <!-- form-group -->
     <div class="form-group">
-      <label>Equipment:</label>
+      <label><?= $S['equipment'] ?>:</label>
       <select id="form-equipment-equipments_my_activities" class="form-control" style="width: 100%;">
       </select>
     </div>

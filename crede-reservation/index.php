@@ -1,9 +1,29 @@
+<?php
+
+$baseUrl = '/crede-reservation/';
+$request = explode('?', $_SERVER['REQUEST_URI'], 2);
+$request = str_replace($baseUrl, '', $request[0]);
+
+session_start();
+switch ($request) {
+  case 'en':
+    $_SESSION['i18n'] = 'en';
+    break;
+  default:
+    $_SESSION['i18n'] = 'pt-br';
+}
+
+include 'strings.php';
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Crede Reservation | Log in</title>
+  <title>
+    <?= $S['MainProjectName'] . ' ' . $S['ProjectName'] ?> | <?= $S['LogIn'] ?>
+  </title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -37,32 +57,32 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="index.html"><b>Crede</b>Reservation</a>
+    <a href="index.html"><b><?= $S['MainProjectName'] ?></b><?= $S['ProjectName'] ?></a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg"><?= $S['MsgLogIn'] ?></p>
 
     <form>
       <div class="form-group has-feedback">
-        <input id="user" type="text" class="form-control" placeholder="Username">
+        <input id="user" type="text" class="form-control" placeholder="<?= $S['PlaceHolderLogin'] ?>">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
       </div>
       <div class="form-group has-feedback">
-        <input id="pass" type="password" class="form-control" placeholder="Password">
+        <input id="pass" type="password" class="form-control" placeholder="<?= $S['PlaceHolderPass'] ?>">
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
       </div>
       <div class="row">
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> Remember Me
+              <input type="checkbox"> <?= $S['RememberMe'] ?>
             </label>
           </div>
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="button" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="button" class="btn btn-primary btn-block btn-flat"><?= $S['SignIn'] ?></button>
         </div>
         <!-- /.col -->
       </div>
@@ -118,7 +138,7 @@
         }, function(res){
         	console.log(res);
         	if(JSON.parse(res)['status'] == 'success') window.location = 'dash.php';
-        	else toastr["error"]("Login inválido!", "Error");
+        	else toastr["error"]("<?= $S['InvalidLogIn'] ?>", "<?= $S['Error'] ?>");
         });
     });
 

@@ -26,8 +26,8 @@
           <td colspan="2">
 <?php
 
-  if($modulePermission->r) include "views/permissions-table.html";
-  if($modulePermission->r) include "views/permissions-form.html";
+  if($modulePermission->r) include "views/permissions-table.php";
+  if($modulePermission->r) include "views/permissions-form.php";
 
 ?>
           </td>

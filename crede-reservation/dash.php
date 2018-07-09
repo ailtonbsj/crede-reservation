@@ -2,6 +2,8 @@
 
 namespace Orkidea\Core;
 
+session_start();
+include 'strings.php';
 include 'api/Orkidea/ModuleLoader.php';
 
 $moduleLoader = new ModuleLoader();
@@ -12,7 +14,7 @@ $moduleLoader = new ModuleLoader();
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Crede Reservation</title>
+  <title><?= $S['MainProjectName'] . ' ' . $S['ProjectName'] ?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -81,9 +83,9 @@ $moduleLoader = new ModuleLoader();
     <!-- Logo -->
     <a href="dash.php" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>C</b>R</span>
+      <span class="logo-mini"><b><?= $S['MainProjectName'][0] ?></b><?= $S['ProjectName'][0] ?></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Crede</b>Reservation </span>
+      <span class="logo-lg"><b><?= $S['MainProjectName'] ?></b><?= $S['ProjectName'] ?> </span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -107,10 +109,10 @@ $moduleLoader = new ModuleLoader();
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-          	<a href="#" id="btn-logout" title="Logout"><i class="fa fa-power-off"></i></a>
+          	<a href="#" id="btn-logout" title="<?= $S['Logout'] ?>"><i class="fa fa-power-off"></i></a>
           </li>
           <li>
-            <a href="#" data-toggle="control-sidebar" title="Themes"><i class="fa fa-gears"></i></a>
+            <a href="#" data-toggle="control-sidebar" title="<?= $S['Themes'] ?>"><i class="fa fa-gears"></i></a>
           </li>
         </ul>
       </div>
@@ -193,10 +195,9 @@ $moduleLoader->loadViews();
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 0.0.1
+      <b><?= $S['Version'] ?></b> 0.0.1
     </div>
-    <strong>Copyright &copy; 2018-2019 <a href="https://ailtonbsj.github.io">ailton.b.s.j</a>. </strong> All rights
-    reserved.
+    <strong>Copyright &copy; 2018-2019 <a href="https://ailtonbsj.github.io">ailton.b.s.j</a>. </strong> <?= $S['AllRights'] ?>.
   </footer>
 
   <!-- Control Sidebar -->
@@ -211,7 +212,10 @@ $moduleLoader->loadViews();
   <div class="control-sidebar-bg"></div>
 </div>
 <!-- ./wrapper -->
-
+<!-- orkidea i18n -->
+<script type="text/javascript">
+  var S = JSON.parse('<?= json_encode($S) ?>');
+</script>
 <!-- jQuery 3 -->
 <script src="./lib/jquery/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

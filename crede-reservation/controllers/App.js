@@ -7,12 +7,12 @@ $App = App.prototype;
 //methods
 $App.generateMenu = function() {
 	var mainMenu = $('#main-menu');
-	mainMenu.append('<li class="header">MAIN NAVIGATION</li>');
+	mainMenu.append('<li class="header">'+S.MainNav+'</li>');
 	var tmpItemMenu = $($('#item-menu')[0].content);
 	for(i in Module.modules){
 		var itemMenu = tmpItemMenu.clone();
 		itemMenu.find('a').attr('data-module', Module.modules[i].moduleName).addClass('action-item-menu');
-		itemMenu.find('span').html(Useful.convertToCamelCase(Module.modules[i].moduleName, ' '));
+		itemMenu.find('span').html(S[Module.modules[i].moduleName]);
 		itemMenu.find('i').addClass(Module.modules[i].icon);
 		mainMenu.append(itemMenu);
 	}
@@ -24,7 +24,7 @@ $App.generateMenu = function() {
 $App.generateBtnLogout = function(){
 	$('#btn-logout').click(function(){
       $.get('api/logout', function(res){
-        if(JSON.parse(res)['status'] == 'success') window.location = 'index.html';
+        if(JSON.parse(res)['status'] == 'success') window.location = 'index.php';
       });
     });
 }

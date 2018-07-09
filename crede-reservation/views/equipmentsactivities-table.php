@@ -17,8 +17,8 @@
     <table id="table-equipments_activities" class="table table-bordered">
       <thead>
         <tr>
-          <th style="width: 14px">Id</th>
-          <th>Equipment</th>
+          <th style="width: 14px"><?= $S['id'] ?></th>
+          <th><?= $S['equipments'] ?></th>
           <th id="label-refresh-equipments_activities" style="width: 14px"></th>
           <th id="label-remove-equipments_activities" style="width: 14px"></th>
         </tr>

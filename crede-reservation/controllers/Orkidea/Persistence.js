@@ -18,8 +18,8 @@ $Persistence.insertItem = function (dataOfColumns, callback) {
       if(raw.status == 'success') callback(raw.data);
       else if(raw.status == 'shock'){
         var msg = raw.data.reduce(function(acc,item){
-          return acc + item.description + "\n( "+item.inittime+' as '+ item.finaltime +" ) \n";
-        },"Houve choque com os seguintes itens:\n\n");
+          return acc + item.description + "\n( "+item.inittime+S.CrashMsgPrep+ item.finaltime +" ) \n";
+        }, S.CrashMsg+"\n\n");
         alert(msg);
       }
       else alert(raw.data);
@@ -35,8 +35,8 @@ $Persistence.updateItem = function (dataOfColumns, callback) {
       if(raw.status == 'success') callback(raw.data);
       else if(raw.status == 'shock'){
         var msg = raw.data.reduce(function(acc,item){
-          return acc + item.description + "\n( "+item.inittime+' as '+ item.finaltime +" ) \n";
-        },"Houve choque com os seguintes itens:\n\n");
+          return acc + item.description + "\n( "+item.inittime+S.CrashMsgPrep+ item.finaltime +" ) \n";
+        },S.CrashMsg+"\n\n");
         alert(msg);
       }
       else alert(raw.data);

@@ -14,6 +14,9 @@ function Module() {
 	var div = '<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>';
 	$('#view-table-'+self.moduleName).append(div);
 	$('#view-form-'+self.moduleName).append(div);
+	$('#btn-add-'+self.moduleName)[0].childNodes[2].nodeValue = ' '+S.InsertItemBtn;
+	$('#view-table-'+self.moduleName+' .box-title').html(S[self.moduleName]);
+	$('#view-detail-'+self.moduleName+' > div > .box-title').text(' [ '+S.Details+' ] '+S[self.moduleName]);
 }
 //heritage
 Module.prototype = Object.create(Persistence.prototype);
@@ -143,8 +146,8 @@ $Module.clearFormView = function(){
 			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = false;
 		});
 	}
-	$('#form-submit-'+this.moduleName).html('Adicionar');
-	$('#form-title-'+this.moduleName)[0].innerHTML = '[ Insert ] '+Useful.convertToCamelCase(this.moduleName, ' ');
+	$('#form-submit-'+this.moduleName).html(S.Insert);
+	$('#form-title-'+this.moduleName)[0].innerHTML = '[ '+ S.Insert +' ] '+S[this.moduleName];
 	this.modeForm = 'insert';
 
 	// var pKs = self.serialToObject(this.getAttribute('data-id'));
@@ -195,8 +198,8 @@ $Module.loadFormView = function(serialPrimary){
 			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = true;
 		});
 	}
-	$('#form-submit-'+this.moduleName).html('Atualizar');
-	$('#form-title-'+this.moduleName)[0].innerHTML = '[ Update ] ' + Useful.convertToCamelCase(self.moduleName, ' ');
+	$('#form-submit-'+this.moduleName).html(S.Update);
+	$('#form-title-'+this.moduleName)[0].innerHTML = '[ '+S.Update+' ] ' + S[self.moduleName];
 	this.modeForm = 'update';
 }
 $Module.loadDetailView = function(serialPrimary){
@@ -215,7 +218,7 @@ $Module.loadDetailView = function(serialPrimary){
 $Module.confirmRemoveItem = function(serialPrimary){
 	var self = this;
 	var ids = self.serialToObject(serialPrimary);
-	if(confirm('Tem certeza?'))
+	if(confirm(S.ConfirmDel))
 		self.removeItem(ids, function(res){
 			res ? self.loadDataTable() : alert('Cant remove this item!');
 		});

@@ -2,6 +2,8 @@
 
 namespace Orkidea\Core;
 
+//session_start();
+//include '../../strings.php';
 include 'api/Orkidea/Authenticator.php';
 
 use PDO;
@@ -42,11 +44,13 @@ class ModuleLoader extends Storage {
   }
 
   function loadViews () {
+    global $S;
     foreach ($this->modules as $modulePermission) {
       if(Config::$modules[$modulePermission->module] == 'standard'){
         $formated = str_replace('_', '', $modulePermission->module);
-        if($modulePermission->r) include "views/{$formated}-table.html";
-        if($modulePermission->c) include "views/{$formated}-form.html";
+
+        if($modulePermission->r) include "views/{$formated}-table.php";
+        if($modulePermission->c) include "views/{$formated}-form.php";
         if($modulePermission->r) include "views/{$formated}-detail.php";
       }
     }

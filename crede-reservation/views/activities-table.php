@@ -14,16 +14,15 @@
 
 
   <div class="box-body" style="overflow-x:auto;">
-    
     <table id="table-activities" class="table table-bordered">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Description</th>
-          <th>Initial Time</th>
-          <th>Final Time</th>
-          <th>Places</th>
-          <th>Owner</th>
+          <th><?= $S['id'] ?></th>
+          <th><?= $S['desc'] ?></th>
+          <th><?= $S['init'] ?></th>
+          <th><?= $S['final'] ?></th>
+          <th><?= $S['place'] ?></th>
+          <th><?= $S['owner'] ?></th>
           <th id="label-refresh-activities" style="width: 14px"></th>
           <th id="label-remove-activities" style="width: 14px"></th>
           <th id="label-detail-activities" style="width: 14px"></th>

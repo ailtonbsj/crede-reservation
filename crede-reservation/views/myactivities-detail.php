@@ -14,26 +14,26 @@
     <table id="detail-my_activities" class="table table-bordered">
       <tbody>
         <tr>
-          <th style="width: 14px;">Description</th><td id="detail-description-my_activities"></td>
+          <th style="width: 14px;"><?= $S['desc'] ?></th><td id="detail-description-my_activities"></td>
         </tr>
         <tr>
-          <th>Initial Time</th><td id="detail-inittime-my_activities"></td>
+          <th><?= $S['init'] ?></th><td id="detail-inittime-my_activities"></td>
         </tr>
         <tr>
-          <th>Final Time</th><td id="detail-finaltime-my_activities"></td>
+          <th><?= $S['final'] ?></th><td id="detail-finaltime-my_activities"></td>
         </tr>
         <tr>
-          <th>Place</th><td id="detail-placename-my_activities"></td>
+          <th><?= $S['place'] ?></th><td id="detail-placename-my_activities"></td>
         </tr>
         <tr>
-          <th>Owner</th><td id="detail-owner-my_activities"></td>
+          <th><?= $S['owner'] ?></th><td id="detail-owner-my_activities"></td>
         </tr>
         <tr>
           <td colspan="2">
 <?php
 
-  if($modulePermission->r) include "views/equipmentsmyactivities-table.html";
-  if($modulePermission->r) include "views/equipmentsmyactivities-form.html";
+  if($modulePermission->r) include "views/equipmentsmyactivities-table.php";
+  if($modulePermission->r) include "views/equipmentsmyactivities-form.php";
 
 ?>
           </td>
