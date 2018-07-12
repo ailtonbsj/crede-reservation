@@ -11,6 +11,7 @@ abstract class Storage {
 	public $connection;
 	public $primaryKeysName = ['id'];
 	public $filteredBy = [];
+	public $gid;
 
 	function __construct () {
 		if(!isset($this->tableName)) 
@@ -18,6 +19,8 @@ abstract class Storage {
 		if(!isset($this->orderBy)) 
 			throw new Exception(get_class($this) . ' must have a $orderBy');
 		$this->connectDb(Config::$dbCredentials);
+		session_start();
+		$this->gid = "".$_SESSION['gid'];
 	}
 
 	function connectDb ($dbCredentials) {
@@ -47,7 +50,7 @@ abstract class Storage {
 					$values .= ',NULL';
 				}			
 			}
-			$sql = "INSERT INTO {$this->tableName} ($labels) VALUES ($values)";
+			$sql = "INSERT INTO {$this->tableName} ($labels,gid) VALUES ($values,{$this->gid})";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
 			$result = $stm->execute((array) $dataOfColumns);
@@ -121,8 +124,9 @@ abstract class Storage {
 
 	function listAll($isPrintable = false) {
 		try {
-			$frag = '';
-			if(count($this->filteredBy) > 0) $frag = 'WHERE ' . $this->generateWhere($this->filteredBy);
+			$frag = 'WHERE ';
+			if(count($this->filteredBy) > 0) $frag .= $this->generateWhere($this->filteredBy) . ' AND ';
+			$frag .= self::filterGID();
 			$sql = "SELECT * FROM {$this->tableName} $frag ORDER BY {$this->orderBy}";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
@@ -260,6 +264,16 @@ EOFCH;
 		}
 		if($isPrintable) echo json_encode($resp);
 		return $resp;
+	}
+
+	function filterGID(){
+		$gid = $this->gid;
+		$gid_f = $gid;
+		for($i = strlen($gid)-1; $i > 0; $i--){
+			if($gid[$i] != '0') break;
+			$gid_f[$i] = '9';		
+		}
+		return " gid >= $gid AND gid <= $gid_f";
 	}
 
 	// function removeItensFree($isPrintable = false) {

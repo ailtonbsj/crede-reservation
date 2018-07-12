@@ -5,6 +5,7 @@ namespace Orkidea\Core;
 session_start();
 include 'strings.php';
 include 'api/Orkidea/ModuleLoader.php';
+include 'api/Orkidea/Group.php';
 
 $moduleLoader = new ModuleLoader();
 
@@ -215,6 +216,8 @@ $moduleLoader->loadViews();
 <!-- orkidea i18n -->
 <script type="text/javascript">
   var S = JSON.parse('<?= json_encode($S) ?>');
+  var gid = '<?= $_SESSION['gid'];  ?>';
+  var gidH = '<?= Group::getHumanGid($_SESSION['gid'])  ?>';
 </script>
 <!-- jQuery 3 -->
 <script src="./lib/jquery/jquery.min.js"></script>

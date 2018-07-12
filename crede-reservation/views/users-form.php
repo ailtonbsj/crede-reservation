@@ -23,12 +23,27 @@
     </div>
     <!-- /.form group -->
 
-        <!-- form-group -->
+    <!-- form-group -->
     <div class="form-group">
       <label for="form-fullname-users"><?= $S['fullname'] ?>:</label>
       <input type="text" class="form-control" id="form-fullname-users" placeholder="">
     </div>
     <!-- /.form group -->
+
+    <!-- form-group -->
+    <template id="users-form-groups-temp">
+      <div class="form-group">
+        <label>Group:</label>
+        <select class="form-control" style="width: 100%;">
+        </select>
+      </div>
+      <div class="children"></div>
+    </template>
+    <!-- /.form group -->
+
+    <div id="users-form-groups-panel">
+      
+    </div>
 
   </div>
   <!-- /.box-body -->

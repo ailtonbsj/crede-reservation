@@ -19,7 +19,7 @@ class ModuleLoader extends Storage {
     parent::__construct(); 
     $username = Authenticator::hasAuthority();
     if(!$username) {
-      header('location: index.html');
+      header('location: ./');
       exit();
     }
     $this->modules = $this->listModulesByUser($username);

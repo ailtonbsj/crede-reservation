@@ -29,6 +29,10 @@ switch ($request) {
         include './Orkidea/Module.php';
         \Orkidea\Core\Module::getModules();
         break;
+    case 'groups':
+        include './Orkidea/Group.php';
+        new \Orkidea\Core\Group((object) $_GET);
+        break;
     case 'categories':
         include './Categories.php';
         new Categories((object) $_POST);

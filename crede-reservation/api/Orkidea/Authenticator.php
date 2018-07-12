@@ -19,6 +19,7 @@ class Authenticator extends Storage {
 				if($user['data']->pass == $post->pass) {
 					session_start();
 					$_SESSION['user'] = $post->name;
+					$_SESSION['gid'] = $user['data']->gid;
 					echo json_encode(array('status' => 'success'));
 					return 0;
 				}
