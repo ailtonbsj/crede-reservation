@@ -14,6 +14,7 @@ class Activities extends Module {
 	public $moduleName = 'activities';
 
 	function listAll($isPrintable = false){
+		$filterGid = $this->filterGid($this->tableName);
 		$sql = <<<EOF
 SELECT
 	activities.id, description,
@@ -21,6 +22,7 @@ SELECT
 	places.name AS place, places.owner AS placeown, activities.owner
 FROM public.activities
 INNER JOIN places ON activities.place = places.id
+WHERE{$filterGid}
 ORDER BY inittime DESC
 EOF;
 		$this->listQuery($sql,[], $isPrintable);

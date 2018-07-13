@@ -13,13 +13,15 @@ class Equipments extends Module {
 	public $moduleName = 'equipments';
 
 	function listAll($isPrintable = false){
-	$sql = <<<EOF
+		$filterGid = $this->filterGid($this->tableName);
+		$sql = <<<EOF
 SELECT
 	equipments.id,
 	categories.name AS category,
 	equipments.name,
 	equipments.owner
 FROM equipments INNER JOIN categories ON equipments.category = categories.id
+WHERE{$filterGid}
 EOF;
 		$this->listQuery($sql,[],$isPrintable);
 	}

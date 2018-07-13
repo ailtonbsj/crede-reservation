@@ -169,12 +169,21 @@ $Module.serialToObject = function(serialPrimary){
 	}
 	return knvObj;
 }
-$Module.loadFormView = function(serialPrimary){
+$Module.loadFormView = function(serialPrimary, callback){
 	var self = this;
 	$('#view-form-'+self.moduleName+' .overlay').removeClass('hide');
 	var ids = self.serialToObject(serialPrimary);
 	var fieldNames = {};
 	Object.assign(fieldNames, self.primaryKeys, self.components);
+	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().show();
+	else {
+		Object.keys(self.primaryKeys).map(function(primaryKey){
+			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = true;
+		});
+	}
+	$('#form-submit-'+this.moduleName).html(S.Update);
+	$('#form-title-'+this.moduleName)[0].innerHTML = '[ '+S.Update+' ] ' + S[self.moduleName];
+	this.modeForm = 'update';
 	self.listItem(ids, function(res){
 		// for(name in fieldNames){  //Switch has scope, but For doesn't ? O.o
 		// 	(function(){
@@ -191,16 +200,8 @@ $Module.loadFormView = function(serialPrimary){
 			});
 		});
 		$('#view-form-'+self.moduleName+' .overlay').addClass('hide');
+		if(callback) callback();
 	});
-	if(self.primaryKeys.id != undefined) $('#form-id-'+this.moduleName).parent().show();
-	else {
-		Object.keys(self.primaryKeys).map(function(primaryKey){
-			$('#form-'+primaryKey+'-'+self.moduleName)[0].disabled = true;
-		});
-	}
-	$('#form-submit-'+this.moduleName).html(S.Update);
-	$('#form-title-'+this.moduleName)[0].innerHTML = '[ '+S.Update+' ] ' + S[self.moduleName];
-	this.modeForm = 'update';
 }
 $Module.loadDetailView = function(serialPrimary){
 	var self = this;

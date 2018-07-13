@@ -131,9 +131,13 @@ $moduleLoader = new ModuleLoader();
         <div class="pull-left image">
           <img src="./dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
-        <div class="pull-left info">
+        <div class="info">
           <p><?= ucfirst(Authenticator::hasAuthority()) ?></p>
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-bank"></i>
+          	<?php
+          	$tk = explode('/',Group::getHumanGid($_SESSION['gid']));
+          	echo $tk[count($tk)-1];
+          	?></a>
         </div>
       </div>
       <!-- search form -->

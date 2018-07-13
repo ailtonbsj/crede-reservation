@@ -25,6 +25,7 @@ $S = [
 	'Update' => 'Update',
 	'Details' => 'Details',
 	'ConfirmDel' => 'Are you sure?',
+	'FailAjax' => 'Fail on server or you are off-line!',
 
 	'activities' => 'Activities',
 	'my_activities' => 'My Activities',

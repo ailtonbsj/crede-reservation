@@ -21,6 +21,7 @@
           <th><?= $S['name'] ?></th>
           <th><?= $S['PlaceHolderPass'] ?></th>
           <th><?= $S['fullname'] ?></th>
+          <th>GID</th>
           <th id="label-refresh-users" style="width: 14px"></th>
           <th id="label-remove-users" style="width: 14px"></th>
           <th id="label-detail-users" style="width: 14px"></th>
@@ -31,6 +32,7 @@
           <td class="colunm-name-users"></td>
           <td class="colunm-pass-users"></td>
           <td class="colunm-fullname-users"></td>
+          <td class="colunm-gid-users"></td>
           <td class="colunm-refresh-users">
             <span class="glyphicon glyphicon-refresh" style="cursor: pointer;"></span>
           </td>

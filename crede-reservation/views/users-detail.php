@@ -23,6 +23,9 @@
           <th><?= $S['fullname'] ?></th><td id="detail-fullname-users"></td>
         </tr>
         <tr>
+          <th>Group</th><td id="detail-gid-users"></td>
+        </tr>
+        <tr>
           <td colspan="2">
 <?php
 

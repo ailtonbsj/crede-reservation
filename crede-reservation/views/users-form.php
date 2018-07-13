@@ -30,6 +30,13 @@
     </div>
     <!-- /.form group -->
 
+        <!-- form-group -->
+    <div class="form-group">
+      <label for="form-gid-users">GID:</label>
+      <input type="text" class="form-control" id="form-gid-users" placeholder="">
+    </div>
+    <!-- /.form group -->
+
     <!-- form-group -->
     <template id="users-form-groups-temp">
       <div class="form-group">

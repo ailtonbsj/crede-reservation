@@ -106,6 +106,15 @@ class Group {
 		}
 		return substr($hier,1);
 	}
+
+	function getEndGid($gid){
+		$gid_f = $gid;
+		for($i = strlen($gid)-1; $i > 0; $i--){
+			if($gid[$i] != '0') break;
+			$gid_f[$i] = '9';		
+		}
+		return $gid_f;
+	}
 }
 
  ?>

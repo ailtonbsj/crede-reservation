@@ -14,6 +14,8 @@ $Persistence.insertItem = function (dataOfColumns, callback) {
     'api/'+self.moduleName,
     { action: 'insertItem', obj: dataOfColumns },
     function(res){
+      console.log('executou');
+      console.log(res);
       var raw = JSON.parse(res);
       if(raw.status == 'success') callback(raw.data);
       else if(raw.status == 'shock'){
@@ -23,6 +25,8 @@ $Persistence.insertItem = function (dataOfColumns, callback) {
         alert(msg);
       }
       else alert(raw.data);
+  }).fail(function(){
+    alert(S['FailAjax']);
   });
 }
 $Persistence.updateItem = function (dataOfColumns, callback) {
@@ -40,6 +44,8 @@ $Persistence.updateItem = function (dataOfColumns, callback) {
         alert(msg);
       }
       else alert(raw.data);
+  }).fail(function(){
+    alert(S['FailAjax']);
   }); 
 }
 $Persistence.listAll = function (callback) {
@@ -79,6 +85,8 @@ $Persistence.removeItem = function (id, callback) {
       var raw = JSON.parse(res);
       if(raw.status == 'success') callback(true);
       else callback(false);
+  }).fail(function(){
+    alert(S['FailAjax']);
   });
 }
 $Persistence.removeItensFree = function () {

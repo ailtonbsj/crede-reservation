@@ -9,7 +9,7 @@ use Orkidea\Core\Module;
 class Places extends Module {
 
 	public $tableName = 'places';
-	public $orderBy = 'id';
+	public $orderBy = 'gid,id';
 	public $moduleName = 'places';
 
 }

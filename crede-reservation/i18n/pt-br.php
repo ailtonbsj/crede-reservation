@@ -25,6 +25,7 @@ $S = [
 	'Update' => 'Atualizar',
 	'Details' => 'Detalhes',
 	'ConfirmDel' => 'Tem certeza?',
+	'FailAjax' => 'Falha no servidor ou na sua conexão!',
 
 	'activities' => 'Atividades',
 	'my_activities' => 'Minhas Atividades',

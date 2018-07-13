@@ -23,7 +23,7 @@ class ModuleLoader extends Storage {
       exit();
     }
     $this->modules = $this->listModulesByUser($username);
-    if(!$this->modules) header('location: index.html');
+    if(!$this->modules) header('location: ./');
   }
 
   function listModulesByUser($username) {

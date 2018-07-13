@@ -63,9 +63,9 @@ moment-timezone@^0.4.0:
   version "2.22.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
 
-orkidea-schedule@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/orkidea-schedule/-/orkidea-schedule-0.0.1.tgz#d7f305569959e177670efe0b5b08ab923844116e"
+orkidea-schedule@^0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/orkidea-schedule/-/orkidea-schedule-0.0.2.tgz#ec05e2220af9c4101ae18b86869e37801646684a"
 
 select2@^4.0.6-rc.1:
   version "4.0.6-rc.1"
