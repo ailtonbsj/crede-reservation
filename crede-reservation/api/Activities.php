@@ -10,7 +10,7 @@ use Orkidea\Core\Authenticator;
 class Activities extends Module {
 
 	public $tableName = 'activities';
-	public $orderBy = 'inittime ASC';
+	public $orderBy = 'activities.gid,inittime DESC';
 	public $moduleName = 'activities';
 
 	function listAll($isPrintable = false){
@@ -19,11 +19,13 @@ class Activities extends Module {
 SELECT
 	activities.id, description,
 	inittime, finaltime,
-	places.name AS place, places.owner AS placeown, activities.owner
+	places.name AS place,
+	places.owner AS placeown,
+	activities.owner
 FROM public.activities
 INNER JOIN places ON activities.place = places.id
 WHERE{$filterGid}
-ORDER BY inittime DESC
+ORDER BY {$this->orderBy}
 EOF;
 		$this->listQuery($sql,[], $isPrintable);
 	}

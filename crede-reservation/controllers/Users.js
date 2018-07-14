@@ -64,7 +64,8 @@ $Users.clearFormView = function(){
 	// this.selectGroup.children = {};
 	// $('#users-form-panel0').empty();
 	Module.prototype.clearFormView.apply(this);
-	this.selectGroup.obj.setValue('');
+	this.components['gid'].setValue(gidH);
+	if(this.selectGroup.obj) this.selectGroup.obj.setValue('');
 }
 $Users.loadFormView = function(serialPrimary){
 	var self = this;

@@ -33,7 +33,7 @@
         <!-- form-group -->
     <div class="form-group">
       <label for="form-gid-users">GID:</label>
-      <input type="text" class="form-control" id="form-gid-users" placeholder="">
+      <input type="text" class="form-control" id="form-gid-users" readonly>
     </div>
     <!-- /.form group -->
 
