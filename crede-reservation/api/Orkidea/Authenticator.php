@@ -16,7 +16,7 @@ class Authenticator extends Storage {
 		if (isset($post->name)) {
 			$user = $this->listItem(array('name' => $post->name));
 			if($user['status'] == 'success'){
-				if($user['data']->pass == $post->pass) {
+				if($user['data']->pass == hash('md5', $post->pass)) {
 					session_start();
 					$_SESSION['user'] = $post->name;
 					$_SESSION['gid'] = $user['data']->gid;

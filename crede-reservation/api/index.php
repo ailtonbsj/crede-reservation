@@ -33,6 +33,10 @@ switch ($request) {
         include './Orkidea/Group.php';
         new \Orkidea\Core\Group((object) $_GET);
         break;
+    case 'group_humanid':
+        include './Orkidea/Group.php';
+        echo \Orkidea\Core\Group::getHumanGid($_POST['gid']);
+        break;
     case 'categories':
         include './Categories.php';
         new Categories((object) $_POST);

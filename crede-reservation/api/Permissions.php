@@ -19,6 +19,24 @@ class Permissions extends Module {
 		parent::__construct($obj);
 	}
 
+	function insertItem ($dataOfColumns, $isPrintable = false) {
+		$sql = "SELECT * FROM users WHERE name = '{$dataOfColumns['username']}'";
+		$res = $this->listQuery($sql,[], false);
+		$oldGid = $this->gid;
+		$this->gid = $res[0]->gid;
+		parent::insertItem($dataOfColumns, $isPrintable);
+		$this->gid = $oldGid;
+	}
+
+	function updateItem ($dataOfColumns, $isPrintable = false) {
+		$sql = "SELECT * FROM users WHERE name = '{$dataOfColumns['username']}'";
+		$res = $this->listQuery($sql,[], false);
+		$oldGid = $this->gid;
+		$this->gid = $res[0]->gid;
+		parent::updateItem($dataOfColumns, $isPrintable);
+		$this->gid = $oldGid;
+	}
+
 }
 
  ?>

@@ -75,10 +75,12 @@ $Users.loadFormView = function(serialPrimary){
 		if(nowGid[0] == '/') nowGid = nowGid.substring(1);
 		var tks = nowGid.split('/');
 		var sels = self.selectGroup;
-		tks.map(function(tk){
-			sels.obj.setValue(tk);
-			sels = sels.children;
-		});
+		if(sels.obj !== undefined){
+			tks.map(function(tk){
+				sels.obj.setValue(tk);
+				sels = sels.children;
+			});
+		}
 	});
 }
 //properties

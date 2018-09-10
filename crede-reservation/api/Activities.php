@@ -21,7 +21,8 @@ SELECT
 	inittime, finaltime,
 	places.name AS place,
 	places.owner AS placeown,
-	activities.owner
+	activities.owner,
+	activities.gid
 FROM public.activities
 INNER JOIN places ON activities.place = places.id
 WHERE{$filterGid}
@@ -51,7 +52,12 @@ EOF;
 			'inittime', $data['inittime'], 'finaltime', $data['finaltime']);
 		if(is_array($result)){
 			if(count($result) == 0){
+				$sql = "SELECT * FROM places WHERE id = '{$data['place']}'";
+				$res = $this->listQuery($sql, [], false);
+				$oldGid = $this->gid;
+				$this->gid = $res[0]->gid;
 				parent::insertItem($data, $isPrintable);
+				$this->gid = $oldGid;
 			} else {
 				echo json_encode(array('status' => 'shock', 'data' => $result));
 			}
@@ -64,7 +70,12 @@ EOF;
 			array('id' => $data['id']));
 		if(is_array($result)){
 			if(count($result) == 0){
+				$sql = "SELECT * FROM places WHERE id = '{$data['place']}'";
+				$res = $this->listQuery($sql, [], false);
+				$oldGid = $this->gid;
+				$this->gid = $res[0]->gid;
 				parent::updateItem($data, $isPrintable);
+				$this->gid = $oldGid;
 			} else {
 				echo json_encode(array('status' => 'shock', 'data' => $result));
 			}

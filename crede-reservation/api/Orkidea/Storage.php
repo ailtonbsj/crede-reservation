@@ -40,6 +40,8 @@ abstract class Storage {
 
 	function insertItem ($dataOfColumns, $isPrintable = false) {
 		try {
+			$dataOfColumns['gid'] = $this->gid;
+
 			$keys = array_keys($dataOfColumns);
 			$labels = join(',', $keys);
 			$values = ':'.join(',:', $keys);
@@ -52,7 +54,7 @@ abstract class Storage {
 					$values .= ',NULL';
 				}			
 			}
-			$sql = "INSERT INTO {$this->tableName} ($labels,gid) VALUES ($values,{$this->gid})";
+			$sql = "INSERT INTO {$this->tableName} ($labels) VALUES ($values)";
 			$stm = $this->connection->prepare($sql);
 			//echo $stm->debugDumpParams();
 			$result = $stm->execute((array) $dataOfColumns);
@@ -80,6 +82,7 @@ abstract class Storage {
 
 	function updateItem($dataOfColumns, $isPrintable = false) {
 		try {
+			$dataOfColumns['gid'] = $this->gid;
 			//labels
 			$labels = '';
 			foreach ($dataOfColumns as $k => $v) {

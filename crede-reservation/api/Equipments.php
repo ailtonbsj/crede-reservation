@@ -25,6 +25,16 @@ WHERE{$filterGid}
 EOF;
 		$this->listQuery($sql,[],$isPrintable);
 	}
+
+	function updateItem($dataOfColumns, $isPrintable = false) {
+		$sql = "SELECT * FROM equipments WHERE id = '{$dataOfColumns['id']}'";
+		$res = $this->listQuery($sql, [], false);
+		$oldGid = $this->gid;
+		$this->gid = $res[0]->gid;
+		parent::updateItem($dataOfColumns, $isPrintable);
+		$this->gid = $oldGid;
+	}
+
 	
 }
 

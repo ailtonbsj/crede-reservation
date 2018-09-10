@@ -12,6 +12,15 @@ class Places extends Module {
 	public $orderBy = 'gid,id';
 	public $moduleName = 'places';
 
+	function updateItem($dataOfColumns, $isPrintable = false) {
+		$sql = "SELECT * FROM places WHERE id = '{$dataOfColumns['id']}'";
+		$res = $this->listQuery($sql, [], false);
+		$oldGid = $this->gid;
+		$this->gid = $res[0]->gid;
+		parent::updateItem($dataOfColumns, $isPrintable);
+		$this->gid = $oldGid;
+	}
+
 }
 
  ?>
