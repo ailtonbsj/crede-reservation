@@ -1,0 +1,10 @@
+Package: crede-reservation
+Version: 0.0.1
+Installed-Size: 4
+Maintainer: ailtonbsj <ailton.ifce@gmail.com>
+Section: utils
+Architecture: all
+Priority: optional
+Homepage: http://ailtonbsj.herokuapp.com/crede-reservation
+Description: Atalho para o sistemas de reservas da CREDE17.
+ Um lançador utilizando o firefox para abrir o sistema de reservas da CREDE17.

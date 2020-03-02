@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Name=Crede Reservas
+Exec=firefox https://ailtonbsj.herokuapp.com/crede-reservation/dash.php
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=reservation
+Categories=GNOME;GTK;Network;WebBrowser;
+Actions=NewWindow;NewPrivateWindow;

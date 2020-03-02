@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Get Names of users
+cat /etc/passwd | grep '/home/' | \
+grep -v 'cups\|syslog' | cut -d ':' -f 1 > /tmp/homes.list
+
+function geraShort {
+	echo "[Desktop Entry]"
+	echo "Type=Link"
+	cat $1 | \
+	grep "Name=" | head -n1
+	cat $1 | \
+	grep "Name[pt_BR]=" | head -n1
+	cat $1 | \
+	grep "Icon=" | head -n1
+	echo "URL=$2"
+}
+
+function runByUsers {
+	# $1 is default folder of user
+	# $2 is name of user
+	cd $1
+ 	geraShort /usr/share/applications/crede-reservation.desktop /usr/share/applications/crede-reservation.desktop \
+ 	> $1/Desktop/crede-reservation.desktop
+}
+
+while read USUARIO; do
+	runByUsers "/home/$USUARIO" "$USUARIO"
+	runuser -l $USUARIO -c "rm -rf /home/$USUARIO/.cache/"
+	if [ -f /usr/bin/lxpanelctl ]; then
+		su - $USUARIO -c "lxpanelctl restart"
+	fi
+done < /tmp/homes.list
+runByUsers "/etc/skel" "root"

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Get Names of users
+cat /etc/passwd | grep '/home/' | \
+grep -v 'cups\|syslog' | cut -d ':' -f 1 > /tmp/homes.list
+
+function runByUsers {
+	# $1 is default folder of user
+	# $2 is name of user
+	rm -rf $1/Desktop/crede-reservation.desktop
+}
+
+runByUsers "/etc/skel" "root"
+while read USUARIO; do
+	runByUsers "/home/$USUARIO" "$USUARIO"
+	runuser -l $USUARIO -c "rm -rf /home/$USUARIO/.cache/"
+	if [ -f /usr/bin/lxpanelctl ]; then
+		su - $USUARIO -c "lxpanelctl restart"
+	fi
+done < /tmp/homes.list
