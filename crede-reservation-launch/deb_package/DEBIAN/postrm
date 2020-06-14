@@ -1,16 +1,17 @@
 #!/bin/bash
 
-# Get Names of users
-cat /etc/passwd | grep '/home/' | \
-grep -v 'cups\|syslog' | cut -d ':' -f 1 > /tmp/homes.list
-
 function runByUsers {
 	# $1 is default folder of user
 	# $2 is name of user
 	rm -rf $1/Desktop/crede-reservation.desktop
 }
 
+# Get Names of users
+cat /etc/passwd | grep '/home/' | \
+grep -v 'cups\|syslog' | cut -d ':' -f 1 > /tmp/homes.list
+
 runByUsers "/etc/skel" "root"
+rmdir /etc/skel/Desktop/ 2> /dev/null
 while read USUARIO; do
 	runByUsers "/home/$USUARIO" "$USUARIO"
 	runuser -l $USUARIO -c "rm -rf /home/$USUARIO/.cache/"

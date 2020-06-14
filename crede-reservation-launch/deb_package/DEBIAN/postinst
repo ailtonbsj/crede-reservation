@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Get Names of users
-cat /etc/passwd | grep '/home/' | \
-grep -v 'cups\|syslog' | cut -d ':' -f 1 > /tmp/homes.list
-
 function geraShort {
 	echo "[Desktop Entry]"
 	echo "Type=Link"
@@ -13,16 +9,21 @@ function geraShort {
 	grep "Name[pt_BR]=" | head -n1
 	cat $1 | \
 	grep "Icon=" | head -n1
-	echo "URL=$2"
+	echo "URL=$1"
 }
 
 function runByUsers {
 	# $1 is default folder of user
 	# $2 is name of user
 	cd $1
- 	geraShort /usr/share/applications/crede-reservation.desktop /usr/share/applications/crede-reservation.desktop \
- 	> $1/Desktop/crede-reservation.desktop
+	mkdir -p Desktop
+ 	#geraShort /usr/share/applications/crede-reservation.desktop > $1/Desktop/crede-reservation.desktop
+	cp /usr/share/applications/crede-reservation.desktop $1/Desktop/crede-reservation.desktop
 }
+
+# Get Names of users
+cat /etc/passwd | grep '/home/' | \
+grep -v 'cups\|syslog' | cut -d ':' -f 1 > /tmp/homes.list
 
 while read USUARIO; do
 	runByUsers "/home/$USUARIO" "$USUARIO"
