@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: reserv-db1
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: orkideaframework
+
+  adminer:
+    container_name: adminer1
+    image: adminer
+    ports:
+      - 8080:8080

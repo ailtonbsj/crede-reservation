@@ -1,6 +1,8 @@
-# Crede Reservation
+# CREDE Reservation
 
-App do Crede Reservation e Orkidea Framework Alpha.
+App do CREDE Reservation e Orkidea Framework Alpha.
+
+
 
 ## How to use
 
@@ -8,3 +10,5 @@ App do Crede Reservation e Orkidea Framework Alpha.
 yarn install
 yarn run build
 ```
+
+## Modelagem de Banco de dados com Umbrello
