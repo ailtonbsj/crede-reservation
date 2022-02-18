@@ -3,11 +3,20 @@
 namespace Orkidea\Core;
 
 abstract class Config {
+	
+	// public static $dbCredentials = array(
+	// 	'host' => getenv('DATABASE_SERV') ? getenv('DATABASE_SERV') : 'localhost',
+	// 	'name' => getenv('DATABASE_NAME') ? getenv('DATABASE_NAME') : 'reservation',
+	// 	'user' => getenv('DATABASE_USER') ? getenv('DATABASE_USER') : 'postgres',
+	// 	'pass' => getenv('DATABASE_PASS') ? getenv('DATABASE_PASS') : 'postgres',
+	// 	'type' => getenv('DATABASE_TYPE') ? getenv('DATABASE_TYPE') : 'pg',
+	// );
+
 	public static $dbCredentials = array(
-		'host' => 'localhost',
+		'host' => 'db',
 		'name' => 'reservation',
 		'user' => 'postgres',
-		'pass' => 'postgres',
+		'pass' => 'orkideaframework',
 		'type' => 'pg',
 	);
 

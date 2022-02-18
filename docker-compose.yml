@@ -12,3 +12,17 @@ services:
     image: adminer
     ports:
       - 8080:8080
+  
+  app:
+    container_name: reserv-app1
+    image: reserv-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_SERV: db
+      DATABASE_PASS: orkideaframework
+    ports:
+      - 80:80
+    depends_on:
+      - db
