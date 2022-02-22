@@ -3,3 +3,4 @@ umbrello-model/builds/*
 !umbrello-model/builds/build.sh
 node_modules/
 crede-reservation/lib/
+reserv-vol/
