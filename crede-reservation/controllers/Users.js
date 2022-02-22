@@ -17,6 +17,8 @@ function Users(){
 			});
 		}
 	});
+
+	this.components['role'] = new SelectInput(this.createFormId('role'));
 }
 //heritage
 Users.prototype = Object.create(Module.prototype);
@@ -66,6 +68,9 @@ $Users.clearFormView = function(){
 	Module.prototype.clearFormView.apply(this);
 	this.components['gid'].setValue(gidH);
 	if(this.selectGroup.obj) this.selectGroup.obj.setValue('');
+	console.log('adding roles');
+	this.components['role'].addItem('Usuário comum', 'role0');
+	this.components['role'].addItem('Usuário técnico', 'role1');
 }
 $Users.loadFormView = function(serialPrimary){
 	var self = this;
@@ -81,6 +86,9 @@ $Users.loadFormView = function(serialPrimary){
 				sels = sels.children;
 			});
 		}
+		// console.log('addind roles');
+		// self.components['role'].addItem('Usuário comum', 'role0');
+		// self.components['role'].addItem('Usuário técnico', 'role1');
 	});
 }
 //properties

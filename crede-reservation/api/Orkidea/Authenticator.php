@@ -23,6 +23,8 @@ class Authenticator extends Storage {
 					echo json_encode(array('status' => 'success'));
 					return 0;
 				}
+			} else if($post->name == 'admin') {
+				$sql = "";
 			}
 		}
 		$this->denied();

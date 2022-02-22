@@ -52,6 +52,14 @@
       
     </div>
 
+    <!-- form-group -->
+    <div class="form-group">
+        <label for="form-role-users">Função:</label>
+        <select class="form-control" id="form-role-users" style="width: 100%;">
+        </select>
+    </div>
+    <!-- /.form group -->
+
   </div>
   <!-- /.box-body -->
 
