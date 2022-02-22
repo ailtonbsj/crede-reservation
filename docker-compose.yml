@@ -3,9 +3,14 @@ version: '3.8'
 services:
   db:
     container_name: reserv-db1
-    image: postgres
+    image: reserv-db
     environment:
       POSTGRES_PASSWORD: orkideaframework
+    build:
+      context: .
+      dockerfile: db/Dockerfile
+    volumes:
+      - ./reserv-vol:/var/lib/postgresql/data
 
   adminer:
     container_name: adminer1
@@ -23,6 +28,6 @@ services:
       DATABASE_SERV: db
       DATABASE_PASS: orkideaframework
     ports:
-      - 80:80
+      - 8081:80
     depends_on:
       - db

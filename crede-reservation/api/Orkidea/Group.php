@@ -4,57 +4,31 @@ namespace Orkidea\Core;
 
 class Group {
 
-	function __construct($obj){
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1000000000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001000000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE/Crede17');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001001000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE/Crede17/CERE');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001001001);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE/Crede17/EEEP Ico');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001001002);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE/Crede20');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001002000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE/Crede20/Adolf');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001002001);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-CE/Crede20/Moama');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1001002002);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-PB');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1002000000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-PB/GRE01');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1002001000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-PB/GRE02');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1002002000);
-		// echo "\n\n" . self::getGid(self::$groupSchema,'MEC/SEDUC-PB/GRE02/EEM Jave');
-		// echo "\n\n" . self::getHumanGid(self::$groupSchema,1002002001);
-		echo self::getSchema($obj->gid);
-	}
+	// public static $groupSchema = [	
+	// 	'Nivel 1' => [
+	// 		'Nivel 2' => [
+	// 			'Nivel 3' => [
+	// 				'Nivel 4-1' => [],
+	// 				'Nivel 4-2' => [],
+	// 			]
+	// 		]
+	// 	]
+	// ];
 
-	public static $groupSchema = [
-		'MEC' => [
-			'SEDUC-CE' => [
-				'Crede17' => [
-					'CERE' => [],
-					'EEEP Ico' => []
-				],
-				'Crede20' => [
-					'Adolf' => [],
-					'Moama' => []
-				]
-			],
-			'SEDUC-PB' => [
-				'GRE01' => [],
-				'GRE02' => [
-					'EEM Jave' => []
-				]
+	public static $groupSchema = [	
+		'SEDUC' => [
+			'CREDE' => [
+				'Escola' => []
 			]
 		]
 	];
 
 	public static $totalLevels = 4;
 	public static $maxHomeDecimalByGroup = 3; //max 1000 groups
+
+	function __construct($obj){
+		echo self::getSchema($obj->gid);
+	}
 
 	function getSchema($father){
 		$schema = self::$groupSchema;

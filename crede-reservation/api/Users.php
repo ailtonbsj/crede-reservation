@@ -18,6 +18,8 @@ class Users extends Module {
 	public function __construct($object){
 		if($object->action == 'insertItem' || $object->action == 'updateItem') {
 			$object->obj['pass'] = md5($object->obj['pass']);
+			$role = $object->obj['role'];
+			unset($object->obj['role']);
 		}
 
 		$ngid = Group::getGid($object->obj['gid']);
@@ -32,16 +34,29 @@ class Users extends Module {
 
 		if($object->action == 'insertItem'){
 			try {
-				$sqlPerms = array(
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'activities', false, true, false, false, 60, :ngid)",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'categories', false, true, false, false, 10, :ngid);",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments', false, true, false, false, 40, :ngid);",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_activities', false, true, false, false, 39, :ngid);",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_my_activities', true, true, true, true, 38, :ngid);",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'places', false, true, false, false, 20, :ngid);",
-					"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);"
-				);
+				if($role == 'role1') {
+					$sqlPerms = array(
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'activities', false, true, false, false, 60, :ngid)",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments', true, true, true, true, 40, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_activities', false, true, false, false, 39, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_my_activities', true, true, true, true, 38, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'places', true, true, true, true, 20, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'categories', true, true, true, true, 10, :ngid);",						
+					);
+				} else {
+					$sqlPerms = array(
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'activities', false, true, false, false, 60, :ngid)",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'categories', false, true, false, false, 10, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments', false, true, false, false, 40, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_activities', false, true, false, false, 39, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_my_activities', true, true, true, true, 38, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'places', false, true, false, false, 20, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);"
+					);
+				}
 				foreach ($sqlPerms as $sql) {
 					$stm = $this->connection->prepare($sql);
 					$stm->execute(
