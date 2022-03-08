@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
 Name=Crede Reservas
-Exec=xdg-open https://ailtonbsj.herokuapp.com/crede-reservation/dash.php
+Exec=xdg-open https://crede-reservation.herokuapp.com/crede-reservation/dash.php
 Terminal=false
 X-MultipleArgs=false
 Type=Application
