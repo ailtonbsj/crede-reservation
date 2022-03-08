@@ -24,7 +24,7 @@ docker-compose up -d --build
 
 ## Containers
 
-- reserv-app (localhost:8081)
+### reserv-app (localhost:8081)
 
 Aplicação CREDE Reservas em PHP. Acesse com os dados:
 
@@ -32,7 +32,7 @@ Login: admin
 
 Senha: admin
 
-- adminer (localhost:8080)
+### adminer (localhost:8080)
 
 Frontend para o banco de dados em PostgreSQL.
 
@@ -42,7 +42,7 @@ Usuário: postgres
 
 Senha: orkideaframework
 
-- reserv-db
+### reserv-db
 
 Banco de dados PostgreSQL vinculado ao volume `reserv-vol`.
 
