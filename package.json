@@ -1,6 +1,6 @@
 {
   "name": "crede-reservation",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Crede Reservation Application and Orkidea Framework",
   "main": "index.js",
   "repository": "https://ailtonbsj@bitbucket.org/ailtonbsj/crede-reservation.git",

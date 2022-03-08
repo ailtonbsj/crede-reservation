@@ -1,19 +1,63 @@
-# CREDE Reservation
+# CREDE Reservas
 
-App do CREDE Reservation e Orkidea Framework Alpha.
+Aplicativo de reservas de locais e equipamentos.
 
-## How to build
+## Requisitos
 
+- Debian/Ubuntu ou derivado
+- NodeJS
+- Docker
+- Docker-Composer
+
+## Como usar
+
+```bash
+# Baixa todas as dependencias do node
+npm i
+
+# Copia bibliotecas necessarias
+./build.sh
+
+# Cria containers e serviços docker
+docker-compose up -d --build
 ```
-npm install
-npm run build
-```
 
-## How to use
+## Containers
 
-```
-yarn install
-yarn run build
-```
+### reserv-app (localhost:8081)
 
-## Modelagem de Banco de dados com Umbrello
+Aplicação CREDE Reservas em PHP. Acesse com os dados:
+
+Login: admin
+
+Senha: admin
+
+### adminer (localhost:8080)
+
+Frontend para o banco de dados em PostgreSQL.
+
+Servidor: db
+
+Usuário: postgres
+
+Senha: orkideaframework
+
+### reserv-db
+
+Banco de dados PostgreSQL vinculado ao volume `reserv-vol`.
+
+## Arquivos importantes
+
+- `crede-reservation/api/Orkidea/Group.php`
+
+Modifique a estrutura abaixo pela da sua empresa ou instituição:
+
+```php
+public static $groupSchema = [	
+    'SEDUC' => [
+        'CREDE' => [
+            'Escola' => []
+        ]
+    ]
+];
+```
