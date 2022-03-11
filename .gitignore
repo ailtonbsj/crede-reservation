@@ -4,3 +4,5 @@ umbrello-model/builds/*
 node_modules/
 crede-reservation/lib/
 reserv-vol/
+vendor/
+keys.json

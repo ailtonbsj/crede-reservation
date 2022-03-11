@@ -18,7 +18,7 @@ abstract class Storage {
 			throw new Exception(get_class($this) . ' must have a $tableName');
 		if(!isset($this->orderBy)) 
 			throw new Exception(get_class($this) . ' must have a $orderBy');
-		$this->connectDb(Config::$dbCredentials);
+		$this->connectDb(Config::getDbCredentials());
 		if($this->gid == ''){
 			session_start();
 			$this->gid = "".$_SESSION['gid'];
@@ -48,7 +48,7 @@ abstract class Storage {
 
 			if($this->primaryKeysName[0] == 'id') {
 				$labels .= ','.$this->primaryKeysName[0];
-				if (Config::$dbCredentials['type'] == 'pg') {
+				if (Config::getDbCredentials()['type'] == 'pg') {
 					$values .= ',DEFAULT';
 				} else {
 					$values .= ',NULL';

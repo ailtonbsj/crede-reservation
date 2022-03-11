@@ -4,22 +4,6 @@ namespace Orkidea\Core;
 
 abstract class Config {
 	
-	// public static $dbCredentials = array(
-	// 	'host' => getenv('DATABASE_SERV') ? getenv('DATABASE_SERV') : 'localhost',
-	// 	'name' => getenv('DATABASE_NAME') ? getenv('DATABASE_NAME') : 'reservation',
-	// 	'user' => getenv('DATABASE_USER') ? getenv('DATABASE_USER') : 'postgres',
-	// 	'pass' => getenv('DATABASE_PASS') ? getenv('DATABASE_PASS') : 'postgres',
-	// 	'type' => getenv('DATABASE_TYPE') ? getenv('DATABASE_TYPE') : 'pg',
-	// );
-
-	public static $dbCredentials = array(
-		'host' => 'db',
-		'name' => 'reservation',
-		'user' => 'postgres',
-		'pass' => 'orkideaframework',
-		'type' => 'pg',
-	);
-
 	public static $modules = array(
 	   'users' => 'standard',
 	   'permissions' => 'inner',
@@ -33,6 +17,16 @@ abstract class Config {
        'places' => 'standard',
        'schedule' => 'standard'
 	);
+
+	public static function getDbCredentials() {
+		return array(
+			'host' => getenv('DATABASE_SERV') ? getenv('DATABASE_SERV'): 'localhost',
+			'name' => getenv('DATABASE_NAME') ? getenv('DATABASE_NAME') : 'reservation',
+			'user' => getenv('DATABASE_USER') ? getenv('DATABASE_USER') : 'postgres',
+			'pass' => getenv('DATABASE_PASS') ? getenv('DATABASE_PASS') : 'postgres',
+			'type' => getenv('DATABASE_TYPE') ? getenv('DATABASE_TYPE') : 'pg',
+		);
+	}
 }
 
  ?>

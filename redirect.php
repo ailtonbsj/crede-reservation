@@ -8,6 +8,6 @@ function getMyUrl()
   return $protocol.$server.$port;
 }
 
-$URL =  getMyUrl().'/crede-reservation';
+$URL =  getMyUrl().'/crede-reservation/';
 
 header("Location:  $URL ");

@@ -10,32 +10,45 @@
 
 
   <div class="box-body" style="overflow-x:auto;">
-    
+
     <table id="detail-my_activities" class="table table-bordered">
       <tbody>
         <tr>
-          <th style="width: 14px;"><?= $S['desc'] ?></th><td id="detail-description-my_activities"></td>
+          <th style="width: 14px;"><?= $S['desc'] ?></th>
+          <td id="detail-description-my_activities"></td>
         </tr>
         <tr>
-          <th><?= $S['init'] ?></th><td id="detail-inittime-my_activities"></td>
+          <th><?= $S['init'] ?></th>
+          <td id="detail-inittime-my_activities"></td>
         </tr>
         <tr>
-          <th><?= $S['final'] ?></th><td id="detail-finaltime-my_activities"></td>
+          <th><?= $S['final'] ?></th>
+          <td id="detail-finaltime-my_activities"></td>
         </tr>
         <tr>
-          <th><?= $S['place'] ?></th><td id="detail-placename-my_activities"></td>
+          <th><?= $S['place'] ?></th>
+          <td id="detail-placename-my_activities"></td>
         </tr>
         <tr>
-          <th><?= $S['owner'] ?></th><td id="detail-owner-my_activities"></td>
+          <th><?= $S['owner'] ?></th>
+          <td id="detail-owner-my_activities"></td>
         </tr>
         <tr>
           <td colspan="2">
-<?php
+            <?php
 
-  if($modulePermission->r) include "views/equipmentsmyactivities-table.php";
-  if($modulePermission->r) include "views/equipmentsmyactivities-form.php";
+            if ($modulePermission->r) include "views/equipmentsmyactivities-table.php";
+            if ($modulePermission->r) include "views/equipmentsmyactivities-form.php";
 
-?>
+            ?>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center">
+            <button id="add-gcalendar" type="button" class="btn btn-success" data-toggle="tooltip">
+              <i class="fa fa-calendar"></i> Adicionar ao Google Agenda</button>
+            <a id="show-gcalendar" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-calendar"></i> Ver Evento no Google Agenda</a>
           </td>
         </tr>
       </tbody>

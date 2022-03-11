@@ -14,8 +14,7 @@ $Persistence.insertItem = function (dataOfColumns, callback) {
     'api/'+self.moduleName,
     { action: 'insertItem', obj: dataOfColumns },
     function(res){
-      console.log('executou');
-      console.log(res);
+      console.log('insertItem', res);
       var raw = JSON.parse(res);
       if(raw.status == 'success') callback(raw.data);
       else if(raw.status == 'shock'){

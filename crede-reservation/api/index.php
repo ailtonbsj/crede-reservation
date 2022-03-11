@@ -73,6 +73,10 @@ switch ($request) {
         include './Schedule.php';
         new Schedule((object) $_POST);
         break;
+    case 'calendar':
+        include './Calendar.php';
+        new Calendar((object) $_POST);
+        break;
 }
 
  ?>
