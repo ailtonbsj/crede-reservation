@@ -27,6 +27,8 @@ services:
     environment:
       DATABASE_SERV: db
       DATABASE_PASS: orkideaframework
+      GCALENDAR_ID: yourcalendar@gmail.com
+      GOOGLE_APPLICATION_CREDENTIALS: ../../../keys.json
     ports:
       - 8081:80
     depends_on:

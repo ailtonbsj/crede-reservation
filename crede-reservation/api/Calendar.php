@@ -16,8 +16,9 @@ class Calendar extends Storage
     function __construct($post)
     {
         if (Authenticator::hasAuthority()) {
+            date_default_timezone_set('America/Fortaleza');
             try {
-                $id_calendar = '';
+                $id_calendar = getenv('GCALENDAR_ID');
                 $id_db = $post->id;
                 $summary = $post->summary;
                 $location = $post->location;
@@ -25,8 +26,7 @@ class Calendar extends Storage
                 $datetime_start = new \DateTime($post->start);
                 $time_end = new \DateTime($post->end);
 
-                date_default_timezone_set('America/Fortaleza');
-                putenv('GOOGLE_APPLICATION_CREDENTIALS=../../keys.json');
+                // putenv('GOOGLE_APPLICATION_CREDENTIALS=../../keys.json');
 
                 $client = new \Google_Client();
                 $client->useApplicationDefaultCredentials();
