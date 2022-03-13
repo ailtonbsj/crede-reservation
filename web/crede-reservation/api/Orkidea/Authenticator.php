@@ -17,7 +17,7 @@ class Authenticator extends Storage {
 			$user = $this->listItem(array('name' => $post->name));
 			if($user['status'] == 'success'){
 				if($user['data']->pass == hash('md5', $post->pass)) {
-					session_start();
+					if(!isset($_SESSION)) session_start();
 					$_SESSION['user'] = $post->name;
 					$_SESSION['gid'] = $user['data']->gid;
 					echo json_encode(array('status' => 'success'));
@@ -31,12 +31,11 @@ class Authenticator extends Storage {
 	}
 
 	function denied() {
-		Authenticator::clearSession();
 		echo json_encode(array('status' => 'denied'));
 	}
 
 	public static function clearSession() {
-		session_start();
+		if(!isset($_SESSION)) session_start();
 		$_SESSION = array();
 		session_destroy();
 	}
@@ -47,7 +46,7 @@ class Authenticator extends Storage {
 	}
 
 	public static function hasAuthority(){
-		session_start();
+		if(!isset($_SESSION)) session_start();
 		if(isset($_SESSION['user'])) return $_SESSION['user'];
 		return false;
 	}

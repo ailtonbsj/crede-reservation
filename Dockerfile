@@ -10,11 +10,10 @@ RUN php composer-setup.php
 RUN rm composer-setup.php
 RUN mv composer.phar /usr/local/bin/composer
 
-WORKDIR /var/www/html/
-COPY ./crede-reservation ./crede-reservation
-COPY index.php ./
-COPY keys.json ../
-COPY composer.json ./
+WORKDIR /var/www/
+COPY ./web ./html/
+COPY keys.json .
+COPY composer.json .
 RUN composer i
 
 CMD docker-php-entrypoint apache2-foreground

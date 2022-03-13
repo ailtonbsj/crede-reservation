@@ -20,8 +20,8 @@ abstract class Storage {
 			throw new Exception(get_class($this) . ' must have a $orderBy');
 		$this->connectDb(Config::getDbCredentials());
 		if($this->gid == ''){
-			session_start();
-			$this->gid = "".$_SESSION['gid'];
+			if(!isset($_SESSION)) session_start();
+			if(isset($_SESSION['gid'])) $this->gid = "".$_SESSION['gid'];
 		}
 	}
 
@@ -172,14 +172,7 @@ abstract class Storage {
 	    try {
 	      if(strtotime($initValue) > strtotime($finalValue))
 	      	throw new Exception('wrong interval');
-		  $sql = <<<EOFCH
-SELECT * FROM {$this->tableName}
-$innerJoin
-WHERE $filterLabel = :filterValue AND NOT (
-($initLabel >= :initValue AND $initLabel >= :finalValue) OR
-($finalLabel <= :initValue AND $finalLabel <= :finalValue)	
-)
-EOFCH;
+		  $sql = "SELECT * FROM {$this->tableName} $innerJoin WHERE $filterLabel = :filterValue AND NOT ( ($initLabel >= :initValue AND $initLabel >= :finalValue) OR ($finalLabel <= :initValue AND $finalLabel <= :finalValue) )";
 		  $columns = array(
 	      	'filterValue' => $filterValue,
 	      	'initValue' => $initValue,
@@ -199,31 +192,31 @@ EOFCH;
 	    }
 	}
 
-	// function complexFilter($dataOfColumns, $isPrintable = false, $orLogic = false, $likeCompare = false) {
-	// 	$conector = $orLogic ? ' OR ' : ' AND ';
-	// 	try {
-	// 		if(count($dataOfColumns) < 1) throw new Exception('no filter found!');
-	// 		$sql = "SELECT * FROM {$this->tableName} WHERE ";
-	// 		$isFirst = true;
-	// 		foreach ($dataOfColumns as $colunm => $value) {
-	// 			$isFirst ? $isFirst = false : $sql .= $conector;
-	// 			$sql .= $likeCompare ? "{$colunm} LIKE '%{$value}%'" : "{$colunm} = '{$value}'";
-	// 		}
-	// 		$stm = $this->connection->prepare($sql);
-	// 		$stm->execute();
-	// 		$rows = $stm->fetchAll(PDO::FETCH_OBJ);
-	// 		if(!$rows) throw new Exception('there is no record on table!');
-	// 		$resp = array('status' => 'success', 'data' => $rows);
-	// 	} catch (Exception $e) {
-	// 		$resp = array('status' => 'error', 'data' => $e->getMessage());
-	// 	}
-	// 	if($isPrintable) echo json_encode($resp);
-	// 	return $resp;
-	// }
+	function complexFilter($dataOfColumns, $isPrintable = false, $orLogic = false, $likeCompare = false) {
+		$conector = $orLogic ? ' OR ' : ' AND ';
+		try {
+			if(count($dataOfColumns) < 1) throw new Exception('no filter found!');
+			$sql = "SELECT * FROM {$this->tableName} WHERE ";
+			$isFirst = true;
+			foreach ($dataOfColumns as $colunm => $value) {
+				$isFirst ? $isFirst = false : $sql .= $conector;
+				$sql .= $likeCompare ? "{$colunm} LIKE '%{$value}%'" : "{$colunm} = '{$value}'";
+			}
+			$stm = $this->connection->prepare($sql);
+			$stm->execute();
+			$rows = $stm->fetchAll(PDO::FETCH_OBJ);
+			if(!$rows) throw new Exception('there is no record on table!');
+			$resp = array('status' => 'success', 'data' => $rows);
+		} catch (Exception $e) {
+			$resp = array('status' => 'error', 'data' => $e->getMessage());
+		}
+		if($isPrintable) echo json_encode($resp);
+		return $resp;
+	}
 
-	// function filterByColumns($dataOfColumns, $isPrintable = false) {
-	// 	return $this->complexFilter($dataOfColumns, $isPrintable);
-	// }
+	function filterByColumns($dataOfColumns, $isPrintable = false) {
+		return $this->complexFilter($dataOfColumns, $isPrintable);
+	}
 
 	// function searchFilter() {}
 
@@ -281,20 +274,20 @@ EOFCH;
 		return " {$tableName}.gid >= $gid AND {$tableName}.gid <= $gid_f";
 	}
 
-	// function removeItensFree($isPrintable = false) {
-	// 	// try {
-	// 	// 	$noFree = [];
-	// 	// 	foreach ($this->listAll()['data'] as $item) {
-	// 	// 			if($this->removeItem($item->id)['status'] == 'error')
-	// 	// 				array_push($noFree, $item->id);
-	// 	// 	}
-	// 	// 	$resp = array('status' => 'success', 'data' => $noFree);
-	// 	// } catch (Exception $e) {
-	// 	// 	$resp = array('status' => 'error', 'data' => $e->getMessage());
-	// 	// }
-	// 	// if($isPrintable) echo json_encode($resp);
-	// 	// return $resp;
-	// }
+	function removeItensFree($isPrintable = false) {
+		try {
+			$noFree = [];
+			foreach ($this->listAll()['data'] as $item) {
+					if($this->removeItem($item->id)['status'] == 'error')
+						array_push($noFree, $item->id);
+			}
+			$resp = array('status' => 'success', 'data' => $noFree);
+		} catch (Exception $e) {
+			$resp = array('status' => 'error', 'data' => $e->getMessage());
+		}
+		if($isPrintable) echo json_encode($resp);
+		return $resp;
+	}
 
 }
 

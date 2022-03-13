@@ -22,14 +22,18 @@ class Users extends Module {
 			unset($object->obj['role']);
 		}
 
-		$ngid = Group::getGid($object->obj['gid']);
+		if(isset($object->obj['gid'])) $ngid = Group::getGid($object->obj['gid']);
 		unset($object->obj['gid']);
 		session_start();
 		$this->gid = "".$_SESSION['gid'];
-		if( ($ngid >= intval($this->gid)) &&
+		
+		if(isset($ngid)) {
+			if( ($ngid >= intval($this->gid)) &&
 			($ngid <= Group::getEndGid($this->gid)) ){
-			$this->gid = $ngid;
+				$this->gid = $ngid;
+			}
 		}
+
 		parent::__construct($object);
 
 		if($object->action == 'insertItem'){
@@ -67,13 +71,13 @@ class Users extends Module {
 					);
 					$row = $stm->fetchObject();
 				}
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				echo $e->getMessage();
 			}
 		}
 	}
 
-	public function listAll(){
+	public function listAll($isPrintable = false){
 		$obj = parent::listAll();
 		foreach ($obj['data'] as $i => $v) {
 			$hgid = Group::getHumanGid($v->gid);
@@ -82,7 +86,7 @@ class Users extends Module {
 		echo json_encode($obj);
 	}
 
-	public function listItem($ids){
+	public function listItem($ids, $isPrintable = false){
 		$obj = parent::listItem($ids);
 		$obj['data']->gid = Group::getHumanGid($obj['data']->gid);
 		echo json_encode($obj);

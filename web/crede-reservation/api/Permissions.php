@@ -15,7 +15,8 @@ class Permissions extends Module {
 	public $filteredBy = ['username' => ''];
 
 	function __construct($obj){
-		$this->filteredBy['username'] = $obj->filteredBy['username'];
+		if(isset($obj->filteredBy['username']))
+			$this->filteredBy['username'] = $obj->filteredBy['username'];
 		parent::__construct($obj);
 	}
 

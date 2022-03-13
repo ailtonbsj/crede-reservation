@@ -15,7 +15,8 @@ class EquipmentsActivities extends Module {
 	public $filteredBy = ['activity' => ''];
 
 	function __construct($obj){
-		$this->filteredBy['activity'] = $obj->filteredBy['activity'];
+		if(isset($obj->filteredBy['activity']))
+			$this->filteredBy['activity'] = $obj->filteredBy['activity'];
 		parent::__construct($obj);
 	}
 

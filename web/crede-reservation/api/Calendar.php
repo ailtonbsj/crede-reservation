@@ -2,9 +2,8 @@
 
 namespace CredeReservation;
 
-require '../../vendor/autoload.php';
+require '../../../vendor/autoload.php';
 include "Orkidea/Authenticator.php";
-include "Config.php";
 
 use Orkidea\Core\Authenticator;
 use Orkidea\Core\Config;

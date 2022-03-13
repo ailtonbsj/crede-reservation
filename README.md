@@ -61,3 +61,7 @@ public static $groupSchema = [
     ]
 ];
 ```
+
+- `keys.json`
+
+Inclua esse arquivo criado pela Google Cloud Platform para integração com Google Agenda.

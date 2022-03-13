@@ -22,8 +22,8 @@ class ModuleLoader extends Storage {
       header('location: ./');
       exit();
     }
-    $this->modules = $this->listModulesByUser($username);
-    if(!$this->modules) header('location: ./');
+    ModuleLoader::$modules = $this->listModulesByUser($username);
+    if(!ModuleLoader::$modules) header('location: ./');
   }
 
   function listModulesByUser($username) {
@@ -37,7 +37,7 @@ class ModuleLoader extends Storage {
       );
       //echo $stm->debugDumpParams();
       return $stm->fetchAll(PDO::FETCH_OBJ);
-    } catch (Exception $e) {
+    } catch (\Exception $e) {
       echo $e->getMessage();
       return false;
     }
@@ -45,13 +45,14 @@ class ModuleLoader extends Storage {
 
   function loadViews () {
     global $S;
-    foreach ($this->modules as $modulePermission) {
+    foreach (ModuleLoader::$modules as $modulePermission) {
       if(Config::$modules[$modulePermission->module] == 'standard'){
         $formated = str_replace('_', '', $modulePermission->module);
 
         if($modulePermission->r) include "views/{$formated}-table.php";
         if($modulePermission->c) include "views/{$formated}-form.php";
-        if($modulePermission->r) include "views/{$formated}-detail.php";
+        $viewDetails = "views/{$formated}-detail.php";
+        if($modulePermission->r) if(file_exists($viewDetails)) include $viewDetails;
       }
     }
   }
@@ -59,7 +60,7 @@ class ModuleLoader extends Storage {
   function loadControllers () {
     echo "<script src='controllers/Orkidea/Persistence.js'></script>";
     echo "<script src='controllers/Orkidea/Module.js'></script>";
-    foreach ($this->modules as $modulePermission) {
+    foreach (ModuleLoader::$modules as $modulePermission) {
       $nameModule = str_replace('_', ' ', $modulePermission->module);
       $formated = str_replace(' ', '', ucwords($nameModule));
       echo "<script src='controllers/".$formated.".js'></script>";

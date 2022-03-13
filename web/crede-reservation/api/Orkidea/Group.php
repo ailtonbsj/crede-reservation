@@ -4,17 +4,6 @@ namespace Orkidea\Core;
 
 class Group {
 
-	// public static $groupSchema = [	
-	// 	'Nivel 1' => [
-	// 		'Nivel 2' => [
-	// 			'Nivel 3' => [
-	// 				'Nivel 4-1' => [],
-	// 				'Nivel 4-2' => [],
-	// 			]
-	// 		]
-	// 	]
-	// ];
-
 	public static $groupSchema = [	
 		'SEDUC' => [
 			'CREDE' => [
@@ -88,6 +77,10 @@ class Group {
 			$gid_f[$i] = '9';		
 		}
 		return $gid_f;
+	}
+
+	public static function getRootName() {
+		array_keys(Group::$groupSchema)[0];
 	}
 }
 

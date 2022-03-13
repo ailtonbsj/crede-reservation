@@ -110,7 +110,7 @@ $moduleLoader = new ModuleLoader();
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-          	<a href="#" id="btn-logout" title="<?= $S['Logout'] ?>"><i class="fa fa-power-off"></i></a>
+          	<a href="api/logout" id="btn-logout" title="<?= $S['Logout'] ?>"><i class="fa fa-power-off"></i></a>
           </li>
           <li>
             <a href="#" data-toggle="control-sidebar" title="<?= $S['Themes'] ?>"><i class="fa fa-gears"></i></a>
@@ -135,7 +135,7 @@ $moduleLoader = new ModuleLoader();
           <p><?= ucfirst(Authenticator::hasAuthority()) ?></p>
           <a href="#"><i class="fa fa-bank"></i>
           	<?php
-          	$tk = explode('/',Group::getHumanGid($_SESSION['gid']));
+          	$tk = explode('/', Group::getHumanGid($_SESSION['gid']));
           	echo $tk[count($tk)-1];
           	?></a>
         </div>
