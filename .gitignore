@@ -2,5 +2,8 @@
 umbrello-model/builds/*
 !umbrello-model/builds/build.sh
 node_modules/
-crede-reservation/lib/
+web/crede-reservation/lib/
+web/info.php
 reserv-vol/
+vendor/
+keys.json

@@ -12,7 +12,7 @@ Aplicativo de reservas de locais e equipamentos.
 ## Como usar
 
 ```bash
-# Baixa todas as dependencias do node
+# Baixa todas as dependencias do Node
 npm i
 
 # Copia bibliotecas necessarias
@@ -20,6 +20,9 @@ npm i
 
 # Cria containers e serviços docker
 docker-compose up -d --build
+
+# Baixa todas as dependencias do PHP
+composer i
 ```
 
 ## Containers
@@ -61,3 +64,7 @@ public static $groupSchema = [
     ]
 ];
 ```
+
+- `keys.json`
+
+Inclua esse arquivo criado pela Google Cloud Platform para integração com Google Agenda.
