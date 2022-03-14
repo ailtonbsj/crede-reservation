@@ -1,5 +1,11 @@
 {
- "name": "App",
+ "name": "CREDE Reservas",
+ "short_name": "CREDE Reservas",
+ "display": "standalone",
+ "start_url": "http://crede-reservation.herokuapp.com/crede-reservation/",
+ "start_url_bkp": "/",
+ "theme_color": "#313131",
+ "background_color": "#313131",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
