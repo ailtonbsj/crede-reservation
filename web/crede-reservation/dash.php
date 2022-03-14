@@ -221,7 +221,7 @@ $moduleLoader->loadViews();
 <script type="text/javascript">
   var S = JSON.parse('<?= json_encode($S) ?>');
   var gid = '<?= $_SESSION['gid'];  ?>';
-  var gidH = '<?= Group::getHumanGid($_SESSION['gid'])  ?>';
+  var gidH = '<?= Group::getHumanGid($_SESSION['gid']) ?>';
 </script>
 <!-- jQuery 3 -->
 <script src="./lib/jquery/jquery.min.js"></script>

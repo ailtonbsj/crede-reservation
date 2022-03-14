@@ -10,4 +10,4 @@ function getMyUrl()
 
 $URL =  getMyUrl().'/crede-reservation/';
 
-header("Location:  $URL ");
+header("Location:  $URL");

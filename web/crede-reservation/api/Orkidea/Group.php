@@ -4,7 +4,7 @@ namespace Orkidea\Core;
 
 class Group {
 
-	public static $groupSchema = [	
+	public static $groupSchema = [
 		'SEDUC' => [
 			'CREDE' => [
 				'Escola' => []
@@ -30,7 +30,33 @@ class Group {
 		return json_encode($schema);
 	}
 
-	function getGid($hier){
+	public static function getHumanGid($gid){
+		$totalLevels = self::$totalLevels;
+		$maxHomeDecimalByGroup = self::$maxHomeDecimalByGroup;
+		$gid = "$gid";
+		$gid = str_pad($gid,$totalLevels * $maxHomeDecimalByGroup,'0',STR_PAD_LEFT);
+		$schema = self::$groupSchema;
+		$hier = '';
+		for($i = 0; $i < $totalLevels; $i++){
+			$index = intval(substr($gid, $i*$maxHomeDecimalByGroup,$maxHomeDecimalByGroup));
+			if($index == 0) break;
+			$key = array_keys($schema)[$index-1];
+			$schema = $schema[$key];
+			$hier .= '/' . $key;
+		}
+		return substr($hier,1);
+	}
+
+	public static function getEndGid($gid){
+		$gid_f = $gid;
+		for($i = strlen($gid)-1; $i > 0; $i--){
+			if($gid[$i] != '0') break;
+			$gid_f[$i] = '9';		
+		}
+		return $gid_f;
+	}
+
+	public static function getGid($hier){
 		$schema = self::$groupSchema;
 		$totalLevels = self::$totalLevels;
 		$maxHomeDecimalByGroup = self::$maxHomeDecimalByGroup;
@@ -51,36 +77,6 @@ class Group {
 		$gid .= str_pad('',
 			($totalLevels - count($levels))*$maxHomeDecimalByGroup,'0');
 		return $gid;
-	}
-
-	function getHumanGid($gid){
-		$totalLevels = self::$totalLevels;
-		$maxHomeDecimalByGroup = self::$maxHomeDecimalByGroup;
-		$gid = "$gid";
-		$gid = str_pad($gid,$totalLevels * $maxHomeDecimalByGroup,'0',STR_PAD_LEFT);
-		$schema = self::$groupSchema;
-		$hier = '';
-		for($i = 0; $i < $totalLevels; $i++){
-			$index = intval(substr($gid, $i*$maxHomeDecimalByGroup,$maxHomeDecimalByGroup));
-			if($index == 0) break;
-			$key = array_keys($schema)[$index-1];
-			$schema = $schema[$key];
-			$hier .= '/' . $key;
-		}
-		return substr($hier,1);
-	}
-
-	function getEndGid($gid){
-		$gid_f = $gid;
-		for($i = strlen($gid)-1; $i > 0; $i--){
-			if($gid[$i] != '0') break;
-			$gid_f[$i] = '9';		
-		}
-		return $gid_f;
-	}
-
-	public static function getRootName() {
-		array_keys(Group::$groupSchema)[0];
 	}
 }
 

@@ -21,7 +21,6 @@ class Users extends Module {
 			$role = $object->obj['role'];
 			unset($object->obj['role']);
 		}
-
 		if(isset($object->obj['gid'])) $ngid = Group::getGid($object->obj['gid']);
 		unset($object->obj['gid']);
 		session_start();
