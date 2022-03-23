@@ -21,8 +21,8 @@ function MyActivities() {
 		};
 	});
 	console.log(window.rawmodel);
-	$('#add-gcalendar').click(function () {
-		$.post('api/calendar', {
+	$('#add-gcalendar').on('click', function () {
+		var model = {
 			id: window.rawmodel.id,
 			summary: window.rawmodel.description,
 			description: "<b>Equipamentos:</b> \n" + ( window.rawmodeltable.map(o => o.equipmentname).join("\n") )
@@ -30,7 +30,8 @@ function MyActivities() {
 			location: window.rawmodel.placename,
 			start: window.rawmodel.inittime,
 			end: window.rawmodel.finaltime
-		}, function (res) {
+		};
+		$.post('api/calendar', model, function (res) {
 			var raw = JSON.parse(res);
 			if (raw.link != undefined) {
 				$('#add-gcalendar').hide();
@@ -42,6 +43,26 @@ function MyActivities() {
 			alert(S['FailAjax']);
 		});
 
+	});
+	$('#update-gcalendar').on('click', function (obj) {
+		var model = {
+			id: window.rawmodel.id,
+			summary: window.rawmodel.description,
+			description: "<b>Equipamentos:</b> \n" + ( window.rawmodeltable.map(o => o.equipmentname).join("\n") )
+			 + "\n<b>Criador por:</b> " + window.rawmodel.owner,
+			location: window.rawmodel.placename,
+			start: window.rawmodel.inittime,
+			end: window.rawmodel.finaltime,
+			idEventCalendar: window.rawmodel.id_event_calendar
+		};
+		$.post('api/calendar', model, function(res) {
+			var raw = JSON.parse(res);
+			if (raw.link != undefined) {
+				alert("Atualizado com Sucesso!");
+			} else {
+				alert("Erro!");
+			}
+		});
 	});
 }
 //heritage

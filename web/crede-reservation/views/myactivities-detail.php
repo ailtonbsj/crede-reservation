@@ -49,6 +49,8 @@
               <i class="fa fa-calendar"></i> Adicionar ao Google Agenda</button>
             <a id="show-gcalendar" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
             <i class="fa fa-calendar"></i> Ver Evento no Google Agenda</a>
+            <a id="update-gcalendar" class="btn btn-success" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-calendar"></i> Atualizar Google Agenda</a>
           </td>
         </tr>
       </tbody>
