@@ -82,5 +82,3 @@ EOF;
 		} else echo json_encode(array('status' => 'error', 'data' => $result));
 	}
 }
-
- ?>

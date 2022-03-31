@@ -169,6 +169,10 @@ abstract class Storage {
 	function hasTimestampChock($filterLabel, $filterValue, $initLabel,
 		$initValue, $finalLabel, $finalValue, $primaryKeys = NULL, $innerJoin = ''){
 
+			// var_dump($filterLabel, $filterValue, $initLabel, $initValue, $finalLabel, $finalValue);
+			// var_dump($primaryKeys);
+			// var_dump($innerJoin);
+
 	    try {
 	      if(strtotime($initValue) > strtotime($finalValue))
 	      	throw new Exception('wrong interval');
@@ -186,6 +190,8 @@ abstract class Storage {
 	      $stm->execute($columns);
 	      //echo $stm->debugDumpParams();
 	      $resp = $stm->fetchAll(PDO::FETCH_OBJ);
+		  //var_dump($resp);
+		  //return;
 	      return $resp;
 	    } catch (Exception $e) {
 	      return $e->getMessage();
