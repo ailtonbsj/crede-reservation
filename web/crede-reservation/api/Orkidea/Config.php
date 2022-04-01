@@ -15,7 +15,8 @@ abstract class Config {
        'equipments_activities' => 'inner',
        'equipments_my_activities' => 'inner',
        'places' => 'standard',
-       'schedule' => 'standard'
+       'schedule' => 'standard',
+	   'calendar' => 'standard'
 	);
 
 	public static function getDbCredentials() {

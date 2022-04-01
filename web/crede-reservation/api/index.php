@@ -77,6 +77,10 @@ switch ($request) {
         include './Calendar.php';
         new Calendar((object) $_POST);
         break;
+    case 'google-calendar':
+        include './GoogleCalendar.php';
+        new GoogleCalendar((object) $_POST);
+        break;
 }
 
  ?>
