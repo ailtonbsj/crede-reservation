@@ -41,7 +41,6 @@ class Users extends Module {
 					$sqlPerms = array(
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'calendar', false, true, false, false, 80, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);",
-						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'users', false, true, false, false, 65, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'activities', false, true, false, false, 60, :ngid)",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments', true, true, true, true, 40, :ngid);",

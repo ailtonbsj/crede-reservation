@@ -26,7 +26,7 @@ function MyActivities() {
 			id: window.rawmodel.id,
 			summary: window.rawmodel.description,
 			description: "<b>Equipamentos:</b> \n" + ( window.rawmodeltable.map(o => o.equipmentname).join("\n") )
-			 + "\n<b>Criador por:</b> " + window.rawmodel.owner,
+			 + "\n<b>Criado por:</b> " + window.rawmodel.owner,
 			location: window.rawmodel.placename,
 			start: window.rawmodel.inittime,
 			end: window.rawmodel.finaltime
