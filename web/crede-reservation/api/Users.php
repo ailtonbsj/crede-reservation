@@ -39,6 +39,7 @@ class Users extends Module {
 			try {
 				if($role == 'role1') {
 					$sqlPerms = array(
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'calendar', false, true, false, false, 80, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'activities', false, true, false, false, 60, :ngid)",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
@@ -50,14 +51,16 @@ class Users extends Module {
 					);
 				} else {
 					$sqlPerms = array(
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'calendar', false, true, false, false, 80, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'activities', false, true, false, false, 60, :ngid)",
-						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'categories', false, true, false, false, 10, :ngid);",
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments', false, true, false, false, 40, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_activities', false, true, false, false, 39, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'equipments_my_activities', true, true, true, true, 38, :ngid);",
-						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'my_activities', true, true, true, true, 50, :ngid);",
 						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'places', false, true, false, false, 20, :ngid);",
-						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'schedule', false, true, false, false, 70, :ngid);"
+						"INSERT INTO permissions(username, module, c, r, u, d, priority, gid) VALUES (:name, 'categories', false, true, false, false, 10, :ngid);",
+						
 					);
 				}
 				foreach ($sqlPerms as $sql) {

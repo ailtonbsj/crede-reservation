@@ -25,7 +25,7 @@ $Activities.components = [];
 $Activities.modules = [];
 $Activities.views = [];
 $Activities.moduleName = 'activities';
-$Activities.icon = 'fa-calendar';
+$Activities.icon = 'fa-tasks';
 
 //autorun
 new Activities();

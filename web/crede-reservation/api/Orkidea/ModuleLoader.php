@@ -68,6 +68,7 @@ class ModuleLoader extends Storage {
       $formated = str_replace(' ', '', ucwords($nameModule));
       echo "<script src='controllers/".$formated.".js'></script>";
     }
+    // echo "<script src='controllers/Calendar.js'></script>";
   }
 
 }

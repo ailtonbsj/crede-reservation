@@ -27,6 +27,7 @@ $S = [
 	'ConfirmDel' => 'Tem certeza?',
 	'FailAjax' => 'Falha no servidor ou na sua conexão!',
 
+	'calendar' => 'Calendário',
 	'activities' => 'Atividades',
 	'my_activities' => 'Minhas Atividades',
 	'equipments' => 'Equipamentos',

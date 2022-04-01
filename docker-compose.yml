@@ -29,6 +29,7 @@ services:
       DATABASE_PASS: orkideaframework
       GCALENDAR_ID: yourcalendar@gmail.com
       GOOGLE_APPLICATION_CREDENTIALS: ../../../keys.json
+      TIMEZONE: "America/Fortaleza"
     ports:
       - 8081:80
     depends_on:

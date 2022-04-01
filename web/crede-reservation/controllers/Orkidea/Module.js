@@ -222,9 +222,11 @@ $Module.loadDetailView = function (serialPrimary) {
 		if (self.primaryKeys.id != undefined) $('#form-id-' + self.moduleName).parent().show();
 		if(res.link == null) {
 			$('#show-gcalendar').hide();
+			$('#update-gcalendar').hide();
 			$('#add-gcalendar').show();
 		} else {
 			$('#add-gcalendar').hide();
+			$('#update-gcalendar').show();
 			$('#show-gcalendar').attr('href','https://www.google.com/calendar/event?eid='+res.link).show();
 		}
 	});
