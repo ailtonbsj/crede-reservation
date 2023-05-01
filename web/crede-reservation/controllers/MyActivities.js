@@ -21,6 +21,19 @@ function MyActivities() {
 		};
 	});
 	console.log(window.rawmodel);
+	$('#send-whatsapp').on('click', function () {
+		let text =
+`📅 *${window.rawmodel.description}*
+		
+🛠️ *Equipamentos*:
+\`\`\`${window.rawmodeltable.map(o => o.equipmentname).join("\n")}\`\`\`
+
+*Local:* ${window.rawmodel.placename}
+*Início:* ${window.rawmodel.inittime}
+*Término:* ${window.rawmodel.finaltime}
+*Criador por:* ${window.rawmodel.owner}`;
+		window.open("whatsapp://send?text=" + encodeURIComponent(text), '_blank').focus();
+	});
 	$('#add-gcalendar').on('click', function () {
 		var model = {
 			id: window.rawmodel.id,

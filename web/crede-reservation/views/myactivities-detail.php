@@ -51,6 +51,8 @@
             <i class="fa fa-calendar"></i> Ver Evento no Google Agenda</a>
             <a id="update-gcalendar" class="btn btn-success" target="_blank" rel="noopener noreferrer">
             <i class="fa fa-calendar"></i> Atualizar Google Agenda</a>
+            <a id="send-whatsapp" class="btn btn-warning" target="_blank" rel="noopener noreferrer">
+            <i class="fa fa-whatsapp"></i> Enviar via WhatsApp</a>
           </td>
         </tr>
       </tbody>
