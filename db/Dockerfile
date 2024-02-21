@@ -1,6 +1,6 @@
 FROM postgres
 
-RUN apt-get -q update && apt-get -qy install netcat
+RUN apt-get -q update && apt-get -qy install netcat-traditional
 ADD https://raw.githubusercontent.com/eficode/wait-for/master/wait-for /bin/wait-for
 RUN chmod +x /bin/wait-for
 

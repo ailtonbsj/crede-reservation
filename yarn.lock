@@ -2,80 +2,83 @@
 # yarn lockfile v1
 
 
-almond@~0.3.1:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/almond/-/almond-0.3.3.tgz#a0e7c95ac7624d6417b4494b1e68bff693168a20"
-
 bootstrap-toggle@^2.2.2:
   version "2.2.2"
-  resolved "https://registry.yarnpkg.com/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz#2b88534fc1b998674f877f98ba0d8b5b743e96fe"
+  resolved "https://registry.npmjs.org/bootstrap-toggle/-/bootstrap-toggle-2.2.2.tgz"
+  integrity sha1-K4hTT8G5mGdPh3+Yug2LW3Q+lv4=
 
-bootstrap@3, bootstrap@^3.3:
-  version "3.3.7"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-3.3.7.tgz#5a389394549f23330875a3b150656574f8a9eb71"
+bootstrap@^3.3, bootstrap@3:
+  version "3.4.1"
+  resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-3.4.1.tgz"
+  integrity sha512-yN5oZVmRCwe5aKwzRj6736nSmKDX7pLYwsXiCj/EYmo16hODaBiT4En5btW/jhBF/seV+XMx3aYwukYC3A49DA==
 
 eonasdan-bootstrap-datetimepicker@^4.17.47:
-  version "4.17.47"
-  resolved "https://registry.yarnpkg.com/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.47.tgz#7a49970044065276e7965efd16f822735219e735"
+  version "4.17.49"
+  resolved "https://registry.npmjs.org/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.49.tgz"
+  integrity sha512-7KZeDpkj+A6AtPR3XjX8gAnRPUkPSfW0OmMANG1dkUOPMtLSzbyoCjDIdEcfRtQPU5X0D9Gob7wWKn0h4QWy7A==
   dependencies:
     bootstrap "^3.3"
-    jquery "^1.8.3 || ^2.0 || ^3.0"
+    jquery "^3.5.1"
     moment "^2.10"
     moment-timezone "^0.4.0"
 
 fastclick@^1.0.6:
   version "1.0.6"
-  resolved "https://registry.yarnpkg.com/fastclick/-/fastclick-1.0.6.tgz#161625b27b1a5806405936bda9a2c1926d06be6a"
+  resolved "https://registry.npmjs.org/fastclick/-/fastclick-1.0.6.tgz"
+  integrity sha1-FhYlsnsaWAZAWTa9qaLBkm0Gvmo=
 
 font-awesome@^4.7.0:
   version "4.7.0"
-  resolved "https://registry.yarnpkg.com/font-awesome/-/font-awesome-4.7.0.tgz#8fa8cf0411a1a31afd07b06d2902bb9fc815a133"
+  resolved "https://registry.npmjs.org/font-awesome/-/font-awesome-4.7.0.tgz"
+  integrity sha1-j6jPBBGhoxr9B7BtKQK7n8gVoTM=
 
 icheck@^1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/icheck/-/icheck-1.0.2.tgz#06d08da3d47ae448c153b2639b86e9ad7fdf7128"
+  resolved "https://registry.npmjs.org/icheck/-/icheck-1.0.2.tgz"
+  integrity sha1-BtCNo9R65EjBU7Jjm4bprX/fcSg=
 
 imask@^3.4.0:
   version "3.4.0"
-  resolved "https://registry.yarnpkg.com/imask/-/imask-3.4.0.tgz#e8893d712796f525d8a5ef7945c5128fb0ca51aa"
-
-jquery-mousewheel@~3.1.13:
-  version "3.1.13"
-  resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
+  resolved "https://registry.npmjs.org/imask/-/imask-3.4.0.tgz"
+  integrity sha512-sPiKtnn7WVc9x8W64rsiaBGzNDGI+cNYL/ZOpQoFryh46tj5zkAMG8pGjVodS4cDqn+iL8D4neRCTPtd5leJrg==
 
 jquery-slimscroll@^1.3.8:
   version "1.3.8"
-  resolved "https://registry.yarnpkg.com/jquery-slimscroll/-/jquery-slimscroll-1.3.8.tgz#8481c44e7a47687653908a28f7f70aed64c84e36"
+  resolved "https://registry.npmjs.org/jquery-slimscroll/-/jquery-slimscroll-1.3.8.tgz"
+  integrity sha1-hIHETnpHaHZTkIoo9/cK7WTITjY=
   dependencies:
     jquery ">= 1.7"
 
-"jquery@>= 1.7", jquery@>=1.12.0, "jquery@^1.8.3 || ^2.0 || ^3.0", jquery@^3.3.1:
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"
+jquery@^3.3.1, jquery@^3.5.1, "jquery@>= 1.7", jquery@>=1.12.0:
+  version "3.6.0"
+  resolved "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
+  integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
 moment-timezone@^0.4.0:
   version "0.4.1"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.4.1.tgz#81f598c3ad5e22cdad796b67ecd8d88d0f5baa06"
+  resolved "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.4.1.tgz"
+  integrity sha1-gfWYw61eIs2teWtn7NjYjQ9bqgY=
   dependencies:
     moment ">= 2.6.0"
 
-"moment@>= 2.6.0", moment@^2.10, moment@^2.22.2:
-  version "2.22.2"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.2.tgz#3c257f9839fc0e93ff53149632239eb90783ff66"
+moment@^2.10, moment@^2.22.2, "moment@>= 2.6.0":
+  version "2.29.1"
+  resolved "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
-orkidea-schedule@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/orkidea-schedule/-/orkidea-schedule-0.0.2.tgz#ec05e2220af9c4101ae18b86869e37801646684a"
+orkidea-schedule@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.npmjs.org/orkidea-schedule/-/orkidea-schedule-0.0.3.tgz"
+  integrity sha512-9Rjm1PzCpkyb9Z+Z3QoKC7U3VO4c/rIoKSkfRg8WBAE8FISQY8gsDRE5/qhy+V13IIfqezvj2YXJDZ1g+GtURQ==
 
 select2@^4.0.6-rc.1:
-  version "4.0.6-rc.1"
-  resolved "https://registry.yarnpkg.com/select2/-/select2-4.0.6-rc.1.tgz#aa6c3038a7f0f2e91ffade38f0a21c15e1813276"
-  dependencies:
-    almond "~0.3.1"
-    jquery-mousewheel "~3.1.13"
+  version "4.0.13"
+  resolved "https://registry.npmjs.org/select2/-/select2-4.0.13.tgz"
+  integrity sha512-1JeB87s6oN/TDxQQYCvS5EFoQyvV6eYMZZ0AeA4tdFDYWN3BAGZ8npr17UBFddU0lgAt3H0yjX3X6/ekOj1yjw==
 
 toastr@^2.1.4:
   version "2.1.4"
-  resolved "https://registry.yarnpkg.com/toastr/-/toastr-2.1.4.tgz#8b43be64fb9d0c414871446f2db8e8ca4e95f181"
+  resolved "https://registry.npmjs.org/toastr/-/toastr-2.1.4.tgz"
+  integrity sha1-i0O+ZPudDEFIcURvLbjoyk6V8YE=
   dependencies:
     jquery ">=1.12.0"

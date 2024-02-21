@@ -7,7 +7,8 @@ Aplicativo de reservas de locais e equipamentos.
 - Debian/Ubuntu ou derivado
 - NodeJS
 - Docker
-- Docker-Composer
+- Docker-Compose
+- PHP Composer
 
 ## Como usar
 
@@ -17,6 +18,8 @@ npm i
 
 # Copia bibliotecas necessarias
 ./build.sh
+
+# Adicione o arquivo keys.json criado pela Google Cloud Platform
 
 # Cria containers e serviços docker
 docker-compose up -d --build
