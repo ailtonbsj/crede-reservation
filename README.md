@@ -21,16 +21,23 @@ npm i
 
 # Adicione o arquivo keys.json criado pela Google Cloud Platform
 
+# Baixa todas as dependencias do PHP
+composer i
+
 # Cria containers e serviços docker
 docker-compose up -d --build
 
-# Baixa todas as dependencias do PHP
-composer i
+# Verifique se os containers reserv-app1, adminer1 e reserv-db1 estão up
+docker ps
+
+# Acesse localhost:8080, faça login e verifique se tabela reservation está no banco
+
+# Acesse SEU_IP_OU_HOSTNAME:8081 para ter acesso a aplicação
 ```
 
 ## Containers
 
-### reserv-app (localhost:8081)
+### reserv-app (SEU_IP_OU_HOSTNAME:8081)
 
 Aplicação CREDE Reservas em PHP. Acesse com os dados:
 
